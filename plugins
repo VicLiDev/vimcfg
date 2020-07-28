@@ -4,7 +4,7 @@ Vundle: 插件管理
   https://github.com/VundleVim/Vundle.vim
   安装方法：git里有说明
 
-junegunn/vim-plug: 插件管理，速度很快。推荐使用
+junegunn/vim-plug: 插件管理，速度很快。但使用vimrc加载多个配置文件时可能会有问题。
   https://github.com/junegunn/vim-plug
   安装方法：git里有说明
 
@@ -24,7 +24,7 @@ YouCompleteMe：自动补全
   https://github.com/ycm-core/YouCompleteMe
   安装方法：1.建议使用vim-plug安装，在.vimrc中加入描述，在vim命令模式执行PlugInstall完成初步操作
           2.在~/.vim/plugged/YouCompleteMe目录下执行 python ./install.py --all
-          3.安装过程中可能会因为缺少部分支持而失败，例如 golang、nmp等，使用apt-get 安装即可
+          3.安装过程中可能会因为缺少部分支持而失败，例如 golang、npm等，使用apt-get 安装即可
           4.如果下载失败可能需要代理
 
 taglist：显示宏，函数等信息

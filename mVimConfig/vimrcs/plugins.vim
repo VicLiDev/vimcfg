@@ -107,6 +107,7 @@ Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
 Plugin 'preservim/nerdtree'
 Plugin 'mhinz/vim-startify'
 Plugin 'kien/ctrlp.vim'
+Plugin 'tacahiroy/ctrlp-funky'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'vim-scripts/taglist.vim'
 
@@ -153,6 +154,8 @@ let g:NERDTreeDirArrowExpandable = '▸'
 let g:NERDTreeDirArrowCollapsible = '▾'
 " 可以通过将这些变量设置为空字符串来完全删除箭头，如下所示。 这不仅会删除箭头，还会删除箭头后的单个空格，从而将整棵树向左移动两个字符位置。
 " let g:NERDTreeDirArrowExpandable = ''
+" 快速定位当前文件在目录树中的位置
+nmap <leader>v :NERDTreeFind<CR>
 
 
 " ========================================================================================== ctrlp config
@@ -184,6 +187,13 @@ let g:ctrlp_user_command = 'find %s -type f'        " MacOSX/Linux
 let g:ctrlp_user_command = 'dir %s /-n /b /s /a-d'  " Windows
 
 " 检查：help ctrlp-options以获取其他选项。
+"
+"
+" ------------------------------- ctrlp-funky config
+" 默认 leader 为“\”
+nnoremap <Leader>fu :CtrlPFunky<Cr>
+" narrow the list down with a word under cursor
+nnoremap <Leader>fU :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
 
 " ========================================================================================== taglist config
 " 默认打开Taglist 
@@ -195,6 +205,18 @@ let Tlist_Ctags_Cmd = '/usr/bin/ctags'
 let Tlist_Show_One_File = 1 "不同时显示多个文件的tag，只显示当前文件的 
 let Tlist_Exit_OnlyWindow = 1 "如果taglist窗口是最后一个窗口，则退出vim 
 let Tlist_Use_Right_Window = 1 "在右侧窗口中显示taglist窗口
-" let g:NERDTreeDirArrowCollapsible = ''
 "
 " https://zhuanlan.zhihu.com/p/85040099
+
+" ========================================================================================== ctags config
+let Tlist_Sort_Type = "name"    " 按照名称排序  
+"let Tlist_Use_Right_Window = 1  " 在右侧显示窗口  
+let Tlist_Compart_Format = 1    " 压缩方式  
+let Tlist_Exist_OnlyWindow = 1  " 如果只有一个buffer，kill窗口也kill掉buffer  
+let Tlist_File_Fold_Auto_Close = 0  " 不要关闭其他文件的tags  
+let Tlist_Enable_Fold_Column = 0    " 不要显示折叠树  
+autocmd FileType java set tags+=D:\tools\java\tags  
+"autocmd FileType h,cpp,cc,c set tags+=D:\tools\cpp\tags  
+"let Tlist_Show_One_File=1            "不同时显示多个文件的tag，只显示当前文件的
+set tags=tags  "设置当前路径下的 tags
+"set autochdir 

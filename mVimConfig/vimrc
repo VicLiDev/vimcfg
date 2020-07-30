@@ -205,18 +205,9 @@
 " ========================================================================================== Load Configs
 " 文件名后缀没有严格要求
 " map <F2> :echo "Hello World! This is map test! "<CR>
-" set runtimepath+=~/.vim_l
 source ~/.vim/vimrcs/commoncfg.vim
 source ~/.vim/vimrcs/plugins.vim
 
-" source ~/.vim_runtime/vimrcs/filetypes.vim
-" source ~/.vim_runtime/vimrcs/plugins_config.vim
-" source ~/.vim_runtime/vimrcs/extended.vim
-" 
-" try
-" source ~/.vim_runtime/my_configs.vim
-" catch
-" endtry
 " ========================================================================================== Load Configs end
 "
 " 不错的vim教程：

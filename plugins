@@ -10,26 +10,26 @@ junegunn/vim-plug: 插件管理，速度很快。但使用vimrc加载多个配�
 
 vim-startify: Vim 启动界面
   https://github.com/mhinz/vim-startify
-  安装方法：建议使用vim-plug安装，在.vimrc中加入描述，在vim命令模式执行PlugInstall即可。
+  安装方法：建议使用Vundle/vim-plug安装，在.vimrc中加入描述，在vim命令模式执行PlugInstall即可。
 
 ctrlp: 模糊搜索，快速定位文件
   https://github.com/kien/ctrlp.vim
-  安装方法：建议使用vim-plug安装，在.vimrc中加入描述，在vim命令模式执行PlugInstall即可。
+  安装方法：建议使用Vundle/vim-plug安装，在.vimrc中加入描述，在vim命令模式执行PlugInstall即可。
 
 nerdtree : 文件目录树
   https://github.com/preservim/nerdtree
-  安装方法：建议使用vim-plug安装，在.vimrc中加入描述，在vim命令模式执行PlugInstall即可。
+  安装方法：建议使用Vundle/vim-plug安装，在.vimrc中加入描述，在vim命令模式执行PlugInstall即可。
 
 YouCompleteMe：自动补全
   https://github.com/ycm-core/YouCompleteMe
-  安装方法：1.建议使用vim-plug安装，在.vimrc中加入描述，在vim命令模式执行PlugInstall完成初步操作
+  安装方法：1.建议使用Vundle/vim-plug安装，在.vimrc中加入描述，在vim命令模式执行PlugInstall完成初步操作
           2.在~/.vim/plugged/YouCompleteMe目录下执行 python ./install.py --all
           3.安装过程中可能会因为缺少部分支持而失败，例如 golang、npm等，使用apt-get 安装即可
           4.如果下载失败可能需要代理
 
 taglist：显示宏，函数等信息
   https://github.com/vim-scripts/taglist.vim
-  安装方法：建议使用vim-plug安装，在.vimrc中加入描述，在vim命令模式执行PlugInstall即可。
+  安装方法：建议使用Vundle/vim-plug安装，在.vimrc中加入描述，在vim命令模式执行PlugInstall即可。
 
 ctags: apt 安装
 
@@ -41,24 +41,13 @@ cscope: apt 安装
 
 ============================================== 操作 ==============================================
 
--------------------- NERDTree常用快捷键：
+---------------------------------------- NERDTree常用快捷键：
 
-:NERDTree               新窗口中打开NERDTree
-
-o.......在已有窗口中打开文件、目录或书签，并跳到该窗口
-O.......递归打开选中 结点下的所有目录
-C.......将选中目录或选中文件的父目录设为根结点
-q.......关闭NerdTree窗口
-双击......相当于按 o
-t....... 在新Tab中打开选中文件/书签，并跳到新Tab
-i.......split 一个新窗口打开选中文件，并跳到该窗口
-p....... 跳到父结点
-r.......递归刷新选中目录
-
-
+:NERDTree               打开NERDTree
+:NERDTreeClose          关闭NERDTree
+:NERDTreeToggle         打开/关闭NERDTree
 
 // --切换工作台和目录
-ctrl + w + w    光标自动在左右侧窗口切换
 ctrl + w + r    移动当前窗口的布局位置
 o       在已有窗口中打开文件、目录或书签，并跳到该窗口
 t       在新 Tab 中打开选中文件/书签，并跳到新 Tab
@@ -118,8 +107,56 @@ cmd+w   关闭当前的 tab
 cmd+{   前一个 tab
 cmd+}   后一个 tab
 
+---------------------------------------- ctrlp
 
--------------------- ctags
+ctrlp和ctrlp的插件ctrlp-funky是一套强大的文本搜索系统。
+它可以提供文件、buffer和内容中查找的功能：
+
+ctrlp主要快捷键如下：
+    <c-p>模糊搜索当前目录及其子目录下的所有文件
+    <c-f> <c-b>切换模式
+    <c-r> 打开正则表达式模式
+    <c-d>切换到仅文件名搜索，而不是完整路径。
+    <c-n>，<c-p>选择提示历史记录中的下一个/上一个字符串。
+    <c-y>创建一个新文件及其父目录。
+
+查找界面完成后，能使用如下快捷键选择：
+    <c-j>, <c-k> 上下选择结果
+    <c-t>  <c-v>, <c-x>打开选择文件（新tab、垂直分屏、左右分屏）
+    <c-z> 可以标记多个文件，<c-o>打开所有标记的文件
+
+而ctrip-funky提供函数搜索功能如下：
+    fu 进入当前文件的函数列表搜索
+    fU 搜索当前光标下单词对应的函数
+
+
+---------------------------------------- taglist
+
+TagList插件,是一款基于ctags,在vim代码窗口旁以分割窗口形式显示当前的代码结构概览,增加代码浏览的便利程度的vim插件.在Vim中加载代码文件后，可以使用以下命令控制taglist：
+        TlistOpen打开并将输入焦点至于标签列表窗口
+        TlistClose关闭标签列表窗口
+        TlistToggle/Tlist切换标签列表窗口状态(打开←→关闭)，标签列表窗口是否获得焦点取决于其他配置
+
+        <CR>          跳到光标下tag所定义的位置，用鼠标双击此tag功能也一样
+        o             在一个新打开的窗口中显示光标下tag
+        <Space>       显示光标下tag的原型定义
+        p             预览标记定义(仍然在taglist窗口)
+        d             删除光标所在的taglist文件(如用vi打开了两个文件f1.c,f2.c可以删除f1.c的标记)
+        u             更新taglist窗口中的tag
+        s             更改排序方式，在按名字排序和按出现顺序排序间切换
+        x             taglist窗口放大和缩小，方便查看较长的tag
+        +             打开一个折叠，同zo
+        -             将tag折叠起来，同zc
+        *             打开所有的折叠，同zR
+        =             将所有tag折叠起来，同zM
+        [[            跳到前一个文件的起点
+        ]]            跳到后一个文件的起点
+        q             关闭taglist窗口
+        <F1>          显示/关闭帮助
+
+        提示：这些大部分可以被鼠标取代。如果鼠标在Vim 里点击无效，可以使用配置：set mouse=a        
+
+---------------------------------------- ctags
 
 1. 安装完成之后，想要使用ctags，那么必须在你想要调试或者查看的代码目录中有tags文件，使用如下语句即可生成tags文件，当用户在当前目录中运行vi时，会自动载入此tags文件。
     $ ctags -R --c++-kinds=+p --fields=+iaS --extra=+q
@@ -131,23 +168,32 @@ cmd+}   后一个 tab
    set tags+=/root/mit6.828/jos/tags
 
 3. 如果是多个tags文件，可以通过设置tags选项来引入更多的tags文件。例如: :set tags=./tags, ./../tags, ./*/tags
-
    tags包括以下文件：
      #define定义的宏
      枚举型变量的值
      函数的定义、原型和声明
-     名字空间（namespace）
+	 名字空间（namespace）
      类型定义（typedefs）
      变量（包括定义和声明）
      类（class）、结构（struct）、枚举类型（enum）和联合（union）类
      结构和联合中成员变量或函数
    个人的理解，ctags能定位函数主要是将上述的信息存储到了tags文件中，当我们使用ctags一些命令时，它都会从设置tags路径中查找相应的值，然后跳转过去。下面的cscope同理。
 
+4. 经常使用的 ctags 命令：
+    1. $ctags –R * 生成 tags 文件
+    2. $vi –t <tag> 根据当前路径下的 tags 文件查找<tag>指定的内容
+    3．:ts(ts助记字：tagslist,)
+    4．:tp(tp助记字：tagspreview)
+    5．:tn(tn助记字：tagsnext)
+    6．Ctrl+ ]跳到光标所在函数或者结构体的定义处
+    7．Ctrl+ T返回查找或跳转
 
--------------------- cscope
+
+---------------------------------------- cscope
 
 1. 首先在目录下建立cscope索引文件
-    find -name '*.c' > cscope.file
+    find -name '*.c' > cscope.file  将当前目录及子目录中符合条件的文件查找出来放到 cscope.file 文件中
+    又如 find -name“ * .c” -o -name“ * .cpp” -o -name“ * .h” -o -name“ * .hpp”> cscope.files
     cscope -Rbkq -i cscope.file
     这个命令会生成三个文件：cscope.out, cscope.in.out, cscope.po.out。
     其中cscope.out是基本的符号索引，后两个文件是使用"-q"选项生成的，可以加快cscope的索引速度。
@@ -157,3 +203,49 @@ cmd+}   后一个 tab
         -k: 在生成索引文件时，不搜索/usr/include目录
         -q: 生成cscope.in.out和cscope.po.out文件，加快cscope的索引速度
         -i: 指定生成cscope文件所需的源码文件
+
+2. 启动Cscope浏览器：
+    cscope -d
+    -d标志告诉Cscope不要重新生成数据库（在上一步中已经完成）。在Cscope浏览器中，键入？查看帮助页面，然后按Ctrl-d退出。
+
+3. 使用时先在VIM的命令行下调用“cscope add/../../cscope.out”（或cs add /../../cscope.out)命令添加一个cscope数据库，然后就可以调“cscope find”（或 cs f ）命令进行查找了。
+
+4. VIM支持8种cscope的查询功能，如下：
+    c:Find functions calling this function    //查找调用本函数的函数
+    d:Find functions called by this function    //查找本函数调用的函数
+    e:Find this egrep pattern    //查找egrep模式，相当于egrep功能，但查找速度快多了
+    f:Find this file    //查找并打开文件，类似vim的find功能
+    g:Find this definition    //查找函数、宏、枚举等定义的位置，类似ctags的功能
+    i:Find files #including this file    //查找包含本文件的文件
+    s:Find this C symbol    //查找C语言符号，即查找函数名、宏、枚举值等出现的地方
+    t:Find assignments to    //查找指定的字符串
+    例如，我们想在代码中查找调用work()函数的函数，我们可以输入：“:cs f c work”，回车后发现没有找到匹配的功能，可能并没有函数调用work()。我们再输入“:cs f s work”，查找这个符号出现的位置，现在vim列出了这个符号出现的所有位置。我们还可以进行字符串查找，它会双引号或单引号括起来的内容中查找。还可以输入一个正则表达式，这类似于egrep程序的功能。
+
+    cscope在vim命令行下还可以执行下列操作
+    :cscope:显示cscope相关参数说明
+    :cs help: Show this message(Usage: help)
+    :cs kill: Kill a connection(Usage: kill #)
+    :cs reset:Reinit all connections(Usage: reset)
+    :cs show: Show connections (Usage: show)
+
+5. 对于大项目可以使用如下脚本生成数据库：
+
+#!/bin/bash
+
+LNX="."
+
+echo "Finding relevant source files..."
+find $LNX                                                                \
+    -path "$LNX/arch/*" ! -path "$LNX/arch/x86*" -prune -o               \
+    -path "$LNX/include/asm-*" ! -path "$LNX/include/asm-generic*"       \
+                               ! -path "$LNX/include/asm-x86*" -prune -o \
+    -path "$LNX/tmp*" -prune -o                                          \
+    -path "$LNX/Documentation*" -prune -o                                \
+    -path "$LNX/scripts*" -prune -o                                      \
+    -name "*.[chxsS]" -print > $LNX/cscope.files
+
+echo "Building cscope database..."
+time cscope -q -k -b -i cscope.files
+
+exit 0
+   

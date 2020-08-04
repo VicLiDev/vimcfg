@@ -172,6 +172,12 @@ let g:ctrlp_working_path_mode = 'ra'
 
 " 使用g：ctrlp_root_markers选项定义其他根标记。
 
+let g:ctrlp_max_files=0
+let g:ctrlp_max_depth=40
+
+" 设置足够的显示高度，避免无法滚动看到所有文件
+let g:ctrlp_max_height=1000
+
 " 使用Vim的wildignore和CtrlP自己的g：ctrlp_custom_ignore排除文件和目录：
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
 set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe  " Windows
@@ -224,6 +230,6 @@ set autochdir  "因为tags文件中记录的路径总是相对于tags文件所�
 "
 " ========================================================================================== cscope config
 " 添加当前路径下的cscope.out
-cscope add cscope.out
+" cscope add cscope.out
 " 打开cscope搜索快捷方式
 map <Leader>ff :cs f 

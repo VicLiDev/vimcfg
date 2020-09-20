@@ -203,7 +203,7 @@ nnoremap <Leader>fU :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
 
 " ========================================================================================== taglist config
 " 默认打开Taglist 
-let Tlist_Auto_Open=1 
+let Tlist_Auto_Open=0
 """""""""""""""""""""""""""""" 
 " Tag list (ctags) 
 """""""""""""""""""""""""""""""" 
@@ -211,6 +211,7 @@ let Tlist_Ctags_Cmd = '/usr/bin/ctags'
 let Tlist_Show_One_File = 1 "不同时显示多个文件的tag，只显示当前文件的 
 let Tlist_Exit_OnlyWindow = 1 "如果taglist窗口是最后一个窗口，则退出vim 
 let Tlist_Use_Right_Window = 1 "在右侧窗口中显示taglist窗口
+map <Leader>tt :Tlist<CR> 
 "
 " https://zhuanlan.zhihu.com/p/85040099
 
@@ -230,6 +231,6 @@ set autochdir  "因为tags文件中记录的路径总是相对于tags文件所�
 "
 " ========================================================================================== cscope config
 " 添加当前路径下的cscope.out
-" cscope add cscope.out
+cscope add cscope.out
 " 打开cscope搜索快捷方式
 map <Leader>ff :cs f 

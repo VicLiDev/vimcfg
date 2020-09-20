@@ -17,6 +17,7 @@ find $PWD/* | grep "\.[ch]$" >> cscope.file
 
 #生成库文件
 time cscope -Rbkq -i ./cscope.file
+time ctags -R ./*
 
 #删除文件列表
 rm cscope.file

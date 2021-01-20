@@ -31,6 +31,9 @@ taglist：显示宏，函数等信息
   https://github.com/vim-scripts/taglist.vim
   安装方法：建议使用Vundle/vim-plug安装，在.vimrc中加入描述，在vim命令模式执行PlugInstall即可。
 
+LanguageClient-neovim： 为 Vim 提供 LSP 功能
+  https://github.com/autozimu/LanguageClient-neovim
+
 ctags: apt 安装
 
 cscope: apt 安装
@@ -40,6 +43,20 @@ cscope: apt 安装
 见.vimrc
 
 ============================================== 操作 ==============================================
+
+---------------------------------------- vim自带操作：
+
+// --切换标签页
+:tabnew [++opt选项] ［＋cmd］ 文件      建立对指定文件新的tab
+:tabc   关闭当前的 tab
+:tabo   关闭所有其他的 tab
+:tabs   查看所有打开的 tab
+:tabp   前一个 tab
+:tabn   后一个 tab
+
+标准模式下：
+gT      前一个 tab
+gt      后一个 tab
 
 ---------------------------------------- NERDTree常用快捷键：
 
@@ -90,17 +107,9 @@ B       切换是否显示书签
 q       关闭 NerdTree 窗口
 ?       切换是否显示 Quick Help
 
-// --切换标签页
-:tabnew [++opt选项] ［＋cmd］ 文件      建立对指定文件新的tab
-:tabc   关闭当前的 tab
-:tabo   关闭所有其他的 tab
-:tabs   查看所有打开的 tab
-:tabp   前一个 tab
-:tabn   后一个 tab
+ma      创建文件
+md      删除文件
 
-标准模式下：
-gT      前一个 tab
-gt      后一个 tab
 
 MacVim 还可以借助快捷键来完成 tab 的关闭、切换
 cmd+w   关闭当前的 tab

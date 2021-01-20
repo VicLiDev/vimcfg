@@ -309,11 +309,39 @@ set softtabstop=4  " 这里设置的是按一下Tab键字节宽度，类似与sh
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"键盘命令
+" 键盘命令
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let mapleader=","  " 如果mapleader变量没有设置，则用默认的反斜杠代替
 nmap <leader>w :w!<cr>  " 根据mapleader的值，这条指令的快捷键为 ,w
 nmap <leader>f :find<cr>
+
+" 窗口快捷方式
+map <s-h> <c-w>h
+map <s-l> <c-w>l
+map <s-j> <c-w>j
+map <s-k> <c-w>k
+map <s-n> <c-w>n
+map <s-w> <c-w>w
+map <s-c> <c-w>c
+map <s-o> <c-w>o
+
+" buffer 快捷方式  bNext  badd  ball  bdelete  behave  belowright  bfirst  blast  bmodified  bnext  botright  bprevious
+nnoremap <Leader>bn :bn<CR>
+nnoremap <Leader>bb :bp<CR>
+nnoremap <Leader>bf :bfirst<CR>
+nnoremap <Leader>bl :blast<CR>
+nnoremap <Leader>bc :bwipe<CR>
+
+
+" 标签页快捷方式
+nnoremap <Leader>tN :tabnew<CR>
+nnoremap <Leader>tn :tabnext<CR>
+nnoremap <Leader>tp :tabprevious<CR>
+nnoremap <Leader>tc :tabclose<CR>
+" 关闭其他 tab
+nnoremap <Leader>to :tabonly<CR>
+" 新建tab并编辑文件 :tabedit {file}
+nnoremap <Leader>te :tabedit
 
 " 映射全选+复制 ctrl+a
 map <C-A> ggVGY

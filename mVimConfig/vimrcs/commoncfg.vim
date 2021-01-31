@@ -320,7 +320,7 @@ map <s-h> <c-w>h
 map <s-l> <c-w>l
 map <s-j> <c-w>j
 map <s-k> <c-w>k
-map <s-n> <c-w>n
+" map <s-n> <c-w>n
 map <s-w> <c-w>w
 map <s-c> <c-w>c
 map <s-o> <c-w>o

@@ -38,6 +38,12 @@ ctags: apt 安装
 
 cscope: apt 安装
 
+ctags: sudo apt-get install global  (GTags 又叫做 GNU GLOBAL)
+    源码地址： https://ftp.gnu.org/pub/gnu/global/
+    在 ~/.vimrc 中 source gtags.vim (gtags.vim 在源码中可以找到)
+
+    更多相关信息见： https://zhuanlan.zhihu.com/p/36279445  有空的时候整理一下，提高使用舒适度
+
 
 ============================================== 配置 ==============================================
 见.vimrc
@@ -261,6 +267,20 @@ time cscope -q -k -b -i cscope.files
 exit 0
    
 
+
+---------------------------------------- gtags
+gtags主要用于生成查找文件，global可以从查找文件中搜索相关信息
+
+与 vim 配合使用方法在 gtags.vim 中可以看到，在vim中使用的 Gtags 命令是在 gtags.vim 中定义的:
+    " Define the set of Gtags commands
+    command! -nargs=* -complete=custom,GtagsCandidate Gtags call s:RunGlobal(<q-args>, '')
+    command! -nargs=* -complete=custom,GtagsCandidate Gtagsa call s:RunGlobal(<q-args>, 'a')
+    command! -nargs=0 GtagsCursor call s:GtagsCursor()
+    command! -nargs=0 Gozilla call s:Gozilla()
+    command! -nargs=0 GtagsUpdate call s:GtagsAutoUpdate()
+    if g:Gtags_Auto_Update == 1
+        :autocmd! BufWritePost * call s:GtagsAutoUpdate()
+    endif
 
 
 

@@ -321,9 +321,12 @@ map <s-l> <c-w>l
 map <s-j> <c-w>j
 map <s-k> <c-w>k
 " map <s-n> <c-w>n
-map <s-w> <c-w>w
+" map <s-w> <c-w>w
 map <s-c> <c-w>c
-map <s-o> <c-w>o
+" map <s-o> <c-w>o
+
+" 取消高亮快捷键
+nnoremap <Leader>h :noh<CR>
 
 " buffer 快捷方式  bNext  badd  ball  bdelete  behave  belowright  bfirst  blast  bmodified  bnext  botright  bprevious
 nnoremap <Leader>bn :bn<CR>

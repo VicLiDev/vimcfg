@@ -592,3 +592,29 @@ if g:Gtags_Auto_Map == 1
 	:nmap <C-\><C-]> :GtagsCursor<CR>
 endif
 let loaded_gtags = 1
+
+" ======== my map ========
+" 01.Gtags func：查看定义处
+" 02.Gtags -r func：查看引用处
+" 03.Gtags -s text：查看未被数据库定义的tags
+" 04.copen：打开quick fix显示窗口
+" 05.cclose：关闭quick fix显示窗口
+" 06.cn：下一项
+" 07.cp：上一项
+" 08.cl：列出查询到的相关项
+" 09.ccN：到列表中第N个符号处
+" 10.Gtags -g pattern：搜索pattern指定的字符串
+" 11.Gtags -gie -pattern：-e选项可以用于搜索’-‘字符，但是基础搜索，没有元字符，-i选项忽略大小写，类似于grep的选项
+" 12.GtagsCuorsor：取决于光标位置，要是在定义处，查询其引用，要是在引用处，跳转至其定义处，否则就是Gtags -s命令
+" 13.Gtags -P text：查询包含text的路径名,Gtags -P后接/dir/为列出叫做dir目录下文件，后接\.h$列出所有的include文件
+" 14.Gtags -f file：列出file里的符号，Gtags -f %则列出当前文件的符号
+nmap <leader>gf  :Gtags<SPACE>
+nmap <leader>gr  :Gtags -r 
+nmap <leader>gs  :Gtags -s 
+nmap <leader>gwo :copen<CR>
+nmap <leader>gwc :cclose<CR>
+nmap <leader>gn  :cn<CR>
+nmap <leader>gp  :cp<CR>
+nmap <leader>gl  :cl<CR>
+nmap <leader>gg  :Gtags -g 
+nmap <leader>gc  :Gtags -c 

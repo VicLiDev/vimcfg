@@ -111,7 +111,7 @@ Plugin 'tacahiroy/ctrlp-funky'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'vim-scripts/taglist.vim'
 
-" Plugin 'https://github.com/autozimu/LanguageClient-neovim'
+Plugin 'https://github.com/autozimu/LanguageClient-neovim'
 
 " ================================ my plugin end
 
@@ -235,4 +235,8 @@ set autochdir  "因为tags文件中记录的路径总是相对于tags文件所�
 " 添加当前路径下的cscope.out
 cscope add cscope.out
 " 打开cscope搜索快捷方式
-map <Leader>ff :cs f 
+map <Leader>cf :cs f 
+
+
+" ========================================================================================== gtag config
+source ~/.vim/vimrcs/gtags.vim

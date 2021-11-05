@@ -38,7 +38,7 @@ ctags: apt 安装
 
 cscope: apt 安装
 
-ctags: sudo apt-get install global  (GTags 又叫做 GNU GLOBAL)
+gtags: sudo apt-get install global  (GTags 又叫做 GNU GLOBAL)
     源码地址： https://ftp.gnu.org/pub/gnu/global/
     在 ~/.vimrc 中 source gtags.vim (gtags.vim 在源码中可以找到)
 

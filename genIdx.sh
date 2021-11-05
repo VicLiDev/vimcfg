@@ -14,10 +14,14 @@
 
 #筛选需要加入库中的文件
 find $PWD/* | grep "\.[ch]$" >> cscope.file
-
-#生成库文件
+#生成cs库文件
 time cscope -Rbkq -i ./cscope.file
-time ctags -R ./*
-
 #删除文件列表
 rm cscope.file
+
+#生成tags
+time ctags -R ./*
+
+#生成gtags索引
+gtags
+

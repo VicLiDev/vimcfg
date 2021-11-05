@@ -112,6 +112,7 @@ Plugin 'Valloric/YouCompleteMe'
 Plugin 'vim-scripts/taglist.vim'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
+"Plugin 'neoclide/coc.nvim'
 
 Plugin 'https://github.com/autozimu/LanguageClient-neovim'
 

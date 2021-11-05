@@ -49,6 +49,21 @@ airline
   https://github.com/vim-airline/vim-airline-themes#vim-airline-themes--
   安装方法：建议使用Vundle/vim-plug安装，在.vimrc中加入描述，在vim命令模式执行PlugInstall即可。
 
+coc:
+  https://github.com/neoclide/coc.nvim/wiki/Install-coc.nvim
+  以mac为例的安装步骤：
+    1. 安装node： brew install node
+    2. 安装yarn: curl --compressed -o- -L https://yarnpkg.com/install.sh | bash
+       也可以直接用brew安装
+    3. 如果使用 Vundle 则添加插件：Plugin 'neoclide/coc.nvim'
+       然后在vim中执行PluginInstall安装插件
+    4. 进入 coc 插件的目录执行：
+       yarn install
+       yarn build
+    5. 打开vim执行 :CocConfig 可以打开后缀为 json 的文件，在该文件中添加相关配置
+       可以去https://github.com/neoclide/coc.nvim/wiki/Language-servers 中直接复制自己需要的配置
+       然后粘贴到 json 文件中即可
+
 
 ============================================== 配置 ==============================================
 见.vimrc

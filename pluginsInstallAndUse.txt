@@ -44,6 +44,11 @@ gtags: sudo apt-get install global  (GTags 又叫做 GNU GLOBAL)
 
     更多相关信息见： https://zhuanlan.zhihu.com/p/36279445  有空的时候整理一下，提高使用舒适度
 
+airline
+  https://github.com/vim-airline/vim-airline
+  https://github.com/vim-airline/vim-airline-themes#vim-airline-themes--
+  安装方法：建议使用Vundle/vim-plug安装，在.vimrc中加入描述，在vim命令模式执行PlugInstall即可。
+
 
 ============================================== 配置 ==============================================
 见.vimrc

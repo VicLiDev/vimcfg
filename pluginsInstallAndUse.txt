@@ -282,6 +282,36 @@ gtags主要用于生成查找文件，global可以从查找文件中搜索相关
         :autocmd! BufWritePost * call s:GtagsAutoUpdate()
     endif
 
+---------------------------------------- colorscheme (配色)
+推荐配色：
+https://github.com/morhetz/gruvbox
+https://github.com/tomasr/molokai
+https://github.com/junegunn/seoul256.vim
+https://github.com/altercation/vim-colors-solarized
+使用方法：
+1. 在~/.vim 下新建colors
+2. 在克隆下来的仓库中寻找colors文件夹，将里边的后缀为 .vim 的文件复制到 ~/.vim/colors 中
+3. 现在就可以通过colorscheme 指令设置配色了，注意可能需要 set bg=dark等指令配合使用，配色才会好看
+4. 如果想一劳永逸则可以直接把配置指令写到vim的配置文件中
+
+
+---------------------------------------- func height light (函数高亮)
+参考： https://stackoverflow.com/questions/736701/class-function-names-highlighting-in-vim
+1. 找到vim的安装路径：在vim中 :echo $VIMRUNTIME
+2. 将路径中的syntax/c.vim 复制到 ~/.vim/syntax/ 下， 如果没有该路径则新建一个
+3. 在个人主目录下的 c.vim 最后加上如下内容即可：
+" Highlight Class and Function names
+syn match    cCustomParen    "(" contains=cParen,cCppParen
+syn match    cCustomFunc     "\w\+\s*(" contains=cCustomParen
+syn match    cCustomScope    "::"
+syn match    cCustomClass    "\w\+\s*::" contains=cCustomScope
+
+hi def link cCustomFunc  Function
+hi def link cCustomClass Function
+
+hi def cCustomFunc  gui=bold guifg=yellowgreen
+hi def cCustomClass gui=reverse guifg=#00FFF0
+
 
 
 ---------------------------------------- tmux

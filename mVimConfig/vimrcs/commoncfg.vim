@@ -331,6 +331,7 @@ nnoremap <Leader>h :noh<CR>
 " buffer 快捷方式  bNext  badd  ball  bdelete  behave  belowright  bfirst  blast  bmodified  bnext  botright  bprevious
 nnoremap <Leader>bn :bn<CR>
 nnoremap <Leader>bb :bp<CR>
+nnoremap <Leader>bs :b#<CR>
 nnoremap <Leader>bf :bfirst<CR>
 nnoremap <Leader>bl :blast<CR>
 nnoremap <Leader>bc :bwipe<CR>

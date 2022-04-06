@@ -327,6 +327,9 @@ map <s-c> <c-w>c
 
 " 取消高亮快捷键
 nnoremap <Leader>h :noh<CR>
+" 进入命令行
+nnoremap <Leader>sh :shell<CR>
+
 
 " buffer 快捷方式  bNext  badd  ball  bdelete  behave  belowright  bfirst  blast  bmodified  bnext  botright  bprevious
 nnoremap <Leader>bn :bn<CR>

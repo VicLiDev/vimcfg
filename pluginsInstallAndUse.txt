@@ -65,10 +65,14 @@ coc:
        然后粘贴到 json 文件中即可
 
 zfz
-  https://github.com/junegunn/fzf
-  https://github.com/junegunn/fzf.vim
-  建议使用Vundle/vim-plug安装，直接安装 fzf.vim 会有一些问题，这里选择安装fzf，然后将fzf.vim 的一些脚本放到 vimrcs 中使用，
-  具体看 .vim/vimrcs/plugins.vim 中的描述
+    https://github.com/junegunn/fzf
+    https://github.com/junegunn/fzf.vim
+    建议使用Vundle/vim-plug安装，直接安装 fzf.vim 会有一些问题，这里选择安装fzf，然后将fzf.vim 的一些脚本放到 vimrcs 中使用，
+    具体看 .vim/vimrcs/plugins.vim 中的描述
+
+easymotion
+    https://github.com/easymotion/vim-easymotion
+    建议使用Vundle/vim-plug安装
 
 
 ============================================== 配置 ==============================================

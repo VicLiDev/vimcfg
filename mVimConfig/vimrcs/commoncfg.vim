@@ -13,7 +13,7 @@ set report=0  " 通过使用: commands命令，告诉我们文件的哪一行被
 
 au BufRead,BufNewFile *  setfiletype txt  " 高亮显示普通txt文件（需要txt.vim脚本），不知道有什么用 可能会导致macos的vim高亮失效
 
-set linespace=-500  " 字符间插入的像素行数目，不起作用
+" set linespace=-500  " 字符间插入的像素行数目，不起作用   会影响gvim显示
 
 set wildmenu  " 使用'wildmenu'选项，将启用增强模式的命令行补全。在命令行中输入命令时，按下'wildchar'键（默认为Tab）将自动补全命令和参数：此时将在命令行的上方显示可能的匹配项；继续按下'wildchar'键，可以遍历所有的匹配项；也可以使用方向键或者CTRL-P/CTRL-N键，在匹配列表中进行移动；最后点击回车键，选择需要的匹配项。
 
@@ -60,15 +60,15 @@ set background=dark "背景使用黑色
 " set fillchars=vert:\ ,stl:\ ,stlnc:\  " 在被分割的窗口间显示空白，便于阅读
 
 set ruler  " 显示标尺，标尺显示文件中的光标位置。
-" set colorcolumn=80 " 您可以使用：set colorcolumn（简称：set cc）选项在特定列显示标尺，该选项仅在Vim 7.3或更高版本中可用。
+set colorcolumn=80 " 您可以使用：set colorcolumn（简称：set cc）选项在特定列显示标尺，该选项仅在Vim 7.3或更高版本中可用。
 set cursorline " 突出显示当前行，在当前行下边画一条线
 
 set showmatch  " 设置匹配模式，类似当输入一个左括号时会匹配相应的那个右括号
 set matchtime=1  " 匹配括号高亮的时间（单位是十分之一秒）
 
 " window版本的Gvim下默认的界面非常丑,可以通过在配置文件_vimrc上设置guioptions来个性化你的MS-Gvim. 可以用过 :h guioptions 来查看帮助.
-set guioptions-=T           " 隐藏工具栏
-set guioptions-=m           " 隐藏菜单栏
+" set guioptions-=T           " 隐藏工具栏
+" set guioptions-=m           " 隐藏菜单栏
 
 autocmd InsertLeave * se nocul  " 用浅色高亮当前行，不知道为啥没用
 autocmd InsertEnter * se cul    " 用浅色高亮当前行，不知道为啥没用
@@ -78,7 +78,7 @@ autocmd InsertEnter * se cul    " 用浅色高亮当前行，不知道为啥没�
 """"""""""""""""""""""""""""
 set langmenu=zh_CN.UTF-8  " 设置gvim的菜单语言
 set helplang=cn  " 设置帮助文档的语言
-set guifont=Courier_New:h10:cANSI   " 设置字体
+" set guifont=Courier_New:h10:cANSI   " 设置字体  gVim
 
 """"""""""""""""""""""""""""
 " 文件操作

@@ -31,6 +31,11 @@ set iskeyword+=_,$,@,%,#,-  " 带有如下符号的单词不要被换行分割
 set showcmd  " 在屏幕底部显示当前所处的模式。例如希望输入fx命令来查找字符“x”时，当我们输入f时就会在底部显示“f”，这在输入复杂命令时将很有帮助。
 set showmode " 在底部显示当前处于命令模式还是插入模式
 
+" jump to the last position when reopening a file
+" au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+set viminfo='10,\"100,:20,%,n~/.viminfo
+au BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|else|exe "norm $"|endif|endif
+
 """"""""""""""""""""""""""""
 " 窗口设置
 """"""""""""""""""""""""""""

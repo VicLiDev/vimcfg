@@ -67,6 +67,7 @@ set background=dark "背景使用黑色
 set ruler  " 显示标尺，标尺显示文件中的光标位置。
 set colorcolumn=80 " 您可以使用：set colorcolumn（简称：set cc）选项在特定列显示标尺，该选项仅在Vim 7.3或更高版本中可用。
 set cursorline " 突出显示当前行，在当前行下边画一条线
+" set cursorcolumn " 突出显示当前列，在当前行下边画一条线
 
 set showmatch  " 设置匹配模式，类似当输入一个左括号时会匹配相应的那个右括号
 set matchtime=1  " 匹配括号高亮的时间（单位是十分之一秒）

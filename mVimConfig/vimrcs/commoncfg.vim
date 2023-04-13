@@ -390,7 +390,7 @@ func! CompileRunGcc()
     endif
 endfunc
 "C,C++的调试
-map <F8> :call Rungdb()<CR>
+map <F6> :call Rungdb()<CR>
 func! Rungdb()
     exec "w"
     if &filetype == 'c'

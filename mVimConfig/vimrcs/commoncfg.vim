@@ -372,7 +372,7 @@ map <M-F2> :tabnew<CR>
 map <F3> :tabnew .<CR>  
 "打开树状文件目录  
 map <C-F3> \be  
-"C，C++ 按F5编译运行
+"C，C++ run
 map <F5> :call CompileRunGcc()<CR>
 func! CompileRunGcc()
     exec "w"
@@ -389,15 +389,27 @@ func! CompileRunGcc()
         :!./%
     endif
 endfunc
-"C,C++的调试
-map <F6> :call Rungdb()<CR>
-func! Rungdb()
+"C,C++ debug
+map <F6> :call CompileRunGdb()<CR>
+func! CompileRunGdb()
     exec "w"
     if &filetype == 'c'
         exec "!gcc % -g -o %< -Wall -Wextra && gdb --command=debug.gdb ./%<"
     elseif &filetype == 'cpp'
         exec "!g++ % -g -o %< -Wall -Wextra && gdb --command=debug.gdb ./%<"
     endif
+endfunc
+" project debug
+map <F7> :call PrjCompileRun()<CR>
+func! PrjCompileRun()
+    exec "w"
+    exec "!cd `git rev-parse --show-toplevel` && if [ -e ~/bin/prjBuild.sh ]; then ~/bin/prjBuild.sh; else echo \"file ~/bin/prjBuild.sh no exit\"; fi"
+endfunc
+" project debug
+map <F8> :call PrjCompileRunDbg()<CR>
+func! PrjCompileRunDbg()
+    exec "w"
+    exec "!cd `git rev-parse --show-toplevel` && if [ -e ~/bin/prjDebug.sh ]; then ~/bin/prjDebug.sh; else echo \"file ~/bin/prjDebug.sh no exit\"; fi"
 endfunc
 
 

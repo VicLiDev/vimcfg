@@ -403,13 +403,13 @@ endfunc
 map <F7> :call PrjCompileRun()<CR>
 func! PrjCompileRun()
     exec "w"
-    exec "!cd `git rev-parse --show-toplevel` && if [ -e ~/bin/prjBuild.sh ]; then ~/bin/prjBuild.sh; else echo \"file ~/bin/prjBuild.sh no exit\"; fi"
+    exec "!cd `git rev-parse --show-toplevel` && if [ -e \"./prjBuild.sh\" ]; then bash ./prjBuild.sh; elif [ -e \"./.prjBuild.sh\" ]; then bash ./.prjBuild.sh; else echo \"file $PWD/prjBuild.sh no exit\"; echo \"file $PWD/.prjBuild.sh no exit\"; fi"
 endfunc
 " project debug
 map <F8> :call PrjCompileRunDbg()<CR>
 func! PrjCompileRunDbg()
     exec "w"
-    exec "!cd `git rev-parse --show-toplevel` && if [ -e ~/bin/prjDebug.sh ]; then ~/bin/prjDebug.sh; else echo \"file ~/bin/prjDebug.sh no exit\"; fi"
+    exec "!cd `git rev-parse --show-toplevel` && if [ -e \"./prjDebug.sh\" ]; then bash ./prjDebug.sh; elif [ -e \"./.prjDebug.sh\" ]; then bash ./.prjDebug.sh; else echo \"file $PWD/prjDebug.sh no exit\"; echo \"file $PWD/.prjDebug.sh no exit\"; fi"
 endfunc
 
 

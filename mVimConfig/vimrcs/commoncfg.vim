@@ -397,6 +397,8 @@ func! CompileRunGdb()
         exec "!gcc % -g -o %< -Wall -Wextra && gdb --command=debug.gdb ./%<"
     elseif &filetype == 'cpp'
         exec "!g++ % -g -o %< -Wall -Wextra && gdb --command=debug.gdb ./%<"
+    elseif &filetype == 'python'
+        exec "!python -m pdb ./%"
     endif
 endfunc
 " project debug

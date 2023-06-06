@@ -90,6 +90,7 @@ Plugin 'VundleVim/Vundle.vim'
 " Keep Plugin commands between vundle#begin/end.
 " plugin on GitHub repo
 Plugin 'tpope/vim-fugitive'
+Plugin 'zivyangll/git-blame.vim'
 " plugin from http://vim-scripts.org/vim/scripts.html
 " Plugin 'L9'
 " Git plugin not hosted on GitHub
@@ -393,3 +394,8 @@ nmap <Leader>L <Plug>(easymotion-overwin-line)
 " Move to word
 " map  <Leader>w <Plug>(easymotion-bd-w)
 " nmap <Leader>w <Plug>(easymotion-overwin-w)1
+"
+
+
+" ========================================================================================== git blame config
+nnoremap <Leader>s :<C-u>call gitblame#echo()<CR>

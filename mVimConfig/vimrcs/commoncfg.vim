@@ -408,7 +408,7 @@ func! CompileRunGdb()
         exec "!python -m pdb ./%"
     endif
 endfunc
-" project debug
+" project run
 map <F7> :call PrjCompileRun()<CR>
 func! PrjCompileRun()
     exec "w"

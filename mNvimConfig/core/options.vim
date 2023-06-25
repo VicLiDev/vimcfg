@@ -190,3 +190,46 @@ set cursorline " 突出显示当前行，在当前行下边画一条线
 " colorscheme gruvbox  "设置配色方案
 " color darkblue "设置背景主题，跟colorscheme好像是一样的
 set background=dark "背景使用黑色
+
+
+"C，C++ run
+map <F5> :call CompileRunGcc()<CR>
+func! CompileRunGcc()
+    exec "w"
+    if &filetype == 'c'
+        exec "!gcc % -o %< -Wall -Wextra && ./%<"
+    elseif &filetype == 'cpp'
+        exec "!g++ % -o %< -Wall -Wextra && ./%<"
+    elseif &filetype == 'java' 
+        exec "!javac %" 
+        exec "!java %<"
+    elseif &filetype == 'python'
+        :!python ./%
+    elseif &filetype == 'sh'
+        :!./%
+    endif
+endfunc
+"C,C++ debug
+map <F6> :call CompileRunGdb()<CR>
+func! CompileRunGdb()
+    exec "w"
+    if &filetype == 'c'
+        exec "!gcc % -g -o %< -Wall -Wextra && gdb --command=debug.gdb ./%<"
+    elseif &filetype == 'cpp'
+        exec "!g++ % -g -o %< -Wall -Wextra && gdb --command=debug.gdb ./%<"
+    elseif &filetype == 'python'
+        exec "!python -m pdb ./%"
+    endif
+endfunc
+" project run
+map <F7> :call PrjCompileRun()<CR>
+func! PrjCompileRun()
+    exec "w"
+    exec "!cd `git rev-parse --show-toplevel` && if [ -e \"./prjBuild.sh\" ]; then bash ./prjBuild.sh; elif [ -e \"./.prjBuild.sh\" ]; then bash ./.prjBuild.sh; else echo \"file $PWD/prjBuild.sh no exit\"; echo \"file $PWD/.prjBuild.sh no exit\"; fi"
+endfunc
+" project debug
+map <F8> :call PrjCompileRunDbg()<CR>
+func! PrjCompileRunDbg()
+    exec "w"
+    exec "!cd `git rev-parse --show-toplevel` && if [ -e \"./prjDebug.sh\" ]; then bash ./prjDebug.sh; elif [ -e \"./.prjDebug.sh\" ]; then bash ./.prjDebug.sh; else echo \"file $PWD/prjDebug.sh no exit\"; echo \"file $PWD/.prjDebug.sh no exit\"; fi"
+endfunc

@@ -335,7 +335,6 @@ map <c-k> <c-w>k
 " map <c-n> <c-w>n
 " map <c-w> <c-w>w
 " map <c-c> <c-w>c
-map <c-c> :q<CR>
 " map <c-o> <c-w>o
 
 " 取消高亮快捷键

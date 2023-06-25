@@ -120,6 +120,12 @@ Plugin 'easymotion/vim-easymotion'
 
 Plugin 'https://github.com/autozimu/LanguageClient-neovim'
 
+" markdown
+Plugin 'godlygeek/tabular'
+Plugin 'preservim/vim-markdown'
+Plugin 'iamcco/mathjax-support-for-mkdp'
+Plugin 'iamcco/markdown-preview.vim'
+
 " ================================ my plugin end
 
 " All of your Plugins must be added before the following line
@@ -399,3 +405,8 @@ nmap <Leader>L <Plug>(easymotion-overwin-line)
 
 " ========================================================================================== git blame config
 nnoremap <Leader>s :<C-u>call gitblame#echo()<CR>
+
+
+" ========================================================================================== markdown
+let g:vim_markdown_math = 1
+

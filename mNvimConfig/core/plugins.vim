@@ -217,14 +217,15 @@ let g:vim_markdown_toc_autofit = 1
 
 """""""""""""""""""""""""markdown-preview settings"""""""""""""""""""
 " Only setting this for suitable platforms
-if g:is_win || g:is_mac
+" if g:is_win || g:is_mac
   " Do not close the preview tab when switching to other buffers
   let g:mkdp_auto_close = 0
 
   " Shortcuts to start and stop markdown previewing
   nnoremap <silent> <M-m> :<C-U>MarkdownPreview<CR>
   nnoremap <silent> <M-S-m> :<C-U>MarkdownPreviewStop<CR>
-endif
+  nnoremap <silent> <Leader>md :<C-U>MarkdownPreviewToggle<CR>
+" endif
 
 """"""""""""""""""""""""vim-grammarous settings""""""""""""""""""""""""""""""
 if g:is_mac

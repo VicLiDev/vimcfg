@@ -6,6 +6,7 @@ set nocompatible  "nocompatible就是不兼容的。具体是不兼容什么，�
 set clipboard+=unnamed   "vim与系统的剪贴板一起交互使用。使用前，使用命令: vim --version | grep clipboard 看看自己的计算机的vim版本。如果出现“-clipboard”则说明系统的vim版本不支持与系统剪贴板的交互操作，需要采用如下的命令安装新的vim：sudo apt install vim-gtk 安装完成之后再利用代码检查一次，出现“+clipboard”，那么系统的vim没有问题。
 
 set ignorecase "搜索忽略大小写
+set smartcase " 当有大写时，关注大小写
 set hlsearch "搜索逐字符高亮
 set incsearch  "即时搜索预览，不起作用，不知道原因
 
@@ -140,7 +141,12 @@ set viminfo+=!  " Vm使用viminfo选项，来定义如何保存会话（session�
 " 'mouse' 的缺省值为空，即不使用鼠标。
 
 " 可以在buffer的任何地方使用鼠标（类似office中在工作区双击鼠标定位）
-" set mouse=a  " 可以通过鼠标点击，光标是否移动来判断有没有启用鼠标
+set mouse=a  " 可以通过鼠标点击，光标是否移动来判断有没有启用鼠标
+" 在所有模式之下，鼠标左键可以移动光标，拉动左键可以选择文本。
+" 在extend模式中，可以使用左键点中起始位置，然后按住Alt键的同时右击结束位置，将选中两点定义的可视化块（visual block）。
+" 在popup模式中，右键可以显示弹出菜单。
+" 而popup_setpos模式与popup模式相类似，所不同的只是当按下鼠标右键时，光标会移动到鼠标点击处，然后显示弹出菜单。
+" set mousemodel=popup  " Set the behaviour of mouse
 " set selection=exclusive  " 此选项定义选择的行为。 仅在可视和选择模式下使用。具体可用 :help selection 查看
 " set selectmode=mouse,key  " 这是一个用逗号分隔的列表，它指定了开始选择时何时启动选择模式而不是可视模式。 可能的值：mouse:使用鼠标时的鼠标 key:使用移位特殊键时的键 cmd:使用“ v”，“ V”或CTRL-V时的cmd
 
@@ -269,7 +275,7 @@ set foldcolumn=5  " 将在屏幕左侧显示一个折叠标识列，分别用“
 " 对于fedora来说，vim的设置一般放在/etc/vimrc文件中，不过，建议不要修改它。可以修改~/.vimrc文件（默认不存在，可以自己新建一个），写入所希望的设置。
 set encoding=utf-8
 set fileencoding=utf-8
-set fileencodings=ucs-bom,utf-8,cp936
+set fileencodings=ucs-bom,utf-8,cp936,gb18030,big5,euc-jp,euc-kr,latin1
 set termencoding=utf-8
 
 """"""""""""""""""""""""""""
@@ -322,14 +328,15 @@ nmap <leader>w :w!<cr>  " 根据mapleader的值，这条指令的快捷键为 ,w
 nmap <leader>f :find<cr>
 
 " 窗口快捷方式
-map <s-h> <c-w>h
-map <s-l> <c-w>l
-map <s-j> <c-w>j
-map <s-k> <c-w>k
-" map <s-n> <c-w>n
-" map <s-w> <c-w>w
-map <s-c> <c-w>c
-" map <s-o> <c-w>o
+map <c-s-h> <c-w>h
+map <c-s-l> <c-w>l
+map <c-s-j> <c-w>j
+map <c-s-k> <c-w>k
+" map <c-s-n> <c-w>n
+" map <c-s-w> <c-w>w
+" map <c-s-c> <c-w>c
+map <c-s-c> :q<CR>
+" map <c-s-o> <c-w>o
 
 " 取消高亮快捷键
 nnoremap <Leader>h :noh<CR>

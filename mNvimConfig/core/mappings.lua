@@ -246,16 +246,16 @@ end)
 
 
 -- 窗口快捷方式
-keymap.set("n", "<c-s-h>", "<c-w>h")
-keymap.set("n", "<c-s-h>", "<c-w>h")
-keymap.set("n", "<c-s-l>", "<c-w>l")
-keymap.set("n", "<c-s-j>", "<c-w>j")
-keymap.set("n", "<c-s-k>", "<c-w>k")
--- keymap.set("n", "<c-s-n>", "<c-w>n")
--- keymap.set("n", "<c-s-w>", "<c-w>w")
--- keymap.set("n", "<c-s-c>", "<c-w>c")
-keymap.set("n", "<c-s-c>", ":q<cr>")
--- keymap.set("n", "<c-s-o>", "<c-w>o")
+keymap.set("n", "<c-h>", "<c-w>h")
+keymap.set("n", "<c-h>", "<c-w>h")
+keymap.set("n", "<c-l>", "<c-w>l")
+keymap.set("n", "<c-j>", "<c-w>j")
+keymap.set("n", "<c-k>", "<c-w>k")
+-- keymap.set("n", "<c-n>", "<c-w>n")
+-- keymap.set("n", "<c-w>", "<c-w>w")
+-- keymap.set("n", "<c-c>", "<c-w>c")
+keymap.set("n", "<c-c>", ":q<cr>")
+-- keymap.set("n", "<c-o>", "<c-w>o")
 
 -- 取消高亮快捷键
 keymap.set("n", "<Leader>h", ":noh<CR>")

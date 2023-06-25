@@ -328,15 +328,15 @@ nmap <leader>w :w!<cr>  " 根据mapleader的值，这条指令的快捷键为 ,w
 nmap <leader>f :find<cr>
 
 " 窗口快捷方式
-map <c-s-h> <c-w>h
-map <c-s-l> <c-w>l
-map <c-s-j> <c-w>j
-map <c-s-k> <c-w>k
-" map <c-s-n> <c-w>n
-" map <c-s-w> <c-w>w
-" map <c-s-c> <c-w>c
-map <c-s-c> :q<CR>
-" map <c-s-o> <c-w>o
+map <c-h> <c-w>h
+map <c-l> <c-w>l
+map <c-j> <c-w>j
+map <c-k> <c-w>k
+" map <c-n> <c-w>n
+" map <c-w> <c-w>w
+" map <c-c> <c-w>c
+map <c-c> :q<CR>
+" map <c-o> <c-w>o
 
 " 取消高亮快捷键
 nnoremap <Leader>h :noh<CR>

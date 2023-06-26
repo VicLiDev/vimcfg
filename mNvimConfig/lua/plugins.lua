@@ -75,6 +75,8 @@ packer.startup {
     -- nvim-lsp configuration (it relies on cmp-nvim-lsp, so it should be loaded after cmp-nvim-lsp).
     use { "neovim/nvim-lspconfig", after = "cmp-nvim-lsp", config = [[require('config.lsp')]] }
 
+    use { "neoclide/coc.nvim", config = [[require('config.coc')]] }
+
     if vim.g.is_mac then
       use {
         "nvim-treesitter/nvim-treesitter",

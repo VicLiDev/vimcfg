@@ -61,6 +61,17 @@ packer.startup {
       use { "hrsh7th/cmp-emoji", after = "nvim-cmp" }
     end
 
+    -- lsp installer Mason
+    use {
+        "williamboman/mason.nvim",
+        run = ":MasonUpdate", -- :MasonUpdate updates registry contents
+        config = [[require('config.mason')]]
+    }
+    use {
+        -- "williamboman/mason.nvim",
+        "williamboman/mason-lspconfig.nvim",
+        config = [[require('config.mason')]]
+    }
     -- nvim-lsp configuration (it relies on cmp-nvim-lsp, so it should be loaded after cmp-nvim-lsp).
     use { "neovim/nvim-lspconfig", after = "cmp-nvim-lsp", config = [[require('config.lsp')]] }
 

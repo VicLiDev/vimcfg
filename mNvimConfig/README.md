@@ -1,5 +1,6 @@
 参考代码：
-GitHub: https://github.com/jdhao
+GitHub: 
+https://github.com/jdhao/nvim-config
 
 lua-guide
 https://neovim.io/doc/user/lua-guide.html

@@ -60,7 +60,7 @@ conf.center = {
 }
 
 dashboard.setup({
-  theme = 'doom',
+  theme = 'hyper',
   shortcut_type = 'number',
   config = conf
 })

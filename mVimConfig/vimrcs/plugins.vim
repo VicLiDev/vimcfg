@@ -126,6 +126,10 @@ Plugin 'godlygeek/tabular'
 Plugin 'preservim/vim-markdown'
 Plugin 'iamcco/mathjax-support-for-mkdp'
 Plugin 'iamcco/markdown-preview.vim'
+Plugin 'aklt/plantuml-syntax'
+Plugin 'tyru/open-browser.vim.git'
+Plugin 'weirongxu/plantuml-previewer.vim.git'
+Plugin 'scrooloose/vim-slumlord'
 
 " ================================ my plugin end
 

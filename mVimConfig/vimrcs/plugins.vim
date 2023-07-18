@@ -117,6 +117,7 @@ Plugin 'vim-airline/vim-airline-themes'
 Plugin 'junegunn/fzf'
 "Plugin 'junegunn/fzf.vim'
 Plugin 'easymotion/vim-easymotion'
+Plugin 'skanehira/preview-uml.vim'
 
 Plugin 'https://github.com/autozimu/LanguageClient-neovim'
 
@@ -410,3 +411,7 @@ nnoremap <Leader>s :<C-u>call gitblame#echo()<CR>
 " ========================================================================================== markdown
 let g:vim_markdown_math = 1
 
+" ========================================================================================== uml
+" docker run -d -p 8888:8080 plantuml/plantuml-server:jetty
+let g:preview_uml_url='http://localhost:8888'
+map <Leader>uml  :PreviewUML<CR>

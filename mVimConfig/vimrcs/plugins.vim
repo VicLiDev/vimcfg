@@ -125,6 +125,9 @@ if has('win32') || has('linux')
 elseif has('mac')
 endif
 
+" color
+Plugin 'morhetz/gruvbox'
+
 " markdown
 Plugin 'godlygeek/tabular'
 Plugin 'preservim/vim-markdown'

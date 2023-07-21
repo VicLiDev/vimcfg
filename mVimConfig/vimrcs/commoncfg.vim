@@ -12,8 +12,8 @@ set incsearch  "即时搜索预览，不起作用，不知道原因
 
 set report=0  " 通过使用: commands命令，告诉我们文件的哪一行被改变过，不知道有什么用
 
-if has('win32') || has('unix')
-au BufRead,BufNewFile *  setfiletype txt  " 高亮显示普通txt文件（需要txt.vim脚本），不知道有什么用 可能会导致macos的vim高亮失效
+if has('win32') || has('linux')
+    au BufRead,BufNewFile *  setfiletype txt  " 高亮显示普通txt文件（需要txt.vim脚本），不知道有什么用 可能会导致macos的vim高亮失效
 elseif has('mac')
 endif
 

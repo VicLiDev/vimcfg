@@ -118,8 +118,12 @@ Plugin 'junegunn/fzf'
 "Plugin 'junegunn/fzf.vim'
 Plugin 'easymotion/vim-easymotion'
 Plugin 'skanehira/preview-uml.vim'
+Plugin 'Yggdroot/indentLine'
 
-Plugin 'https://github.com/autozimu/LanguageClient-neovim'
+if has('win32') || has('linux')
+    Plugin 'https://github.com/autozimu/LanguageClient-neovim'
+elseif has('mac')
+endif
 
 " markdown
 Plugin 'godlygeek/tabular'
@@ -419,3 +423,10 @@ let g:vim_markdown_math = 1
 " docker run -d -p 8888:8080 plantuml/plantuml-server:jetty
 let g:preview_uml_url='http://localhost:8888'
 map <Leader>uml  :PreviewUML<CR>
+
+" ========================================================================================== indentLine
+let g:indentLine_char_list = ['|', '¦', '┆', '┊']
+" 隐藏颜色
+let g:indentLine_setColors = 1
+let g:indentLine_color_term = 239
+let g:indentLine_bgcolor_gui = '#FF5F00'

@@ -121,7 +121,9 @@ elseif has('mac')
 endif
 
 " syntax highlight
-Plugin 'sheerun/vim-polyglot'
+if has('mac')
+    Plugin 'sheerun/vim-polyglot'
+endif
 
 " color
 " Plugin 'morhetz/gruvbox'

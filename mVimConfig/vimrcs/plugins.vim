@@ -111,23 +111,23 @@ Plugin 'kien/ctrlp.vim'
 Plugin 'tacahiroy/ctrlp-funky'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'vim-scripts/taglist.vim'
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
 "Plugin 'neoclide/coc.nvim'
 Plugin 'junegunn/fzf'
-"Plugin 'junegunn/fzf.vim'
 Plugin 'easymotion/vim-easymotion'
-Plugin 'skanehira/preview-uml.vim'
-Plugin 'Yggdroot/indentLine'
 
 if has('win32') || has('linux')
     Plugin 'https://github.com/autozimu/LanguageClient-neovim'
 elseif has('mac')
 endif
 
-" color
-Plugin 'morhetz/gruvbox'
+" syntax highlight
 Plugin 'sheerun/vim-polyglot'
+
+" color
+" Plugin 'morhetz/gruvbox'
+Plugin 'Yggdroot/indentLine'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
 
 " markdown
 Plugin 'godlygeek/tabular'
@@ -138,6 +138,7 @@ Plugin 'aklt/plantuml-syntax'
 Plugin 'tyru/open-browser.vim.git'
 Plugin 'weirongxu/plantuml-previewer.vim.git'
 Plugin 'scrooloose/vim-slumlord'
+Plugin 'skanehira/preview-uml.vim'
 
 " ================================ my plugin end
 

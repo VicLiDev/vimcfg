@@ -127,6 +127,7 @@ endif
 
 " color
 Plugin 'morhetz/gruvbox'
+Plugin 'sheerun/vim-polyglot'
 
 " markdown
 Plugin 'godlygeek/tabular'

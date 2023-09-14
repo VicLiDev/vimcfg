@@ -423,7 +423,8 @@ nmap <Leader>L <Plug>(easymotion-overwin-line)
 nnoremap <Leader>s :<C-u>call gitblame#echo()<CR>
 
 
-" ========================================================================================== markdown
+" ========================================================================================== vim-markdown
+let g:vim_markdown_folding_disabled = 1
 let g:vim_markdown_math = 1
 
 " ========================================================================================== uml

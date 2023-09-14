@@ -114,6 +114,13 @@ Plugin 'vim-scripts/taglist.vim'
 "Plugin 'neoclide/coc.nvim'
 Plugin 'junegunn/fzf'
 Plugin 'easymotion/vim-easymotion'
+Plugin 'tyru/open-browser.vim.git'
+
+Plugin 'SirVer/ultisnips'
+Plugin 'honza/vim-snippets'
+
+Plugin 'lervag/vimtex'
+
 
 if has('win32') || has('linux')
     Plugin 'https://github.com/autozimu/LanguageClient-neovim'
@@ -134,13 +141,16 @@ Plugin 'vim-airline/vim-airline-themes'
 " markdown
 Plugin 'godlygeek/tabular'
 Plugin 'preservim/vim-markdown'
+Plugin 'mzlogin/vim-markdown-toc'
 Plugin 'iamcco/mathjax-support-for-mkdp'
 Plugin 'iamcco/markdown-preview.vim'
-Plugin 'aklt/plantuml-syntax'
-Plugin 'tyru/open-browser.vim.git'
+
+" plantuml
+Plugin 'aklt/plantml-syntax'
 Plugin 'weirongxu/plantuml-previewer.vim.git'
 Plugin 'scrooloose/vim-slumlord'
 Plugin 'skanehira/preview-uml.vim'
+
 
 " ================================ my plugin end
 
@@ -422,6 +432,8 @@ nmap <Leader>L <Plug>(easymotion-overwin-line)
 " ========================================================================================== git blame config
 nnoremap <Leader>s :<C-u>call gitblame#echo()<CR>
 
+" ========================================================================================== markdown-preview
+nmap <Leader>md :MarkdownPreview<CR>
 
 " ========================================================================================== vim-markdown
 let g:vim_markdown_folding_disabled = 1
@@ -438,3 +450,46 @@ let g:indentLine_char_list = ['|', '¦', '┆', '┊']
 let g:indentLine_setColors = 1
 let g:indentLine_color_term = 239
 let g:indentLine_bgcolor_gui = '#FF5F00'
+
+
+" ========================================================================================== ultisnips
+" Trigger configuration. You need to change this to something other than <tab> if you use one of the following:
+" - https://github.com/Valloric/YouCompleteMe
+" - https://github.com/nvim-lua/completion-nvim
+" let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsExpandTrigger="<F9>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
+
+
+" ========================================================================================== vimtex
+" This is necessary for VimTeX to load properly. The "indent" is optional.
+" Note that most plugin managers will do this automatically.
+filetype plugin indent on
+
+" This enables Vim's and neovim's syntax-related features. Without this, some
+" VimTeX features will not work (see ":help vimtex-requirements" for more
+" info).
+syntax enable
+
+" Viewer options: One may configure the viewer either by specifying a built-in
+" viewer method:
+let g:vimtex_view_method = 'zathura'
+
+" Or with a generic interface:
+let g:vimtex_view_general_viewer = 'okular'
+let g:vimtex_view_general_options = '--unique file:@pdf\#src:@line@tex'
+
+" VimTeX uses latexmk as the default compiler backend. If you use it, which is
+" strongly recommended, you probably don't need to configure anything. If you
+" want another compiler backend, you can change it as follows. The list of
+" supported backends and further explanation is provided in the documentation,
+" see ":help vimtex-compiler".
+let g:vimtex_compiler_method = 'latexrun'
+
+" Most VimTeX mappings rely on localleader and this can be changed with the
+" following line. The default is usually fine and is the symbol "\".
+let maplocalleader = ","

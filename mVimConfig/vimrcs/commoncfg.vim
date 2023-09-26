@@ -434,7 +434,11 @@ autocmd BufNewFile *.cpp,*.[ch],*.sh,*.py,*.java exec ":call SetTitle()"
 func SetTitle() 
     "如果文件类型为.sh文件 
     if &filetype == 'sh'
-        call setline(1,"\#!/bin/bash") 
+        if has('mac')
+            call setline(1,"\#!/opt/homebrew/anaconda3/bin/bash") 
+        else
+            call setline(1,"\#!/bin/bash") 
+        endif
         call append(line("."),"\#########################################################################") 
         call append(line(".")+1, "\# File Name: ".expand("%")) 
         call append(line(".")+2, "\# Author: LiHongjin") 

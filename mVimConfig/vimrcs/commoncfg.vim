@@ -404,9 +404,17 @@ map <F6> :call CompileRunGdb()<CR>
 func! CompileRunGdb()
     exec "w"
     if &filetype == 'c'
-        exec "!gcc % -g -o %< -Wall -Wextra && gdb --command=debug.gdb ./%<"
+        if has('mac')
+            exec "!gcc % -g -o %< -Wall -Wextra && lldb ./%<"
+        else
+            exec "!gcc % -g -o %< -Wall -Wextra && gdb --command=debug.gdb ./%<"
+        endif
     elseif &filetype == 'cpp'
-        exec "!g++ % -g -o %< -Wall -Wextra && gdb --command=debug.gdb ./%<"
+        if has('mac')
+            exec "!g++ % -g -o %< -Wall -Wextra && lldb ./%<"
+        else
+            exec "!g++ % -g -o %< -Wall -Wextra && gdb --command=debug.gdb ./%<"
+        endif
     elseif &filetype == 'python'
         exec "!python -m pdb ./%"
     endif

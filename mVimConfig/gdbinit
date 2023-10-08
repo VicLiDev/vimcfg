@@ -1,0 +1,30 @@
+define initgef
+source ~/.gdb/gef.py
+end
+document initgef
+init gef
+end
+
+define initpeda
+source ~/.gdb/peda/peda.py
+echo "DONE! debug your program with gdb and enjoy"
+end
+document initpeda
+init peda
+end
+
+define initdashboard
+source ~/.gdb/gdbdashboard
+end
+document initdashboard
+init dashboard
+end
+
+define initlibheap
+python import sys
+python sys.path.append('/usr/local/lib/python3.10/dist-packages/libheap-0.3.egg-info')
+python from libheap import *
+end
+document initlibheap
+init libheap
+end

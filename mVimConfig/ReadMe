@@ -4,3 +4,4 @@ Put vimrcs colors syntax into ~/.vim
 建议创建软链接
 ln -s ${HOME}/Projects/vimcfg/mVimConfig ${HOME}/.vim
 ln -s ${HOME}/Projects/vimcfg/mVimConfig/vimrc ${HOME}/.vimrc
+ln -s ${HOME}/Projects/vimcfg/mVimConfig/gdbinit ${HOME}/.gdbinit

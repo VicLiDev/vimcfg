@@ -437,7 +437,7 @@ endfunc
 "新文件标题
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "新建.c,.h,.sh,.py,.java文件，自动插入文件头 
-autocmd BufNewFile *.cpp,*.[ch],*.sh,*.py,*.java exec ":call SetTitle()" 
+autocmd BufNewFile *.cpp,*.hpp,*.[ch],*.sh,*.py,*.java exec ":call SetTitle()" 
 "定义函数SetTitle，自动插入文件头 
 func SetTitle() 
     "如果文件类型为.sh文件 
@@ -473,11 +473,40 @@ func SetTitle()
         call append(line(".")+5, "")
     endif
     if &filetype == 'cpp'
-        call append(line(".")+6, "#include <iostream>")
-        call append(line(".")+7, "using namespace std;")
-        call append(line(".")+8, "")
-    endif
-    if &filetype == 'c'
+        " reference: https://segmentfault.com/a/1190000017798731 (VIM Script /VIML 脚本语言入门)
+        " :echo @%                |" directory/name of file
+        " :echo expand('%:p')     |" full path "PATH"
+        " :echo expand('%:p:h')   |" directory containing file "HEAD"
+        " :echo expand('%:t')     |" full name of file "TAIL"
+        " :echo expand('%:t:r')   |" Only name of file "ROOT"
+        " :echo expand('%:e')     |" Only extension of file "EXTENSION"
+        " reference: https://learnvimscriptthehardway.stevelosh.com/chapters/27.html (Learn Vimscript the Hard Way)
+        " :echom strlen("foo")
+        " :echom len("foo")
+        " :echo split("one two three")
+        " :echo split("one,two,three", ",")
+        " :echo join(["foo", "bar"], "...")
+        " :echo join(split("foo bar"), ";")
+        " :echom tolower("Foo")
+        " :echom toupper("Foo")
+        "
+
+        if expand('%:e') == 'cpp'
+            call append(line(".")+6, "#include <iostream>")
+            call append(line(".")+7, "using namespace std;")
+            call append(line(".")+8, "")
+        elseif expand('%:e') == 'hpp'
+            call append(line(".")+6, "#ifndef __".toupper(expand("%<")).expand("_HPP__"))
+            call append(line(".")+7, "#define __".toupper(expand("%<")).expand("_HPP__"))
+            call append(line(".")+8, "")
+            call append(line(".")+9, "#endif /* ".toupper(expand("%<")).expand("_HPP__ */"))
+        elseif expand('%:e') == 'h'
+            call append(line(".")+6, "#ifndef __".toupper(expand("%<")).expand("_H__"))
+            call append(line(".")+7, "#define __".toupper(expand("%<")).expand("_H__"))
+            call append(line(".")+8, "")
+            call append(line(".")+9, "#endif /* ".toupper(expand("%<")).expand("_H__ */"))
+        endif
+    elseif &filetype == 'c'
         call append(line(".")+6, "#include <stdio.h>")
         call append(line(".")+7, "")
     endif

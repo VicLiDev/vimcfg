@@ -243,28 +243,28 @@ nnoremap <Leader>fu :CtrlPFunky<Cr>
 nnoremap <Leader>fU :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
 
 " ========================================================================================== taglist config
-" 默认打开Taglist 
+" 默认打开Taglist
 let Tlist_Auto_Open=0
-"""""""""""""""""""""""""""""" 
-" Tag list (ctags) 
-"""""""""""""""""""""""""""""""" 
-"let Tlist_Ctags_Cmd = '/usr/bin/ctags' 
-let Tlist_Show_One_File = 1 "不同时显示多个文件的tag，只显示当前文件的 
-let Tlist_Exit_OnlyWindow = 1 "如果taglist窗口是最后一个窗口，则退出vim 
+""""""""""""""""""""""""""""""
+" Tag list (ctags)
+""""""""""""""""""""""""""""""""
+"let Tlist_Ctags_Cmd = '/usr/bin/ctags'
+let Tlist_Show_One_File = 1 "不同时显示多个文件的tag，只显示当前文件的
+let Tlist_Exit_OnlyWindow = 1 "如果taglist窗口是最后一个窗口，则退出vim
 let Tlist_Use_Right_Window = 1 "在右侧窗口中显示taglist窗口
-map <Leader>tt :Tlist<CR> 
+map <Leader>tt :Tlist<CR>
 "
 " https://zhuanlan.zhihu.com/p/85040099
 
 " ========================================================================================== ctags config
-let Tlist_Sort_Type = "name"    " 按照名称排序  
-"let Tlist_Use_Right_Window = 1  " 在右侧显示窗口  
-let Tlist_Compart_Format = 1    " 压缩方式  
-let Tlist_Exist_OnlyWindow = 1  " 如果只有一个buffer，kill窗口也kill掉buffer  
-let Tlist_File_Fold_Auto_Close = 0  " 不要关闭其他文件的tags  
-let Tlist_Enable_Fold_Column = 0    " 不要显示折叠树  
-autocmd FileType java set tags+=D:\tools\java\tags  
-"autocmd FileType h,cpp,cc,c set tags+=D:\tools\cpp\tags  
+let Tlist_Sort_Type = "name"    " 按照名称排序
+"let Tlist_Use_Right_Window = 1  " 在右侧显示窗口
+let Tlist_Compart_Format = 1    " 压缩方式
+let Tlist_Exist_OnlyWindow = 1  " 如果只有一个buffer，kill窗口也kill掉buffer
+let Tlist_File_Fold_Auto_Close = 0  " 不要关闭其他文件的tags
+let Tlist_Enable_Fold_Column = 0    " 不要显示折叠树
+autocmd FileType java set tags+=D:\tools\java\tags
+"autocmd FileType h,cpp,cc,c set tags+=D:\tools\cpp\tags
 "let Tlist_Show_One_File=1            "不同时显示多个文件的tag，只显示当前文件的
 set tags=tags;  "设置当前路径下的 tags。这里的分号是让vim首先在当前目录里寻找tags文件，如果没有找到tags文件，或者没有找到对应的目标，就到父目录中查找，一直向上递归。
 set autochdir  "因为tags文件中记录的路径总是相对于tags文件所在的路径，所以要使用该设置项来改变vim的当前目录。
@@ -274,7 +274,7 @@ set autochdir  "因为tags文件中记录的路径总是相对于tags文件所�
 " 添加当前路径下的cscope.out
 cscope add cscope.out
 " 打开cscope搜索快捷方式
-map <Leader>cf :cs f 
+map <Leader>cf :cs f
 
 
 " ========================================================================================== gtag config

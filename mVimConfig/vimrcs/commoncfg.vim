@@ -201,9 +201,9 @@ endfunction
 " 如果环境set magic的话，则搜索：
 "     /abc\vdef\Vghi\Mjkl
 "     表示按magic解释abc，按very magic解释def，按very nomagic解释ghi，按nomagic解释jkl。
-"     
+"
 " VIM官方推荐设置为magic，然后需要使用其他选项时用开关切换。
-" 
+"
 " 4种选项中，带有no的倾向字符表示字符本身，而不带no的倾向字符具有特殊含义；带有very的则处于两个极端，不带very的居中。4种选项的具体区别：
 "     \v指定very magic：所有ASCII字符中（即键盘上能看到的字符），除了数字（0-9）、大小写字母（A-Za-z）和下划线（_）外，全都有特殊含义。
 "     \V指定very nomagic：大多数字符都表示其本身，除了反斜杠\，以及用来表示模式起止的分隔符（如/或?）。
@@ -257,24 +257,24 @@ set foldcolumn=5  " 将在屏幕左侧显示一个折叠标识列，分别用“
 """"""""""""""""""""""""""""
 " 字符编码
 """"""""""""""""""""""""""""
-" Vim 有四个跟字符编码方式有关的选项，encoding、fileencoding、fileencodings、termencoding 它们的意义如下: 
+" Vim 有四个跟字符编码方式有关的选项，encoding、fileencoding、fileencodings、termencoding 它们的意义如下:
 "     * encoding: Vim 内部使用的字符编码方式，包括 Vim 的 buffer (缓冲区)、菜单文本、消息文本等。默认是根据你的locale选择.用户手册上建议只在 .vimrc 中改变它的值，
 "                 事实上似乎也只有在.vimrc 中改变它的值才有意义。你可以用另外一种编码来编辑和保存文件，如你的vim的encoding为utf-8,所编辑的文件采用cp936编码,vim会
-"                 自动将读入的文件转成utf-8(vim的能读懂的方式），而当你写入文件时,又会自动转回成cp936（文件的保存编码). 
-"     * fileencoding: Vim 中当前编辑的文件的字符编码方式，Vim 保存文件时也会将文件保存为这种字符编码方式 (不管是否新文件都如此)。 
+"                 自动将读入的文件转成utf-8(vim的能读懂的方式），而当你写入文件时,又会自动转回成cp936（文件的保存编码).
+"     * fileencoding: Vim 中当前编辑的文件的字符编码方式，Vim 保存文件时也会将文件保存为这种字符编码方式 (不管是否新文件都如此)。
 "     * fileencodings: Vim自动探测fileencoding的顺序列表， 启动时会按照它所列出的字符编码方式逐一探测即将打开的文件的字符编码方式，并且将 fileencoding 设置为最终探测到的字符编码方式。
-"                      因此最好将Unicode 编码方式放到这个列表的最前面，将拉丁语系编码方式 latin1 放到最后面。 
+"                      因此最好将Unicode 编码方式放到这个列表的最前面，将拉丁语系编码方式 latin1 放到最后面。
 "     * termencoding: Vim 所工作的终端 (或者 Windows 的 Console 窗口) 的字符编码方式。如果vim所在的term与vim编码相同，则无需设置。如其不然，你可以用vim的termencoding选项
-"                     将自动转换成term的编码.这个选项在 Windows 下对我们常用的 GUI 模式的 gVim 无效，而对 Console 模式的Vim 而言就是 Windows 控制台的代码页，并且通常我们不需要改变它。 
-" 解释完了这一堆容易让新手犯糊涂的参数，我们来看看 Vim 的多字符编码方式支持是如何工作的。 
-"     1. Vim 启动，根据 .vimrc 中设置的 encoding 的值来设置 buffer、菜单文本、消息文的字符编码方式。 
-"     2. 读取需要编辑的文件，根据 fileencodings 中列出的字符编码方式逐一探测该文件编码方式。并设置 fileencoding 为探测到的，看起来是正确的 (注1) 字符编码方式。 
+"                     将自动转换成term的编码.这个选项在 Windows 下对我们常用的 GUI 模式的 gVim 无效，而对 Console 模式的Vim 而言就是 Windows 控制台的代码页，并且通常我们不需要改变它。
+" 解释完了这一堆容易让新手犯糊涂的参数，我们来看看 Vim 的多字符编码方式支持是如何工作的。
+"     1. Vim 启动，根据 .vimrc 中设置的 encoding 的值来设置 buffer、菜单文本、消息文的字符编码方式。
+"     2. 读取需要编辑的文件，根据 fileencodings 中列出的字符编码方式逐一探测该文件编码方式。并设置 fileencoding 为探测到的，看起来是正确的 (注1) 字符编码方式。
 "     3. 对比 fileencoding 和 encoding 的值，若不同则调用 iconv 将文件内容转换为encoding 所描述的字符编码方式，并且把转换后的内容放到为此文件开辟的 buffer 里，
-"        此时我们就可以开始编辑这个文件了。注意，完成这一步动作需要调用外部的 iconv.dll，你需要保证这个文件存在于 $VIMRUNTIME 或者其他列在 PATH 环境变量中的目录里。 
+"        此时我们就可以开始编辑这个文件了。注意，完成这一步动作需要调用外部的 iconv.dll，你需要保证这个文件存在于 $VIMRUNTIME 或者其他列在 PATH 环境变量中的目录里。
 "     4. 编辑完成后保存文件时，再次对比 fileencoding 和 encoding 的值。若不同，再次调用 iconv 将即将保存的 buffer 中的文本转换为 fileencoding 所描述的字符编码方式，并保存到指定的文件中。
 "        同样，这需要调用 iconv.dll由于 Unicode 能够包含几乎所有的语言的字符，而且 Unicode 的 UTF-8 编码方式又是非常具有性价比的编码方式 (空间消耗比 UCS-2 小)，因此建议 encoding 的值设置为utf-8。
 "        这么做的另一个理由是 encoding 设置为 utf-8 时，Vim 自动探测文件的编码方式会更准确 (或许这个理由才是主要的 ;)。我们在中文 Windows 里编辑的文件，为了兼顾与其他软件的兼容性，文件编码还是
-"        设置为 GB2312/GBK 比较合适，因此 fileencoding 建议设置为 chinese (chinese 是个别名，在 Unix 里表示 gb2312，在 Windows 里表示cp936，也就是 GBK 的代码页)。 
+"        设置为 GB2312/GBK 比较合适，因此 fileencoding 建议设置为 chinese (chinese 是个别名，在 Unix 里表示 gb2312，在 Windows 里表示cp936，也就是 GBK 的代码页)。
 " 对于fedora来说，vim的设置一般放在/etc/vimrc文件中，不过，建议不要修改它。可以修改~/.vimrc文件（默认不存在，可以自己新建一个），写入所希望的设置。
 set encoding=utf-8
 set fileencoding=utf-8
@@ -372,16 +372,16 @@ map! <C-A> <Esc>ggVGY
 map <F12> gg=G
 " 选中状态下 Ctrl+c 复制
 vmap <C-c> "+y
-"去空行  
-nnoremap <F2> :g/^\s*$/d<CR> 
-"比较文件  
-nnoremap <C-F2> :vert diffsplit 
-"新建标签  
-map <M-F2> :tabnew<CR>  
-"列出当前目录文件  
-map <F3> :tabnew .<CR>  
-"打开树状文件目录  
-map <C-F3> \be  
+"去空行
+nnoremap <F2> :g/^\s*$/d<CR>
+"比较文件
+nnoremap <C-F2> :vert diffsplit
+"新建标签
+map <M-F2> :tabnew<CR>
+"列出当前目录文件
+map <F3> :tabnew .<CR>
+"打开树状文件目录
+map <C-F3> \be
 "C，C++ run
 map <F5> :call CompileRunGcc()<CR>
 func! CompileRunGcc()
@@ -390,8 +390,8 @@ func! CompileRunGcc()
         exec "!gcc % -o %< -Wall -Wextra && ./%<"
     elseif &filetype == 'cpp'
         exec "!g++ % -o %< -Wall -Wextra && ./%<"
-    elseif &filetype == 'java' 
-        exec "!javac %" 
+    elseif &filetype == 'java'
+        exec "!javac %"
         exec "!java %<"
     elseif &filetype == 'python'
         :!python ./%
@@ -436,40 +436,40 @@ endfunc
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "新文件标题
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"新建.c,.h,.sh,.py,.java文件，自动插入文件头 
-autocmd BufNewFile *.cpp,*.hpp,*.[ch],*.sh,*.py,*.java exec ":call SetTitle()" 
-"定义函数SetTitle，自动插入文件头 
-func SetTitle() 
-    "如果文件类型为.sh文件 
+"新建.c,.h,.sh,.py,.java文件，自动插入文件头
+autocmd BufNewFile *.cpp,*.hpp,*.[ch],*.sh,*.py,*.java exec ":call SetTitle()"
+"定义函数SetTitle，自动插入文件头
+func SetTitle()
+    "如果文件类型为.sh文件
     if &filetype == 'sh'
         if has('mac')
-            call setline(1,"\#!/opt/homebrew/anaconda3/bin/bash") 
+            call setline(1,"\#!/opt/homebrew/anaconda3/bin/bash")
         else
-            call setline(1,"\#!/bin/bash") 
+            call setline(1,"\#!/bin/bash")
         endif
-        call append(line("."),"\#########################################################################") 
-        call append(line(".")+1, "\# File Name: ".expand("%")) 
-        call append(line(".")+2, "\# Author: LiHongjin") 
-        call append(line(".")+3, "\# mail: 872648180@qq.com") 
-        call append(line(".")+4, "\# Created Time: ".strftime("%c")) 
-        call append(line(".")+5, "\#########################################################################") 
-        call append(line(".")+6, "") 
+        call append(line("."),"\#########################################################################")
+        call append(line(".")+1, "\# File Name: ".expand("%"))
+        call append(line(".")+2, "\# Author: LiHongjin")
+        call append(line(".")+3, "\# mail: 872648180@qq.com")
+        call append(line(".")+4, "\# Created Time: ".strftime("%c"))
+        call append(line(".")+5, "\#########################################################################")
+        call append(line(".")+6, "")
     elseif &filetype == 'python'
-        call setline(1,"\#!/bin/python3") 
-        call append(line("."),"\#########################################################################") 
-        call append(line(".")+1, "\# File Name: ".expand("%")) 
-        call append(line(".")+2, "\# Author: LiHongjin") 
-        call append(line(".")+3, "\# mail: 872648180@qq.com") 
-        call append(line(".")+4, "\# Created Time: ".strftime("%c")) 
-        call append(line(".")+5, "\#########################################################################") 
-        call append(line(".")+6, "") 
+        call setline(1,"\#!/bin/python3")
+        call append(line("."),"\#########################################################################")
+        call append(line(".")+1, "\# File Name: ".expand("%"))
+        call append(line(".")+2, "\# Author: LiHongjin")
+        call append(line(".")+3, "\# mail: 872648180@qq.com")
+        call append(line(".")+4, "\# Created Time: ".strftime("%c"))
+        call append(line(".")+5, "\#########################################################################")
+        call append(line(".")+6, "")
     else
-        call setline(1, "/*************************************************************************") 
-        call append(line("."), "    > File Name: ".expand("%")) 
-        call append(line(".")+1, "    > Author: LiHongjin") 
-        call append(line(".")+2, "    > Mail: 872648180@qq.com ") 
-        call append(line(".")+3, "    > Created Time: ".strftime("%c")) 
-        call append(line(".")+4, " ************************************************************************/") 
+        call setline(1, "/*************************************************************************")
+        call append(line("."), "    > File Name: ".expand("%"))
+        call append(line(".")+1, "    > Author: LiHongjin")
+        call append(line(".")+2, "    > Mail: 872648180@qq.com")
+        call append(line(".")+3, "    > Created Time: ".strftime("%c"))
+        call append(line(".")+4, " ************************************************************************/")
         call append(line(".")+5, "")
     endif
     if &filetype == 'cpp'
@@ -512,4 +512,4 @@ func SetTitle()
     endif
     "新建文件后，自动定位到文件末尾
     autocmd BufNewFile * normal G
-endfunc 
+endfunc

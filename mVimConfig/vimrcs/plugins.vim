@@ -111,6 +111,8 @@ Plugin 'kien/ctrlp.vim'
 Plugin 'tacahiroy/ctrlp-funky'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'vim-scripts/taglist.vim'
+" Plugin 'majutsushi/tagbar'
+Plugin 'preservim/tagbar'
 "Plugin 'neoclide/coc.nvim'
 Plugin 'junegunn/fzf'
 Plugin 'easymotion/vim-easymotion'
@@ -255,6 +257,9 @@ let Tlist_Use_Right_Window = 1 "在右侧窗口中显示taglist窗口
 map <Leader>tt :Tlist<CR>
 "
 " https://zhuanlan.zhihu.com/p/85040099
+
+" ========================================================================================== tagbar config
+nmap <Leader>tb :TagbarToggle<CR>
 
 " ========================================================================================== ctags config
 let Tlist_Sort_Type = "name"    " 按照名称排序

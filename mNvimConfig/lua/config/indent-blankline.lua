@@ -1,7 +1,7 @@
 local api = vim.api
 
 local exclude_ft = { "help", "git", "markdown", "snippets", "text", "gitconfig", "alpha" }
-require("indent_blankline").setup {
+require("ibl").setup {
   -- U+2502 may also be a good choice, it will be on the middle of cursor.
   -- U+250A is also a good choice
   char = "▏",

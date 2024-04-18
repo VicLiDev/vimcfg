@@ -443,7 +443,7 @@ func SetTitle()
     "如果文件类型为.sh文件
     if &filetype == 'sh'
         if has('mac')
-            call setline(1,"\#!/opt/homebrew/anaconda3/bin/bash")
+            call setline(1,"\#!/opt/local/bin/bash")
         else
             call setline(1,"\#!/bin/bash")
         endif

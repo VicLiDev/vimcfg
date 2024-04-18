@@ -21,6 +21,13 @@ ln -s ${HOME}/Projects/vimcfg/mNvimConfig ${HOME}/.config/nvim
 需要新增语言服务时，可以在 config/mason.lua 中新增，也可以使用 MasonInstall <server> 安装
 支持的语言可以在 https://github.com/williamboman/mason-lspconfig.nvim 查看
 
+另外也需要安装如下内容：
+pip install "python-lsp-server[all]"
+pip install -U setuptools
+pip install --upgrade pynvim
+pip install --upgrade vim-vint
+
+
 安装coc需要做如下操作：
 brew install nodejs
 npm install yarn

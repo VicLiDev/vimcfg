@@ -5,3 +5,16 @@ Put vimrcs colors syntax into ~/.vim
 ln -s ${HOME}/Projects/vimcfg/mVimConfig ${HOME}/.vim
 ln -s ${HOME}/Projects/vimcfg/mVimConfig/vimrc ${HOME}/.vimrc
 ln -s ${HOME}/Projects/vimcfg/mVimConfig/gdbinit ${HOME}/.gdbinit
+
+for gdb
+==> gef
+git clone https://github.com/hugsy/gef.git ~/.gdb/gef
+==> peda
+git clone https://github.com/longld/peda.git ~/.gdb/peda
+==> dashboard
+wget https://github.com/cyrus-and/gdb-dashboard/raw/master/.gdbinit -O ~/.gdb/gdbdashboard
+pip install pygments
+==> libheap
+git clone https://github.com/cloudburst/libheap ~/.gdb/libheap
+pip3 install --user ~/.gdb/libheap/
+sudo apt-get install libc6-dbg

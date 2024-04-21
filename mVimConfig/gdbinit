@@ -1,5 +1,5 @@
 define initgef
-source ~/.gdb/gef.py
+source ~/.gdb/gef/gef.py
 end
 document initgef
 init gef
@@ -22,7 +22,7 @@ end
 
 define initlibheap
 python import sys
-python sys.path.append('/usr/local/lib/python3.10/dist-packages/libheap-0.3.egg-info')
+python sys.path.append('/home/lhj/.local/lib/python3.11/site-packages')
 python from libheap import *
 end
 document initlibheap

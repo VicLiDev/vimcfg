@@ -195,7 +195,8 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 " 在vimrc中使用这些变量可以更改箭头。以下是默认箭头符号
 let g:NERDTreeDirArrowExpandable = '▸'
 let g:NERDTreeDirArrowCollapsible = '▾'
-" 可以通过将这些变量设置为空字符串来完全删除箭头，如下所示。 这不仅会删除箭头，还会删除箭头后的单个空格，从而将整棵树向左移动两个字符位置。
+" 可以通过将这些变量设置为空字符串来完全删除箭头，如下所示。 这不仅会删除箭头，还会
+" 删除箭头后的单个空格，从而将整棵树向左移动两个字符位置。
 " let g:NERDTreeDirArrowExpandable = ''
 " 快速定位当前文件在目录树中的位置
 nmap <leader>v :NERDTreeFind<CR>
@@ -271,8 +272,12 @@ let Tlist_Enable_Fold_Column = 0    " 不要显示折叠树
 autocmd FileType java set tags+=D:\tools\java\tags
 "autocmd FileType h,cpp,cc,c set tags+=D:\tools\cpp\tags
 "let Tlist_Show_One_File=1            "不同时显示多个文件的tag，只显示当前文件的
-set tags=tags;  "设置当前路径下的 tags。这里的分号是让vim首先在当前目录里寻找tags文件，如果没有找到tags文件，或者没有找到对应的目标，就到父目录中查找，一直向上递归。
-set autochdir  "因为tags文件中记录的路径总是相对于tags文件所在的路径，所以要使用该设置项来改变vim的当前目录。
+"设置当前路径下的 tags。这里的分号是让vim首先在当前目录里寻找tags文件，如果没有找到
+"tags文件，或者没有找到对应的目标，就到父目录中查找，一直向上递归。
+set tags=tags;
+" 因为tags文件中记录的路径总是相对于tags文件所在的路径，所以要使用该设置项来改变
+" vim的当前目录。
+set autochdir
 "
 "
 " ========================================================================================== cscope config

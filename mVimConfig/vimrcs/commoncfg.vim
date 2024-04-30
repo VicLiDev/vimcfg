@@ -214,7 +214,7 @@ set mouse=a  " 可以通过鼠标点击，光标是否移动来判断有没有�
 """"""""""""""""""""""""""""
 :inoremap ( ()<ESC>i
 :inoremap ) <c-r>=ClosePair(')')<CR>
-:inoremap { {<CR>}<ESC>O
+:inoremap { {}<ESC>i
 :inoremap } <c-r>=ClosePair('}')<CR>
 :inoremap [ []<ESC>i
 :inoremap ] <c-r>=ClosePair(']')<CR>

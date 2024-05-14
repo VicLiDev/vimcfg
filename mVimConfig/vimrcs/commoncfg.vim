@@ -562,7 +562,9 @@ endfunc
 "C，C++ run
 map <F5> :call CompileRunGcc()<CR>
 func! CompileRunGcc()
-    exec "w"
+    if filereadable(bufname('%'))
+        exec "w"
+    endif
 
     if IsFileExists(".prjBuild.sh")
         exec "!bash ./.prjBuild.sh"
@@ -593,7 +595,9 @@ endfunc
 "C,C++ debug
 map <F6> :call CompileRunGdb()<CR>
 func! CompileRunGdb()
-    exec "w"
+    if filereadable(bufname('%'))
+        exec "w"
+    endif
 
     if IsFileExists(".prjDebug.sh")
         exec "!bash ./.prjDebug.sh"

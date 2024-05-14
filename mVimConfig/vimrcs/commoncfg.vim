@@ -587,10 +587,10 @@ func! CompileRunGcc()
         elseif &filetype == 'sh'
             :!./%
         endif
-        if IsInGitRepo()
-            " echomsg 与 echo 类似
-            echo "If build prj, Please check .prjBuild.sh/prjBuild.sh in git root dir"
-        endif
+        " if IsInGitRepo()
+        "     " echomsg 与 echo 类似
+        "     echo "If build prj, Please check .prjBuild.sh/prjBuild.sh in git root dir"
+        " endif
     endif
 endfunc
 "C,C++ debug
@@ -624,10 +624,10 @@ func! CompileRunGdb()
         elseif &filetype == 'python'
             exec "!python -m pdb ./%"
         endif
-        if IsInGitRepo()
-            " echomsg 与 echo 类似
-            echo "If build prj, Please check .prjDebug.sh/prjDebug.sh in git root dir"
-        endif
+        " if IsInGitRepo()
+        "     " echomsg 与 echo 类似
+        "     echo "If build prj, Please check .prjDebug.sh/prjDebug.sh in git root dir"
+        " endif
     endif
 endfunc
 

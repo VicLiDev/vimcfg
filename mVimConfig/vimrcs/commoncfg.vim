@@ -574,9 +574,6 @@ func! CompileRunGcc()
         call ExecGitRootTool(".prjBuild.sh")
     elseif CheckGitRootFile("prjBuild.sh")
         call ExecGitRootTool("prjBuild.sh")
-    elseif IsInGitRepo()
-        exec "!echo Please check .prjBuild.sh/prjBuild.sh in git root dir"
-        return 0
     else
         if &filetype == 'c'
             exec "!gcc % -o %< -Wall -Wextra && ./%<"
@@ -589,6 +586,10 @@ func! CompileRunGcc()
             :!python ./%
         elseif &filetype == 'sh'
             :!./%
+        endif
+        if IsInGitRepo()
+            " echomsg 与 echo 类似
+            echo "If build prj, Please check .prjBuild.sh/prjBuild.sh in git root dir"
         endif
     endif
 endfunc
@@ -607,9 +608,6 @@ func! CompileRunGdb()
         call ExecGitRootTool(".prjDebug.sh")
     elseif CheckGitRootFile("prjDebug.sh")
         call ExecGitRootTool("prjDebug.sh")
-    elseif IsInGitRepo()
-        exec "!echo Please check .prjDebug.sh/prjDebug.sh in git root dir"
-        return 0
     else
         if &filetype == 'c'
             if has('mac')
@@ -625,6 +623,10 @@ func! CompileRunGdb()
             endif
         elseif &filetype == 'python'
             exec "!python -m pdb ./%"
+        endif
+        if IsInGitRepo()
+            " echomsg 与 echo 类似
+            echo "If build prj, Please check .prjDebug.sh/prjDebug.sh in git root dir"
         endif
     endif
 endfunc

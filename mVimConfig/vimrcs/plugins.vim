@@ -148,10 +148,13 @@ Plugin 'iamcco/mathjax-support-for-mkdp'
 Plugin 'iamcco/markdown-preview.vim'
 
 " plantuml
-Plugin 'aklt/plantml-syntax'
+Plugin 'aklt/plantuml-syntax'
 Plugin 'weirongxu/plantuml-previewer.vim.git'
 Plugin 'scrooloose/vim-slumlord'
 Plugin 'skanehira/preview-uml.vim'
+
+" share clipboard with vim
+Plugin 'ojroques/vim-oscyank'
 
 
 " ================================ my plugin end
@@ -503,3 +506,14 @@ let g:vimtex_compiler_method = 'latexrun'
 " Most VimTeX mappings rely on localleader and this can be changed with the
 " following line. The default is usually fine and is the symbol "\".
 let maplocalleader = ","
+
+
+" ========================================================================================== vim-oscyank
+" 在正常模式下，<leader>c是一个将给定文本复制到剪贴板的运算符。
+" 在正常模式下，<leader>cc将复制当前行。
+" 在视觉模式下，<leader>c将复制当前选择。
+
+" nmap <leader>c <Plug>OSCYankOperator
+" nmap <leader>cc <leader>c_
+" vmap <leader>c <Plug>OSCYankVisual
+vmap <leader>y <Plug>OSCYankVisual

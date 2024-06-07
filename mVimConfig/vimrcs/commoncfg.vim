@@ -450,6 +450,25 @@ set softtabstop=4
 "   :%retab!
 " 加!是用于处理非空白字符之后的TAB，即所有的TAB，若不加!，则只处理行首的TAB。
 
+map <F12> :call SwitchTab()<CR>
+func! SwitchTab()
+    if ( &expandtab == 0 )
+        echo "switch tab to space, tab=4"
+        set tabstop=4       " tab键空格宽度
+        set softtabstop=4   " 在插入模式下按Tab键，实际插入的tab数和空格数
+        set shiftwidth=4    " 在自动缩进或手动缩进模式下按Tab键，实际插入的tab数和空格数
+        set expandtab       " 用空格代替tab
+        set textwidth=0
+    else
+        echo "keep tab as tab, tab=4"
+        set tabstop=4
+        set softtabstop=4
+        set shiftwidth=4
+        set noexpandtab
+        set textwidth=80
+    endif
+endfunc
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 键盘命令
@@ -498,7 +517,7 @@ nnoremap <Leader>te :tabedit
 " 映射全选+复制 ctrl+a
 map <C-A> ggVGY
 map! <C-A> <Esc>ggVGY
-map <F12> gg=G
+" map <F12> gg=G
 " 选中状态下 Ctrl+c 复制
 vmap <C-c> "+y
 "去空行

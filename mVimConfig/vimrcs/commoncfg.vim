@@ -721,7 +721,20 @@ autocmd BufNewFile *.cpp,*.hpp,*.[ch],*.sh,*.py,*.java exec ":call SetTitle()"
 func SetTitle()
     "如果文件类型为.sh文件
     if &filetype == 'sh'
-        call setline(1,"\#!".exepath("bash"))
+        " call setline(1,"\#!".exepath("bash"))
+        " #!bash 当脚本被执行时，系统会尝试在固定的几个路径（通常是 /bin、/usr/bin、
+        "        /usr/local/bin 等）中查找名为 bash 的可执行文件，如果 bash 可执行
+        "        文件不在上述路径之一，或者它的位置因系统不同而有所变化，那么脚本
+        "        可能无法在所有系统上正常执行。
+        " #!env bash 使用了 env 程序来查找 bash 解释器。env 程序会在环境变量 PATH
+        "        中列出的所有路径中搜索名为 bash 的可执行文件。这种方式的优势在于
+        "        提高了脚本的便携性，因为它不依赖于 bash 解释器的固定位置。无论
+        "        bash 安装在哪里，只要它在 PATH 环境变量中，env 就能找到它，这使得
+        "        脚本更有可能在不同的系统和环境中成功执行。
+        " 在现代的 Unix-like 系统中，推荐使用 #!/usr/bin/env bash，因为它更加灵活
+        " 和可靠。然而，对于一些老的系统，可能需要使用 #!/bin/bash，因为它们可能
+        " 不支持 env 的 shebang 行用法。
+        call setline(1,"\#!/usr/bin/env bash")
         call append(line("."),"\#########################################################################")
         call append(line(".")+1, "\# File Name: ".expand("%"))
         call append(line(".")+2, "\# Author: LiHongjin")
@@ -730,7 +743,8 @@ func SetTitle()
         call append(line(".")+5, "\#########################################################################")
         call append(line(".")+6, "")
     elseif &filetype == 'python'
-        call setline(1,"\#!".exepath("python"))
+        " call setline(1,"\#!".exepath("python"))
+        call setline(1,"\#!/usr/bin/env python")
         call append(line("."),"\#########################################################################")
         call append(line(".")+1, "\# File Name: ".expand("%"))
         call append(line(".")+2, "\# Author: LiHongjin")

@@ -1,4 +1,55 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" 常用函数
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" echo {message}: 在屏幕底部显示消息。
+" echom {message}: 类似于 echo，但会将消息添加到消息历史记录中，可以通过 :messages 命令查看。
+" execute {command}: 执行一个 Ex 命令。
+" normal {commands}: 执行普通模式下的命令。
+" map {keys} {action}: 将一个键映射到另一个动作或命令。
+" let {variable} = {value}: 声明或修改变量的值。
+" set {option}?: 获取选项的值。
+" set {option}={value}: 设置选项的值。
+" exists({expression}): 检查变量、函数、映射等是否存在。
+" has({feature}): 检查 Vim 是否支持某个特性。
+" system({command}): 执行一个外部命令并返回其输出。
+" split({string}, {separator}, {keepempty}): 将字符串分割成列表。
+" join({list}, {separator}): 将列表元素连接成一个字符串。
+" filter({list}, {lambda}): 过滤列表，返回满足条件的元素组成的列表。
+" len({collection}): 返回集合（如字符串、列表、字典）的长度。
+" tolower({string}): 将字符串转换为小写。
+" toupper({string}): 将字符串转换为大写。
+" substitute({string}, {pattern}, {replacement}, {flags}): 在字符串中执行查找和替换。
+" matchstr({string}, {pattern}, {flags}): 在字符串中查找匹配的子串。
+" getline({start}, {end}): 获取指定行范围的文本。
+" setline({line}, {text}): 设置指定行的文本。
+" append({line}, {text}): 在指定行后追加文本。
+" indent({line}): 获取或设置指定行的缩进。
+" exepath(): 获取一个外部程序的可执行文件路径，例如：:echo "bash_path: ".exepath("bash")
+"            如果找到指定的程序，则返回程序的可执行文件路径；如果没有找到，则返回一个空字符串。
+" executable(): 检查指定的程序是否可执行，即是否存在于系统的 PATH 环境变量指定的
+"               路径中，并且用户有执行权限。果程序可执行，则返回 1；如果不可执行
+"               或不存在，则返回 0。
+"
+" append({lnum}, {line}): 在指定行号之后追加一行或多行文本。
+"     {lnum}: 指定要在其后追加文本的行号。
+"     {line}: 要追加的文本行。这可以是一个字符串，也可以是一个字符串列表，如果是
+"             一个列表，则每一项都会被追加到缓冲区中。
+"     返回值: 返回追加的最后一行的行号
+"
+" setline({lnum}, {line}): 设置指定行的文本内容。如果指定行不存在，它将创建新行。
+"     {lnum}: 指定要设置文本的行号。
+"     {line}: 要设置的文本行。这可以是一个字符串，也可以是一个字符串列表，如果是
+"             一个列表，则列表中的每一项将替换从 {lnum} 开始的连续多行。
+"
+" line({expr}): 返回缓冲区中指定表达式的行号，或者如果 {expr} 是一个行号，则返回
+"     该行的文本内容。
+"     {expr}: 可以是一个行号，或者一个特殊的表达式，如 '.' 表示当前行，'$'表示
+"             最后一行。
+"     返回值: 如果 {expr} 是一个行号，则返回该行的文本内容；如果 {expr} 是一个
+"             特殊表达式，则返回相应的行号。
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 基本设置
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -670,11 +721,7 @@ autocmd BufNewFile *.cpp,*.hpp,*.[ch],*.sh,*.py,*.java exec ":call SetTitle()"
 func SetTitle()
     "如果文件类型为.sh文件
     if &filetype == 'sh'
-        if has('mac')
-            call setline(1,"\#!/opt/local/bin/bash")
-        else
-            call setline(1,"\#!/bin/bash")
-        endif
+        call setline(1,"\#!".exepath("bash"))
         call append(line("."),"\#########################################################################")
         call append(line(".")+1, "\# File Name: ".expand("%"))
         call append(line(".")+2, "\# Author: LiHongjin")
@@ -683,7 +730,7 @@ func SetTitle()
         call append(line(".")+5, "\#########################################################################")
         call append(line(".")+6, "")
     elseif &filetype == 'python'
-        call setline(1,"\#!/bin/python3")
+        call setline(1,"\#!".exepath("python"))
         call append(line("."),"\#########################################################################")
         call append(line(".")+1, "\# File Name: ".expand("%"))
         call append(line(".")+2, "\# Author: LiHongjin")

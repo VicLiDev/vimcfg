@@ -374,7 +374,7 @@ set foldmethod=marker
 " 将在屏幕左侧显示一个折叠标识列，分别用“-”和“+”而表示打开和关闭的折叠。其中，N是
 " 一个0-12的整数，用于指定显示的宽度。使用以下命令，可以查看关于折叠的帮助信息：
 " :help folding
-set foldcolumn=5
+set foldcolumn=2
 " za 打开/关闭当前的折叠
 " zc 关闭当前打开的折叠
 " zo 打开当前折叠

@@ -660,8 +660,7 @@ func! CompileRunGcc()
         elseif &filetype == 'cpp'
             exec "!g++ % -o %< -Wall -Wextra && ./%<"
         elseif &filetype == 'java'
-            exec "!javac %"
-            exec "!java %<"
+            exec "!javac % && java %<"
         elseif &filetype == 'python'
             :!python ./%
         elseif &filetype == 'sh'

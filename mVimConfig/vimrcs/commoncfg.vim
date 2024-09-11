@@ -813,3 +813,12 @@ func SetTitle()
     "新建文件后，自动定位到文件末尾
     autocmd BufNewFile * normal G
 endfunc
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"快速插入文本
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+nmap <leader>ll :call InsertLog()<CR>jVj==
+func InsertLog()
+    call append(line("."),"printf(\"======> lhj add file:%s func:%s line:%d \\n\",")
+    call append(line(".")+1,"__FILE__, __func__, __LINE__);")
+endfunc

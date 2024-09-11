@@ -199,6 +199,133 @@ autocmd FileType c,cpp map <buffer> <leader><space> :w<cr>:make<cr>
 " 地:make即可。如果你没有make程序，你可以通过配置makeprg选项来更改make调用的程序。
 "set makeprg=g++\ -Wall\ \ %
 
+func! IsFileExists(filename)
+    " if filereadable(a:filename)
+    "     exec "!echo file ".shellescape(expand('%:p:h').'/'.a:filename)." exist"
+    " else
+    "     exec "!echo file ".shellescape(expand('%:p:h').'/'.a:filename)." not exist"
+    " endif
+
+    return filereadable(a:filename)
+endfunc
+
+func! IsInGitRepo()
+    let git_status = system('git rev-parse --is-inside-work-tree 2>&1')
+    " v:shell_error 是一个特殊的变量，它用于存储最后一个 system() 函数调用的退出状态
+    return v:shell_error == 0
+endfunc
+
+func! CheckGitRootFile(filename)
+    let result = 0
+    let old_dir = getcwd()
+    " exec "!echo old_dir is ".old_dir
+    " exec "!echo filename ".a:filename
+
+    if IsInGitRepo()
+        cd `git rev-parse --show-toplevel`
+        " 在 Vim 脚本中，函数参数使用 a: 前缀来引用。这是 Vim 脚本的一个特性，
+        " 用于区分函数参数和局部变量。
+        if IsFileExists(a:filename)
+            let result = 1
+        endif
+    endif
+
+    exec "cd ".old_dir
+    " let cur_dir = getcwd()
+    " exec "!echo cur_dir is ".cur_dir
+    return result
+endfunc
+
+func! ExecGitRootTool(filename)
+    let old_dir = getcwd()
+    " exec "!echo old_dir is ".old_dir
+    " exec "!echo filename ".a:filename
+
+    if IsInGitRepo()
+        cd `git rev-parse --show-toplevel`
+        " 在 Vim 脚本中，函数参数使用 a: 前缀来引用。这是 Vim 脚本的一个特性，
+        " 用于区分函数参数和局部变量。
+        if IsFileExists(a:filename)
+            exec "!bash ".a:filename
+        endif
+    endif
+
+    exec "cd ".old_dir
+    " let cur_dir = getcwd()
+    " exec "!echo cur_dir is ".cur_dir
+endfunc
+
+"C，C++ run
+map <F5> :call CompileRunGcc()<CR>
+func! CompileRunGcc()
+    if filereadable(bufname('%'))
+        exec "w"
+    endif
+
+    if IsFileExists(".prjBuild.sh")
+        exec "!bash ./.prjBuild.sh"
+    elseif IsFileExists("prjBuild.sh")
+        exec "!bash ./prjBuild.sh"
+    elseif CheckGitRootFile(".prjBuild.sh")
+        call ExecGitRootTool(".prjBuild.sh")
+    elseif CheckGitRootFile("prjBuild.sh")
+        call ExecGitRootTool("prjBuild.sh")
+    else
+        if &filetype == 'c'
+            exec "!gcc % -o %< -Wall -Wextra && ./%<"
+        elseif &filetype == 'cpp'
+            exec "!g++ % -o %< -Wall -Wextra && ./%<"
+        elseif &filetype == 'java'
+            exec "!javac % && java %<"
+        elseif &filetype == 'python'
+            :!python ./%
+        elseif &filetype == 'sh'
+            :!./%
+        endif
+        " if IsInGitRepo()
+        "     " echomsg 与 echo 类似
+        "     echo "If build prj, Please check .prjBuild.sh/prjBuild.sh in git root dir"
+        " endif
+    endif
+endfunc
+"C,C++ debug
+map <F6> :call CompileRunGdb()<CR>
+func! CompileRunGdb()
+    if filereadable(bufname('%'))
+        exec "w"
+    endif
+
+    if IsFileExists(".prjDebug.sh")
+        exec "!bash ./.prjDebug.sh"
+    elseif IsFileExists("prjDebug.sh")
+        exec "!bash ./prjDebug.sh"
+    elseif CheckGitRootFile(".prjDebug.sh")
+        call ExecGitRootTool(".prjDebug.sh")
+    elseif CheckGitRootFile("prjDebug.sh")
+        call ExecGitRootTool("prjDebug.sh")
+    else
+        if &filetype == 'c'
+            if has('mac')
+                exec "!gcc % -g -o %< -Wall -Wextra && lldb ./%<"
+            else
+                exec "!gcc % -g -o %< -Wall -Wextra && gdb --command=debug.gdb ./%<"
+            endif
+        elseif &filetype == 'cpp'
+            if has('mac')
+                exec "!g++ % -g -o %< -Wall -Wextra && lldb ./%<"
+            else
+                exec "!g++ % -g -o %< -Wall -Wextra && gdb --command=debug.gdb ./%<"
+            endif
+        elseif &filetype == 'python'
+            exec "!python -m pdb ./%"
+        endif
+        " if IsInGitRepo()
+        "     " echomsg 与 echo 类似
+        "     echo "If build prj, Please check .prjDebug.sh/prjDebug.sh in git root dir"
+        " endif
+    endif
+endfunc
+
 """"""""""""""""""""""""""""
 " 保存会话（session）信息
 """"""""""""""""""""""""""""
@@ -520,6 +647,19 @@ func! SwitchTab()
     endif
 endfunc
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" 代码格式化
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" 使用4个空格缩进并设置K&R风格的括号
+" command! FormatCode execute 'silent! %!astyle --style=kr --indent=spaces=4'
+
+" autocmd BufWritePre *.c,*.cpp,*.h,*.hpp execute 'silent! %!astyle'
+
+" 自定义一个命令
+" command! FormatCode execute 'silent! %!astyle --style=kr --indent=spaces=4'
+command! FormatCode execute 'silent! %!astyle'
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 键盘命令
@@ -581,134 +721,6 @@ map <M-F2> :tabnew<CR>
 map <F3> :tabnew .<CR>
 "打开树状文件目录
 map <C-F3> \be
-
-
-func! IsFileExists(filename)
-    " if filereadable(a:filename)
-    "     exec "!echo file ".shellescape(expand('%:p:h').'/'.a:filename)." exist"
-    " else
-    "     exec "!echo file ".shellescape(expand('%:p:h').'/'.a:filename)." not exist"
-    " endif
-
-    return filereadable(a:filename)
-endfunc
-
-func! IsInGitRepo()
-    let git_status = system('git rev-parse --is-inside-work-tree 2>&1')
-    " v:shell_error 是一个特殊的变量，它用于存储最后一个 system() 函数调用的退出状态
-    return v:shell_error == 0
-endfunc
-
-func! CheckGitRootFile(filename)
-    let result = 0
-    let old_dir = getcwd()
-    " exec "!echo old_dir is ".old_dir
-    " exec "!echo filename ".a:filename
-
-    if IsInGitRepo()
-        cd `git rev-parse --show-toplevel`
-        " 在 Vim 脚本中，函数参数使用 a: 前缀来引用。这是 Vim 脚本的一个特性，
-        " 用于区分函数参数和局部变量。
-        if IsFileExists(a:filename)
-            let result = 1
-        endif
-    endif
-
-    exec "cd ".old_dir
-    " let cur_dir = getcwd()
-    " exec "!echo cur_dir is ".cur_dir
-    return result
-endfunc
-
-func! ExecGitRootTool(filename)
-    let old_dir = getcwd()
-    " exec "!echo old_dir is ".old_dir
-    " exec "!echo filename ".a:filename
-
-    if IsInGitRepo()
-        cd `git rev-parse --show-toplevel`
-        " 在 Vim 脚本中，函数参数使用 a: 前缀来引用。这是 Vim 脚本的一个特性，
-        " 用于区分函数参数和局部变量。
-        if IsFileExists(a:filename)
-            exec "!bash ".a:filename
-        endif
-    endif
-
-    exec "cd ".old_dir
-    " let cur_dir = getcwd()
-    " exec "!echo cur_dir is ".cur_dir
-endfunc
-
-"C，C++ run
-map <F5> :call CompileRunGcc()<CR>
-func! CompileRunGcc()
-    if filereadable(bufname('%'))
-        exec "w"
-    endif
-
-    if IsFileExists(".prjBuild.sh")
-        exec "!bash ./.prjBuild.sh"
-    elseif IsFileExists("prjBuild.sh")
-        exec "!bash ./prjBuild.sh"
-    elseif CheckGitRootFile(".prjBuild.sh")
-        call ExecGitRootTool(".prjBuild.sh")
-    elseif CheckGitRootFile("prjBuild.sh")
-        call ExecGitRootTool("prjBuild.sh")
-    else
-        if &filetype == 'c'
-            exec "!gcc % -o %< -Wall -Wextra && ./%<"
-        elseif &filetype == 'cpp'
-            exec "!g++ % -o %< -Wall -Wextra && ./%<"
-        elseif &filetype == 'java'
-            exec "!javac % && java %<"
-        elseif &filetype == 'python'
-            :!python ./%
-        elseif &filetype == 'sh'
-            :!./%
-        endif
-        " if IsInGitRepo()
-        "     " echomsg 与 echo 类似
-        "     echo "If build prj, Please check .prjBuild.sh/prjBuild.sh in git root dir"
-        " endif
-    endif
-endfunc
-"C,C++ debug
-map <F6> :call CompileRunGdb()<CR>
-func! CompileRunGdb()
-    if filereadable(bufname('%'))
-        exec "w"
-    endif
-
-    if IsFileExists(".prjDebug.sh")
-        exec "!bash ./.prjDebug.sh"
-    elseif IsFileExists("prjDebug.sh")
-        exec "!bash ./prjDebug.sh"
-    elseif CheckGitRootFile(".prjDebug.sh")
-        call ExecGitRootTool(".prjDebug.sh")
-    elseif CheckGitRootFile("prjDebug.sh")
-        call ExecGitRootTool("prjDebug.sh")
-    else
-        if &filetype == 'c'
-            if has('mac')
-                exec "!gcc % -g -o %< -Wall -Wextra && lldb ./%<"
-            else
-                exec "!gcc % -g -o %< -Wall -Wextra && gdb --command=debug.gdb ./%<"
-            endif
-        elseif &filetype == 'cpp'
-            if has('mac')
-                exec "!g++ % -g -o %< -Wall -Wextra && lldb ./%<"
-            else
-                exec "!g++ % -g -o %< -Wall -Wextra && gdb --command=debug.gdb ./%<"
-            endif
-        elseif &filetype == 'python'
-            exec "!python -m pdb ./%"
-        endif
-        " if IsInGitRepo()
-        "     " echomsg 与 echo 类似
-        "     echo "If build prj, Please check .prjDebug.sh/prjDebug.sh in git root dir"
-        " endif
-    endif
-endfunc
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

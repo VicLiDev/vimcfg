@@ -22,6 +22,14 @@ nerdtree : 文件目录树
 
 YouCompleteMe：自动补全
   https://github.com/ycm-core/YouCompleteMe
+
+  ycm-core/YouCompleteMe 和 Valloric/YouCompleteMe 其实是同一个项目的不同组织者。
+  最初，这个项目是由 Valloric 创建和维护的，但后来为了更好的管理和协作，项目转移
+  到了 ycm-core 这个组织下。
+  Valloric/YouCompleteMe 是项目的原始存储库。
+  ycm-core/YouCompleteMe 是当前的维护组织，可能会包含更多的贡献者和更活跃的开发。
+  ycm-core/YouCompleteMe 可能包含最新的功能和修复，因为它是目前维护的版本。
+
   安装方法：1.建议使用Vundle/vim-plug安装，在.vimrc中加入描述，在vim命令模式执行PlugInstall完成初步操作
           2.在~/.vim/plugged/YouCompleteMe目录下执行 python ./install.py --all
           3.安装过程中可能会因为缺少部分支持而失败，例如 golang、npm等，使用apt-get 安装即可

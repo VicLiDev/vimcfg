@@ -109,7 +109,29 @@ Plugin 'preservim/nerdtree'
 Plugin 'mhinz/vim-startify'
 Plugin 'kien/ctrlp.vim'
 Plugin 'tacahiroy/ctrlp-funky'
-Plugin 'Valloric/YouCompleteMe'
+" ycm-core/YouCompleteMe 和 Valloric/YouCompleteMe 其实是同一个项目的不同组织者。
+" 最初，这个项目是由 Valloric 创建和维护的，但后来为了更好的管理和协作，项目转移
+" 到了 ycm-core 这个组织下。
+" Valloric/YouCompleteMe 是项目的原始存储库。
+" ycm-core/YouCompleteMe 是当前的维护组织，可能会包含更多的贡献者和更活跃的开发。
+" ycm-core/YouCompleteMe 可能包含最新的功能和修复，因为它是目前维护的版本。
+"
+" 遇到问题：
+" 支持vim9.1，可以手动将其退到必须vim9.1之前，直接在log里搜索9.1尝试
+" 安装：python ./install.py --all
+"
+" 遇到go环境的问题，重新安装go：
+" 从https://go.dev/dl/ 下载想要的版本，例如1.23.2
+" 解压到 go_1.23.2
+" mv go_1.23.2 /usr/local/go/
+" sudo ln -s /usr/local/go/go_1.23.2/bin/go /usr/bin/go
+" .bashrc中添加
+" export GOROOT=/usr/local/go
+" export GOPATH=$HOME/go
+" export PATH=$PATH:$GOROOT/bin
+"
+Plugin 'ycm-core/YouCompleteMe'
+
 Plugin 'vim-scripts/taglist.vim'
 " Plugin 'majutsushi/tagbar'
 Plugin 'preservim/tagbar'

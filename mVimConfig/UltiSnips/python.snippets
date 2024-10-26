@@ -3,11 +3,23 @@ def ${1:main}(${2:args}):
     ${3:passdddd}
 endsnippet
 
-snippet loadData "Load data to proc" b
+
+snippet loadData "load data to proc" b
 fname="log.txt"
 
+"""逐行读取文件到列表中，不缓存整个文件"""
 file_data_l = []
 with open(fname) as file:
     for line in file:
         file_data_l.append(line.strip().split(' '))
+endsnippet
+
+
+snippet dumpData "dump data to file" b
+fname="log.txt"
+
+"""将数据写入文件"""
+with open(fname, 'w') as file:
+    for line in data:
+        file.write(line + '\n')
 endsnippet

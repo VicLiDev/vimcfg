@@ -4,22 +4,21 @@ def ${1:main}(${2:args}):
 endsnippet
 
 
-snippet loadData "load data to proc" b
-fname="log.txt"
-
-"""逐行读取文件到列表中，不缓存整个文件"""
-file_data_l = []
-with open(fname) as file:
-    for line in file:
-        file_data_l.append(line.strip().split(' '))
+snippet read_file_to_list "read data to list" b
+def read_file_to_list(filename):
+    """逐行读取文件到列表中，不缓存整个文件"""
+    lines = []
+    with open(filename, 'r') as file:
+        for line in file:
+            lines.append(line.strip().split(' '))
+    return lines
 endsnippet
 
 
-snippet dumpData "dump data to file" b
-fname="log.txt"
-
-"""将数据写入文件"""
-with open(fname, 'w') as file:
-    for line in data:
-        file.write(line + '\n')
+snippet write_to_file "write data to file" b
+def write_to_file(filename, data):
+    """将数据写入文件"""
+    with open(filename, 'w') as file:
+        for line in data:
+            file.write(line + '\n')
 endsnippet

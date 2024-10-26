@@ -2,3 +2,12 @@ snippet main "Python function" b
 def ${1:main}(${2:args}):
     ${3:passdddd}
 endsnippet
+
+snippet loadData "Load data to proc" b
+fname="log.txt"
+
+file_data_l = []
+with open(fname) as file:
+    for line in file:
+        file_data_l.append(line.strip().split(' '))
+endsnippet

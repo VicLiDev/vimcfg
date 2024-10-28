@@ -35,6 +35,7 @@ def run_command(command):
         return e.stdout.strip(), e.stderr.strip(), e.returncode
 
 '''
+command = "echo \"hello\""
 stdout, stderr, status = run_command(command)
 
 # 输出命令的结果和状态

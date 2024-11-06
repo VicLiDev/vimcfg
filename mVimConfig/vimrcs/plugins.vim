@@ -105,10 +105,33 @@ Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
 " Plugin 'ascenator/L9', {'name': 'newL9'}
 
 " ================================ my plugin begin
-Plugin 'preservim/nerdtree'
+
+" Startup interface and management
 Plugin 'mhinz/vim-startify'
+
+
+" File browsing and management
+Plugin 'preservim/nerdtree'
+Plugin 'junegunn/fzf'
 Plugin 'kien/ctrlp.vim'
 Plugin 'tacahiroy/ctrlp-funky'
+Plugin 'vim-scripts/taglist.vim'
+" Plugin 'majutsushi/tagbar'
+Plugin 'preservim/tagbar'
+
+
+" Editor Enhancements
+" 缩紧
+Plugin 'Yggdroot/indentLine'
+" 快速移动
+Plugin 'easymotion/vim-easymotion'
+" 在 Vim 中打开网页链接
+Plugin 'tyru/open-browser.vim.git'
+" comment
+Plugin 'tpope/vim-commentary'
+
+
+" Code completion and smart editing
 " ycm-core/YouCompleteMe 和 Valloric/YouCompleteMe 其实是同一个项目的不同组织者。
 " 最初，这个项目是由 Valloric 创建和维护的，但后来为了更好的管理和协作，项目转移
 " 到了 ycm-core 这个组织下。
@@ -131,53 +154,64 @@ Plugin 'tacahiroy/ctrlp-funky'
 " export PATH=$PATH:$GOROOT/bin
 "
 Plugin 'ycm-core/YouCompleteMe'
+" Plugin 'neoclide/coc.nvim'
 
-Plugin 'vim-scripts/taglist.vim'
-" Plugin 'majutsushi/tagbar'
-Plugin 'preservim/tagbar'
-"Plugin 'neoclide/coc.nvim'
-Plugin 'junegunn/fzf'
-Plugin 'easymotion/vim-easymotion'
-Plugin 'tyru/open-browser.vim.git'
-
-Plugin 'SirVer/ultisnips'
-Plugin 'honza/vim-snippets'
-
-Plugin 'lervag/vimtex'
-
-
+" Language Server and Code Analysis
+" 语言服务器协议（LSP）客户端插件，LSP（Language Server Protocol）是一个标准化
+" 协议，用于在编辑器和编程语言服务器之间交换信息，提供代码补全、跳转、诊断信息等
+" 功能。
+" 通过 LanguageClient-neovim 插件，你可以在 Neovim 中启用类似于现代 IDE 的功能，
+" 如语法检查、自动补全、代码导航、重构等，而无需依赖特定的编辑器或 IDE。
 if has('win32') || has('linux')
     Plugin 'https://github.com/autozimu/LanguageClient-neovim'
 elseif has('mac')
 endif
 
-" syntax highlight
+
+" Code snippet management and expansion
+" 代码片段（snippets）管理和插入
+" UltiSnips 是一个强大的代码片段引擎，提供完整的片段管理、动态扩展、跳转等
+" 功能，支持用户定义和创建复杂的代码片段。
+" vim-snippets 主要是一个代码片段集合库，提供现成的片段资源，通常与其他插件
+" （如 UltiSnips）一起使用，用于增强代码片段的扩展和动态功能。
+Plugin 'SirVer/ultisnips'
+Plugin 'honza/vim-snippets'
+
+
+" LaTeX and document processing
+Plugin 'lervag/vimtex'
+
+
+" Syntax highlighting and language support
 if has('mac')
     Plugin 'sheerun/vim-polyglot'
 endif
 
-" color
+
+" Theme and interface
 " Plugin 'morhetz/gruvbox'
-Plugin 'Yggdroot/indentLine'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 
-" markdown
+
+" Markdown editing and preview
 Plugin 'godlygeek/tabular'
 Plugin 'preservim/vim-markdown'
 Plugin 'mzlogin/vim-markdown-toc'
 Plugin 'iamcco/mathjax-support-for-mkdp'
 Plugin 'iamcco/markdown-preview.vim'
 
-" plantuml
+
+" PlantUML support
 Plugin 'aklt/plantuml-syntax'
 Plugin 'weirongxu/plantuml-previewer.vim.git'
 Plugin 'scrooloose/vim-slumlord'
 Plugin 'skanehira/preview-uml.vim'
 
+
+" Clipboard and Sharing
 " share clipboard with vim
 Plugin 'ojroques/vim-oscyank'
-
 
 " ================================ my plugin end
 
@@ -195,6 +229,7 @@ filetype plugin indent on    " required
 "
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
+
 
 " ========================================================================================== startify config
 " don't neet config, run vi can see interface

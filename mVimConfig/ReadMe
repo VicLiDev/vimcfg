@@ -5,6 +5,7 @@ Put vimrcs colors syntax into ~/.vim
 ln -s ${HOME}/Projects/vimcfg/mVimConfig ${HOME}/.vim
 ln -s ${HOME}/Projects/vimcfg/mVimConfig/vimrc ${HOME}/.vimrc
 ln -s ${HOME}/Projects/vimcfg/mVimConfig/gdbinit ${HOME}/.gdbinit
+ln -s ${HOME}/Projects/vimcfg/mVimConfig/gdb_tools ${HOME}/.gdb
 
 for gdb
 ==> gef

@@ -28,3 +28,22 @@ end
 document initlibheap
 init libheap
 end
+
+define initMTools
+source ~/.gdb//m_tools.py
+end
+document initMTools
+init my tools:
+    print_locals
+    dump_registers
+end
+
+define initMppTools
+source ~/.gdb/rk_mpp_tools.py
+end
+document initMppTools
+init rk mpp tools:
+  filter_mpp_threads
+end
+
+initMTools

@@ -4,7 +4,7 @@ def read_file_to_list(filename):
     lines = []
     with open(filename, 'r') as file:
         for line in file:
-            lines.append(line.strip().split(' '))
+            lines.append(line.strip().split())
     return lines
 endsnippet
 

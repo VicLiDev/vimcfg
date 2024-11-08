@@ -61,13 +61,13 @@ class FilterThreadsByLibrary(gdb.Command):
     """Filter threads by the library used in the current stack frame across all threads."""
 
     def __init__(self):
-        super(FilterThreadsByLibrary, self).__init__("filter_td_by_lib", gdb.COMMAND_USER)
+        super(FilterThreadsByLibrary, self).__init__("filter_thd_by_lib", gdb.COMMAND_USER)
 
     def invoke(self, arg, from_tty):
         # 获取目标库名，用户传入的参数
         library_name = arg.strip()
         if not library_name:
-            print("Usage: filter_td_by_lib <library_name>")
+            print("Usage: filter_thd_by_lib <library_name>")
             return
 
         # 获取当前进程的所有共享库信息，包括库的加载地址范围
@@ -77,7 +77,7 @@ class FilterThreadsByLibrary(gdb.Command):
         library_ranges = {}
         for line in shared_libs.splitlines():
             # 括号括起来的算是一个组，因此这里可以捕获四个组
-            match = re.match(r"\s*0x([0-9a-fA-F]+)\s+0x([0-9a-fA-F]+).*target:(/.*?/(.*\.so.*))", line)
+            match = re.match(r"\s*0x([0-9a-fA-F]+)\s+0x([0-9a-fA-F]+).*target:(/.*/(.*\.so.*))", line)
             if match:
                 start_addr = match.group(1)  # 捕获第1组：起始地址
                 end_addr = match.group(2)    # 捕获第2组：结束地址

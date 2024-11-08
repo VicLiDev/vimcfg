@@ -34,6 +34,9 @@ class PrintLocals(gdb.Command):
                         print(f"Error reading {symbol.name}: {e}")
             block = block.superblock  # 切换到上一层符号块
 
+# Instantiate the command
+PrintLocals()
+
 
 class DumpRegistersCommand(gdb.Command):
     """A custom GDB command to dump register values."""
@@ -49,6 +52,9 @@ class DumpRegistersCommand(gdb.Command):
             reg_value = frame.read_register(reg)
             print(f"{reg.name}: {reg_value}")
         print("End of register dump")
+
+# Register the command
+DumpRegistersCommand()
 
 
 class FilterThreadsByLibrary(gdb.Command):
@@ -114,10 +120,5 @@ class FilterThreadsByLibrary(gdb.Command):
                 except gdb.error:
                     break
 
-
-# Instantiate the command
-PrintLocals()
-# Register the command
-DumpRegistersCommand()
 # 注册命令
 FilterThreadsByLibrary()

@@ -134,20 +134,18 @@ class BreakPointWithDisplay(gdb.Command):
     def invoke(self, arg, from_tty):
         # 解析命令行输入
         args = arg.split()
-        if len(args) != 3:
-            print("Usage: display_on_function_call <file_name> <line_number> <variable_name>")
+        if len(args) != 2:
+            print("Usage: display_on_function_call <file_name>:<line_number> <variable_name>")
             return
 
-        file_name = args[0]  # 文件名
-        line_number = int(args[1])  # 行号
-        display_expr = args[2]  # 要显示的变量
+        breakpoint_loc = args[0] # 断点
+        display_expr = args[1]  # 要显示的变量
 
         # 设置断点
         try:
             # 在指定的文件和行号上设置断点
-            breakpoint_location = f"{file_name}:{line_number}"
-            bp = gdb.Breakpoint(breakpoint_location)
-            print(f"Set breakpoint at {file_name}:{line_number}, and display {display_expr}")
+            bp = gdb.Breakpoint(breakpoint_loc)
+            print(f"Set breakpoint at {breakpoint_loc}, and display {display_expr}")
 
             # 定义一个回调函数来处理断点触发
             def on_stop(event):

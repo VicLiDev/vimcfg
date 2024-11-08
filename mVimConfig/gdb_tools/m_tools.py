@@ -122,3 +122,46 @@ class FilterThreadsByLibrary(gdb.Command):
 
 # 注册命令
 FilterThreadsByLibrary()
+
+
+class BreakPointWithDisplay(gdb.Command):
+    """一个在函数调用时自动显示变量值的 GDB 命令，确保 display 只触发一次"""
+
+    def __init__(self):
+        super().__init__("b_with_dp", gdb.COMMAND_USER)
+        self.display_triggered = False  # 标志，确保 display 只执行一次
+
+    def invoke(self, arg, from_tty):
+        # 解析命令行输入
+        args = arg.split()
+        if len(args) != 3:
+            print("Usage: display_on_function_call <file_name> <line_number> <variable_name>")
+            return
+
+        file_name = args[0]  # 文件名
+        line_number = int(args[1])  # 行号
+        display_expr = args[2]  # 要显示的变量
+
+        # 设置断点
+        try:
+            # 在指定的文件和行号上设置断点
+            breakpoint_location = f"{file_name}:{line_number}"
+            bp = gdb.Breakpoint(breakpoint_location)
+            print(f"Set breakpoint at {file_name}:{line_number}, and display {display_expr}")
+
+            # 定义一个回调函数来处理断点触发
+            def on_stop(event):
+                if isinstance(event, gdb.BreakpointEvent) and event.breakpoint == bp:
+                    if not self.display_triggered:
+                        # 断点触发时插入 display 命令
+                        gdb.execute(f"display {display_expr}")
+                        self.display_triggered = True  # 标记 display 已经触发
+                    return False  # 返回 False 继续执行程序
+
+            # 绑定 stop 事件
+            gdb.events.stop.connect(on_stop)
+        except gdb.error as e:
+            print(f"Error: {str(e)}")
+
+# 注册命令
+BreakPointWithDisplay()

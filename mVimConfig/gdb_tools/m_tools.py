@@ -125,35 +125,39 @@ FilterThreadsByLibrary()
 
 
 class BreakPointWithDisplay(gdb.Command):
-    """一个在函数调用时自动显示变量值的 GDB 命令，确保 display 只触发一次"""
+    """一个在函数调用时自动显示多个变量值的 GDB 命令，确保 display 只触发一次"""
 
     def __init__(self):
         super().__init__("b_with_dp", gdb.COMMAND_USER)
-        self.display_triggered = False  # 标志，确保 display 只执行一次
+        self.breakpoint_states = {}  # 存储每个断点的状态
 
     def invoke(self, arg, from_tty):
         # 解析命令行输入
-        args = arg.split()
+        args = arg.split(maxsplit=1)
         if len(args) != 2:
-            print("Usage: display_on_function_call <file_name>:<line_number> <variable_name>")
+            print("Usage: b_with_dp <file_name>:<line_number> <variable1>,<variable2>,...")
             return
 
-        breakpoint_loc = args[0] # 断点
-        display_expr = args[1]  # 要显示的变量
+        breakpoint_loc = args[0]  # 断点位置
+        display_exprs = args[1]  # 多个要显示的变量
 
         # 设置断点
         try:
             # 在指定的文件和行号上设置断点
             bp = gdb.Breakpoint(breakpoint_loc)
-            print(f"Set breakpoint at {breakpoint_loc}, and display {display_expr}")
+            print(f"Set breakpoint at {breakpoint_loc}, and will display {display_exprs} once.")
+
+            # 在字典中初始化该断点的状态
+            self.breakpoint_states[bp] = False  # 初始化 display_triggered 为 False
 
             # 定义一个回调函数来处理断点触发
             def on_stop(event):
                 if isinstance(event, gdb.BreakpointEvent) and event.breakpoint == bp:
-                    if not self.display_triggered:
-                        # 断点触发时插入 display 命令
-                        gdb.execute(f"display {display_expr}")
-                        self.display_triggered = True  # 标记 display 已经触发
+                    if not self.breakpoint_states[bp]:  # 检查该断点是否已触发 display
+                        # 断点触发时将多个表达式拆分并单独显示
+                        for expr in display_exprs.split(','):
+                            gdb.execute(f"display {expr.strip()}")  # 为每个表达式单独执行 display
+                        self.breakpoint_states[bp] = True  # 标记 display 已经触发
                     return False  # 返回 False 继续执行程序
 
             # 绑定 stop 事件

@@ -1,2 +1,6 @@
 mVimConfig/bundle
 mVimConfig/pack
+mVimConfig/gdb_tools/gdbdashboard
+mVimConfig/gdb_tools/gef/
+mVimConfig/gdb_tools/libheap/
+mVimConfig/gdb_tools/peda/

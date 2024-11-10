@@ -128,42 +128,100 @@ class BreakPointWithDisplay(gdb.Command):
     """一个在函数调用时自动显示多个变量值的 GDB 命令，确保 display 只触发一次"""
 
     def __init__(self):
-        super().__init__("b_with_dp", gdb.COMMAND_USER)
-        self.breakpoint_states = {}  # 存储每个断点的状态
+        super().__init__("bdp", gdb.COMMAND_USER)
+        self.bp_states = {}  # 存储每个断点的状态（是否已触发display）
+        self.bp_locs = {}  # 存储已经设置过的断点位置
 
     def invoke(self, arg, from_tty):
         # 解析命令行输入
         args = arg.split(maxsplit=1)
         if len(args) != 2:
-            print("Usage: b_with_dp <file_name>:<line_number> <variable1>,<variable2>,...")
+            print("Usage: bdp <file_name>:<line_number> <variable1>,<variable2>,...")
             return
 
-        breakpoint_loc = args[0]  # 断点位置
-        display_exprs = args[1]  # 多个要显示的变量
+        bp_user_loc = args[0]  # 断点位置
+        dp_list = args[1]  # 多个要显示的变量
 
-        # 设置断点
-        try:
-            # 在指定的文件和行号上设置断点
-            bp = gdb.Breakpoint(breakpoint_loc)
-            print(f"Set breakpoint at {breakpoint_loc}, and will display {display_exprs} once.")
+        # 检查该断点位置是否已经设置过
+        # if bp_user_loc not in self.bp_locs:
+        if bp_user_loc not in [v[2] for v in self.bp_locs.values()]:
+            # 设置断点
+            try:
+                # 在指定的文件和行号上设置断点
+                bp = gdb.Breakpoint(bp_user_loc)
+                print(f"Set breakpoint at {bp.location}, Will display {dp_list}.")
+                # 在字典中初始化该断点的状态
+                # 初始化 display_triggered 为 False
+                self.bp_states[bp.location] = False
+                # 记录该断点的位置和 display 表达式
+                self.bp_locs[bp.location] = (bp, dp_list, bp_user_loc)
 
-            # 在字典中初始化该断点的状态
-            self.breakpoint_states[bp] = False  # 初始化 display_triggered 为 False
+                # 将 on_stop 事件绑定到 GDB 的 stop 事件
+                # on_stop 会在 GDB 调试会话中每次程序停止时被调用。程序停止可以是
+                # 由多种事件引起的，比如触发断点、程序结束、异常等。
+                gdb.events.stop.connect(self.on_stop)
 
-            # 定义一个回调函数来处理断点触发
-            def on_stop(event):
-                if isinstance(event, gdb.BreakpointEvent) and event.breakpoint == bp:
-                    if not self.breakpoint_states[bp]:  # 检查该断点是否已触发 display
-                        # 断点触发时将多个表达式拆分并单独显示
-                        for expr in display_exprs.split(','):
-                            gdb.execute(f"display {expr.strip()}")  # 为每个表达式单独执行 display
-                        self.breakpoint_states[bp] = True  # 标记 display 已经触发
-                    return False  # 返回 False 继续执行程序
+            except gdb.error as e:
+                print(f"Error: {str(e)}")
+        else:
+            bp = gdb.Breakpoint
+            new_dp_list = ""
+            exist_user_loc = ""
+            for key in self.bp_locs.keys():
+                if bp_user_loc == self.bp_locs[key][2]:
+                    bp, exist_dp_list, exist_user_loc = self.bp_locs[key]
+                    # 合并新的 display 表达式
+                    if self.bp_states[bp.location] == False:
+                        # 将两个由逗号分隔的字符串合并，并去除其中的重复项，结果是一个包含所有唯一项的集合
+                        new_dp_list = set(exist_dp_list.split(',') + dp_list.split(','))
+                        # 将去重并排序后的集合转换回一个由逗号分隔的字符串
+                        new_dp_list = ",".join(sorted(new_dp_list))  # 保持顺序
+                        print(f"Breakpoint {bp_user_loc} exists. New display list: {new_dp_list}")
+                    else:
+                        new_dp_list = set(dp_list.split(','))
+                        new_dp_list = ",".join(sorted(new_dp_list))  # 保持顺序
+                        print(f"Breakpoint {bp_user_loc} exists. New display list: {new_dp_list}")
+                    self.bp_states[bp.location] = False
+                    break
 
-            # 绑定 stop 事件
-            gdb.events.stop.connect(on_stop)
-        except gdb.error as e:
-            print(f"Error: {str(e)}")
+            # 更新断点位置和 display 表达式
+            self.bp_locs[bp.location] = (bp, new_dp_list, exist_user_loc)
+
+
+    def on_stop(self, event):
+        """回调函数：处理 GDB 停止事件"""
+        # # 获取当前停止的原因
+        # if isinstance(event, gdb.BreakpointEvent):
+        #     print("Stopped at a breakpoint.")
+        # elif isinstance(event, gdb.SignalEvent):
+        #     print(f"Stopped due to signal: {event.stop_signal}")
+        # elif isinstance(event, gdb.StopEvent):
+        #     # 如果是监视点事件
+        #     if hasattr(event, 'watchpoint'):
+        #         print(f"Stopped at a watchpoint: {event.watchpoint}")
+        #     else:
+        #         print("Stopped for an unknown reason.")
+
+        # 检查是否是断点事件，并且断点是否为我们设置的
+        if isinstance(event, gdb.BreakpointEvent):
+            bp = event.breakpoint
+            bp_user_loc = str(bp.location)  # 直接将 location 转换为字符串
+
+            # 确认断点是否已经触发过 display
+            if bp_user_loc in self.bp_locs:
+                dp_list = self.bp_locs[bp_user_loc][1]
+                if not self.bp_states.get(bp.location, False):  # 如果没有触发 display
+                    # 断点触发时将多个表达式拆分并单独显示
+                    for dp_list in dp_list.split(','):
+                        dp_list = dp_list.strip()  # 去掉空格
+                        try:
+                            gdb.execute(f"display {dp_list}")
+                        except gdb.error as e:
+                            print(f"Error: Couldn't evaluate list '{dp_list}': {str(e)}")
+                    # 更新状态，表示 display 已经触发
+                    self.bp_states[bp.location] = True
+
+        return False  # 返回 False 继续执行程序
 
 # 注册命令
 BreakPointWithDisplay()

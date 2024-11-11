@@ -44,3 +44,71 @@ print("错误输出:\n", stderr)
 print("执行状态:", "成功" if status == 0 else f"失败 (状态码: {status})")
 '''
 endsnippet
+
+
+snippet plotVal "plot val" b
+import matplotlib.pyplot as plt
+import numpy as np
+
+global_color  = ['b', 'g', 'r', 'c', 'm', 'y', 'k']
+global_marker = ['.', 'o', 'v', '^', '<', '1', '2', '3', '4', '8', ',']
+global_line_s = ['-', '--', '-.', ':']
+tab_loc_ha = ['center', 'right', 'left']
+tab_loc_va = ['center', 'top', 'bottom', 'baseline', 'center_baseline']
+
+def plotVal(fileNames, dataGrp, refLineEn = [False, False], refLine = [0, 0], \
+            showName = False, showTag = False, showLine = False, calcAvg = False):
+    if len(fileNames) != len(dataGrp):
+        print("error: file cnt and data cnt is not equal")
+        print("file cnt is %d data cnt is %d" % (len(fileNames), (len(dataGrp))))
+        return
+
+    fig = plt.figure()  # an empty figure with no Axes
+    ax = fig.add_subplot()
+    loopCnt = len(fileNames)
+
+    for i in range(loopCnt):
+        line_style = ['']
+        if showLine == True:
+            line_style = global_line_s
+        x = list(range(len(dataGrp[i])))
+        ax.plot(x, dataGrp[i], marker=global_marker[i%len(global_marker)], \
+                color=global_color[i%len(global_color)], \
+                linestyle=line_style[i%len(line_style)], \
+                alpha=1/2, \
+                label=fileNames[i])  # Plot some data on the axes.
+        if showName == True:
+            fname_plt_idx = int(len(x) / 2)
+            fname_plt_point_x = x[fname_plt_idx]
+            fname_plt_point_y = dataGrp[i][fname_plt_idx]
+            plt.text(fname_plt_point_x, fname_plt_point_y, fileNames[i], \
+                     fontsize=12, color=global_color[i%len(global_color)], \
+                     ha="right", va="bottom")
+
+        if showTag == True:
+            for a, b in zip(x, dataGrp[i]):
+                tab_loc_x = int(i / len(tab_loc_va))
+                tab_loc_y = int(i % len(tab_loc_va))
+                ax.text(a, b, (a, b), fontsize=10, ha=tab_loc_ha[tab_loc_x], \
+                        va=tab_loc_va[tab_loc_y], color=global_color[i%len(global_color)])
+        if calcAvg == True:
+            avg = np.mean(dataGrp[i])
+            plt.axhline(avg, color=global_color[i%len(global_color)], linestyle="dashdot", label="avg: "+str(avg))
+
+        ax.legend()  # Add a legend.
+
+    if refLineEn[0] == True:
+        plt.axhline(refLine[0], linestyle='--', c='r')
+    if refLineEn[1] == True:
+        plt.axvline(refLine[1], linestyle='--', c='orangered')
+
+    plt.show()
+
+'''
+fileNames = ["file1.txt", "file2.txt"]
+mDataGrp = [[1, 2, 3, 4],
+            [4, 3, 2, 6]]
+plotVal(fileNames, mDataGrp, refLineEn = [True, True], refLine = [2, 3], \
+        showName = True, showTag = True, showLine = True, calcAvg = True)
+'''
+endsnippet

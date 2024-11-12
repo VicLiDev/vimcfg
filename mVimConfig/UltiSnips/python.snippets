@@ -107,7 +107,7 @@ def plotVal(fileNames, dataGrp, refLineEn = [False, False], refLine = [0, 0], \
 '''
 fileNames = ["file1.txt", "file2.txt"]
 mDataGrp = [[1, 2, 3, 4],
-            [4, 3, 2, 6]]
+            [4, 3, np.nan, 2, 6]]
 plotVal(fileNames, mDataGrp, refLineEn = [True, True], refLine = [2, 3], \
         showName = True, showTag = True, showLine = True, calcAvg = True)
 '''

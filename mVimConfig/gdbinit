@@ -34,8 +34,10 @@ source ~/.gdb//m_tools.py
 end
 document initMTools
 init my tools:
-    print_locals
-    dump_registers
+  prn_locs
+  dump_regs
+  filter_thd_by_lib
+  bdp
 end
 
 define initMppTools

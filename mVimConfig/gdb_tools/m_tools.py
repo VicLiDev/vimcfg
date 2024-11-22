@@ -125,7 +125,18 @@ FilterThreadsByLibrary()
 
 
 class BreakPointWithDisplay(gdb.Command):
-    """一个在函数调用时自动显示多个变量值的 GDB 命令，确保 display 只触发一次"""
+    """
+    Func:
+        Display multiple variable values at breakpoints,
+        and display is only triggered once
+    Usage:
+      <<method1>>
+        bdp <file_name>:<line_number> <var1>,/x <var2>,<var3>...
+      <<method2>>
+        bdp <file_name>:<line_number> <var1>
+        bdp <file_name>:<line_number> /x <var2>
+        bdp <file_name>:<line_number> <var3>
+    """
 
     def __init__(self):
         super().__init__("bdp", gdb.COMMAND_USER)
@@ -134,9 +145,17 @@ class BreakPointWithDisplay(gdb.Command):
 
     def invoke(self, arg, from_tty):
         # 解析命令行输入
+        # 字符串 arg 按照空白字符（默认空格）分割为最多两个部分，多个空格的话按照
+        # 第一个空格分割
         args = arg.split(maxsplit=1)
         if len(args) != 2:
-            print("Usage: bdp <file_name>:<line_number> <variable1>,<variable2>,...")
+            print("Usage:")
+            print("  <<method1>>")
+            print("    bdp <file_name>:<line_number> <var1>,/x <var2>,<var3>...")
+            print("  <<method2>>")
+            print("    bdp <file_name>:<line_number> <var1>")
+            print("    bdp <file_name>:<line_number> /x <var2>")
+            print("    bdp <file_name>:<line_number> <var3>")
             return
 
         bp_user_loc = args[0]  # 断点位置

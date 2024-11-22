@@ -4,13 +4,13 @@ printf("======> lhj add file:%s func:%s line:%d \n",
 endsnippet
 
 snippet lhjMppLog "mpplog ..."
-mpp_log("======> lhj add file:%s func:%s line:%d \n",
-        __FILE__, __func__, __LINE__);
+mpp_log("======> lhj add func:%s line:%d \n",
+        __func__, __LINE__);
 endsnippet
 
 snippet lhjMppLogPED "mpplog poc errinfo discard ..."
-mpp_log("======> lhj add file:%s func:%s line:%d poc:%d errinfo:%d discard:%d\n",
-        __FILE__, __func__, __LINE__,
+mpp_log("======> lhj add func:%s line:%d poc:%d errinfo:%d discard:%d\n",
+        __func__, __LINE__,
         mpp_frame_get_poc(*frame),
         mpp_frame_get_errinfo(*frame),
         mpp_frame_get_discard(*frame)

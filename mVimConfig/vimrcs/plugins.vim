@@ -196,7 +196,7 @@ Plugin 'vim-airline/vim-airline-themes'
 
 " Markdown editing and preview
 Plugin 'godlygeek/tabular'
-Plugin 'preservim/vim-markdown'
+" Plugin 'preservim/vim-markdown'
 Plugin 'mzlogin/vim-markdown-toc'
 Plugin 'iamcco/mathjax-support-for-mkdp'
 Plugin 'iamcco/markdown-preview.vim'

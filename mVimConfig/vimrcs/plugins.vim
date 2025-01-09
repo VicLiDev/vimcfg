@@ -527,9 +527,9 @@ let g:indentLine_bgcolor_gui = '#FF5F00'
 " - https://github.com/Valloric/YouCompleteMe
 " - https://github.com/nvim-lua/completion-nvim
 " let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsExpandTrigger="<c-s-e>"
-let g:UltiSnipsJumpForwardTrigger="<c-s-u>"
-let g:UltiSnipsJumpBackwardTrigger="<c-s-i>"
+let g:UltiSnipsExpandTrigger="<c-e>"
+let g:UltiSnipsJumpForwardTrigger="<c-u>"
+let g:UltiSnipsJumpBackwardTrigger="<c-i>"
 
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"

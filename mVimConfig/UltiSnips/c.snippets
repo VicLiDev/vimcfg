@@ -101,6 +101,11 @@ printf("======> lhj add file:%s func:%s line:%d \n",
         __FILE__, __func__, __LINE__);
 endsnippet
 
+snippet lhjLogk "printf ..."
+printk(KERN_ERR "======> lhj add func:%s line:%d \n",
+        __func__, __LINE__);
+endsnippet
+
 snippet lhjMppLog "mpplog ..."
 mpp_log("======> lhj add func:%s line:%d \n",
         __func__, __LINE__);

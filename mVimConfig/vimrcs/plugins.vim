@@ -153,7 +153,9 @@ Plugin 'tpope/vim-commentary'
 " export GOPATH=$HOME/go
 " export PATH=$PATH:$GOROOT/bin
 "
-Plugin 'ycm-core/YouCompleteMe'
+if has('win32') || has('linux')
+    Plugin 'ycm-core/YouCompleteMe'
+endif
 " Plugin 'neoclide/coc.nvim'
 
 " Language Server and Code Analysis

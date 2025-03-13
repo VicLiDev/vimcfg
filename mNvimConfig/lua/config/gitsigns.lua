@@ -2,11 +2,29 @@ local gs = require("gitsigns")
 
 gs.setup {
   signs = {
-    add = { hl = "GitSignsAdd", text = "+", numhl = "GitSignsAddNr", linehl = "GitSignsAddLn" },
-    change = { hl = "GitSignsChange", text = "~", numhl = "GitSignsChangeNr", linehl = "GitSignsChangeLn" },
-    delete = { hl = "GitSignsDelete", text = "_", numhl = "GitSignsDeleteNr", linehl = "GitSignsDeleteLn" },
-    topdelete = { hl = "GitSignsDelete", text = "‾", numhl = "GitSignsDeleteNr", linehl = "GitSignsDeleteLn" },
-    changedelete = { hl = "GitSignsChange", text = "│", numhl = "GitSignsChangeNr", linehl = "GitSignsChangeLn" },
+    -- add = { hl = "GitSignsAdd", text = "+", numhl = "GitSignsAddNr", linehl = "GitSignsAddLn" },
+    -- change = { hl = "GitSignsChange", text = "~", numhl = "GitSignsChangeNr", linehl = "GitSignsChangeLn" },
+    -- delete = { hl = "GitSignsDelete", text = "_", numhl = "GitSignsDeleteNr", linehl = "GitSignsDeleteLn" },
+    -- topdelete = { hl = "GitSignsDelete", text = "‾", numhl = "GitSignsDeleteNr", linehl = "GitSignsDeleteLn" },
+    -- changedelete = { hl = "GitSignsChange", text = "│", numhl = "GitSignsChangeNr", linehl = "GitSignsChangeLn" },
+
+    -- add          = { hl = 'GitSignsAdd', text = '│', numhl = 'GitSignsAddNr', linehl = 'GitSignsAddLn' },
+    -- change       = { hl = 'GitSignsChange', text = '│', numhl = 'GitSignsChangeNr', linehl = 'GitSignsChangeLn' },
+    -- delete       = { hl = 'GitSignsDelete', text = '_', numhl = 'GitSignsDeleteNr', linehl = 'GitSignsDeleteLn' },
+    -- topdelete    = { hl = 'GitSignsTopdelete', text = '‾', numhl = 'GitSignsTopdeleteNr', linehl = 'GitSignsTopdeleteLn' },
+    -- changedelete = { hl = 'GitSignsChangedelete', text = '~', numhl = 'GitSignsChangedeleteNr', linehl = 'GitSignsChangedeleteLn' },
+
+    -- add          = { hl = 'GitSignsAdd', text = '+', numhl = 'GitSignsAddNr', linehl = 'GitSignsAddLn' },
+    -- change       = { hl = 'GitSignsChange', text = '~', numhl = 'GitSignsChangeNr', linehl = 'GitSignsChangeLn' },
+    -- delete       = { hl = 'GitSignsDelete', text = '_', numhl = 'GitSignsDeleteNr', linehl = 'GitSignsDeleteLn' },
+    -- topdelete    = { hl = 'GitSignsTopdelete', text = '‾', numhl = 'GitSignsTopdeleteNr', linehl = 'GitSignsTopdeleteLn' },
+    -- changedelete = { hl = 'GitSignsChangedelete', text = '│', numhl = 'GitSignsChangedeleteNr', linehl = 'GitSignsChangedeleteLn' },
+
+    add          = { text = '+' },
+    change       = { text = '~' },
+    delete       = { text = '_' },
+    topdelete    = { text = '‾' },
+    changedelete = { text = '│' },
   },
   word_diff = true,
   on_attach = function(bufnr)
@@ -55,3 +73,21 @@ vim.api.nvim_create_autocmd('ColorScheme', {
     ]]
   end
 })
+
+
+-- 定义 GitSigns 高亮组
+vim.api.nvim_set_hl(0, 'GitSignsAdd', { link = 'DiffAdd' })
+vim.api.nvim_set_hl(0, 'GitSignsAddNr', { link = 'DiffAdd' })
+vim.api.nvim_set_hl(0, 'GitSignsAddLn', { link = 'DiffAdd' })
+vim.api.nvim_set_hl(0, 'GitSignsChange', { link = 'DiffChange' })
+vim.api.nvim_set_hl(0, 'GitSignsChangeNr', { link = 'DiffChange' })
+vim.api.nvim_set_hl(0, 'GitSignsChangeLn', { link = 'DiffChange' })
+vim.api.nvim_set_hl(0, 'GitSignsChangedelete', { link = 'DiffChange' })
+vim.api.nvim_set_hl(0, 'GitSignsChangedeleteNr', { link = 'DiffChange' })
+vim.api.nvim_set_hl(0, 'GitSignsChangedeleteLn', { link = 'DiffChange' })
+vim.api.nvim_set_hl(0, 'GitSignsDelete', { link = 'DiffDelete' })
+vim.api.nvim_set_hl(0, 'GitSignsDeleteNr', { link = 'DiffDelete' })
+vim.api.nvim_set_hl(0, 'GitSignsDeleteLn', { link = 'DiffDelete' })
+vim.api.nvim_set_hl(0, 'GitSignsTopdelete', { link = 'DiffDelete' })
+vim.api.nvim_set_hl(0, 'GitSignsTopdeleteNr', { link = 'DiffDelete' })
+vim.api.nvim_set_hl(0, 'GitSignsTopdeleteLn', { link = 'DiffDelete' })

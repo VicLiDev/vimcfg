@@ -1,14 +1,14 @@
 snippet proc_paras "proc paras"
 # init para, def val
-name=""
-age=0
+cmd_name=""
+cmd_age=0
 
 function usage()
 {
     echo "usage: \$0 [-n|--name <name>] [-a|--age <age>]"
 }
 
-function procParas()
+function proc_paras()
 {
     # 双中括号提供了针对字符串比较的高级特性，使用双中括号 [[ ]] 进行字符串比较时，
     # 可以把右边的项看做一个模式，故而可以在 [[ ]] 中使用正则表达式：
@@ -22,11 +22,11 @@ function procParas()
         key="\$1"
         case \${key} in
             -n|--name)
-                name="\$2"
+                cmd_name="\$2"
                 shift # move to next para
                 ;;
             -a|--age)
-                age="\$2"
+                cmd_age="\$2"
                 shift # move to next para
                 ;;
             *)
@@ -38,18 +38,18 @@ function procParas()
         esac
         shift # move to next para
     done
+
+    # check para
+    [ -z "\$cmd_name" ] && { usage; exit 1; }
+    [ "\$cmd_age" -eq 0 ] && { usage; exit 1; }
+
+    # print result
+    echo "======> cmd paras <======"
+    echo "name : \$cmd_name"
+    echo " age : \$cmd_age"
+    echo
 }
 
 
-# procParas \$@
-#
-# # check para
-# if [ -z "\$name" ] || [ "\$age" -eq 0 ]; then
-#     usage
-#     exit 1
-# fi
-#
-# # print result
-# echo "name : \$name"
-# echo " age : \$age"
+proc_paras \$@
 endsnippet

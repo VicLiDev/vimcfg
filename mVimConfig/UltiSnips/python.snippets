@@ -23,19 +23,22 @@ def proc_paras():
     # 解析命令行参数
     args = parser.parse_args()
 
-    return args
-
-'''
-if __name__ == "__main__":
-    args = proc_paras()
-
     # 使用参数
+    print("======> cmd paras <======")
     print(f"Hi, {args.name}!")
     print(f"Your age is: {args.age}")
     print(f"input  file: {args.input}")
     print(f"output file: {args.output}")
     if args.verbose:
         print("verbose was enabled")
+    print()
+
+    return args
+
+'''
+if __name__ == "__main__":
+    args = proc_paras()
+
 '''
 endsnippet
 

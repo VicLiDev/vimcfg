@@ -7,11 +7,11 @@ snippet proc_paras "proc paras with getopt_long"
 typedef struct cmd_paras_t {
     char *output;
     int  verbose; /* 是否显示冗余信息?*/
-} cmdParas;
+} cmd_paras_t;
 
 void print_usage(FILE* stream, int exit_code, const char *program_name)
 {
-    fprintf (stream, "Usage: %s options [ -o|--output output_file ... ]\n", program_name);
+    fprintf (stream, "Usage: %s options <-o|--output output_file> [-v ...]\n", program_name);
     fprintf (stream,
              " -h --help Display this usage information.\n"
              " -o --output filename Write output to file.\n"
@@ -19,7 +19,7 @@ void print_usage(FILE* stream, int exit_code, const char *program_name)
     exit (exit_code);
 }
 
-int proc_paras(int argc, char* argv[], cmdParas *parse_paras)
+int proc_paras(int argc, char* argv[], cmd_paras_t *parse_paras)
 {
     const char* program_name = argv[0];
     int opt;
@@ -74,22 +74,26 @@ int proc_paras(int argc, char* argv[], cmdParas *parse_paras)
         }
     }
 
+    if (!parse_paras->output) { print_usage (stderr, 1, program_name); }
+
+    /* 选项处理完毕。OPTIND 指向第一个非选项参数。
+     * 出于演示目的,如果指定了冗余输出选项,则输出这些参数。*/
+    printf("======> cmd paras <======\n");
+    printf("output: %s\n", parse_paras->output);
+    if (parse_paras->verbose) {
+        int i;
+        for (i = optind; i < argc; ++i)
+            printf ("Argument: %s\n", argv[i]);
+    }
+    printf("\n");
+
     return 0;
 }
 
 int main(int argc, char *argv[])
 {
-    cmdParas mcmd_paras = {NULL, 0};
+    cmd_paras_t mcmd_paras = {NULL, 0};
     proc_paras(argc, argv, &mcmd_paras);
-
-    /* 选项处理完毕。OPTIND 指向第一个非选项参数。
-     * 出于演示目的,如果指定了冗余输出选项,则输出这些参数。*/
-    printf("output: %s\n", mcmd_paras.output);
-    if (mcmd_paras.verbose) {
-        int i;
-        for (i = optind; i < argc; ++i)
-            printf ("Argument: %s\n", argv[i]);
-    }
 
     return 0;
 }

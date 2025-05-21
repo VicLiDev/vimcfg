@@ -129,6 +129,9 @@ Plugin 'easymotion/vim-easymotion'
 Plugin 'tyru/open-browser.vim.git'
 " comment
 Plugin 'tpope/vim-commentary'
+" multi high color
+Plugin 'inkarkat/vim-ingo-library'
+Plugin 'inkarkat/vim-mark'
 
 
 " Code completion and smart editing

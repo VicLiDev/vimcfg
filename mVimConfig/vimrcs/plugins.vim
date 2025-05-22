@@ -474,13 +474,63 @@ source ~/.vim/vimrcs/fzf/vim.vim
 " fzf.vim from https://github.com/junegunn/fzf.vim -->  fzf.vim/plugin/fzf.vim
 source ~/.vim/vimrcs/fzf/fzf.vim
 
+
+" =============================================================================
+" File: ~/.vimrc
+" Description: Enhanced :Agit command for fuzzy searching with ag in Git repos
+" Features:
+"   1. Auto-detects Git root directory (falls back to current dir if not in Git)
+"   2. Preserves original working directory after search
+"   3. Supports fzf preview window and bang (!) mode
+"   4. Robust error handling for non-Git directories and missing dependencies
+" Usage:
+"   :Agit pattern       - Search in Git root (or current dir)
+"   :Agit! pattern      - Open results in preview window
+" Dependencies:
+"   - git (for repo detection)
+"   - ag (The Silver Searcher)
+"   - fzf + fzf.vim plugin
+" =============================================================================
+" Key Functionality Annotations:
+" [1] Save original working directory to restore later
+" [2] Check if current file is in Git repository (works in subdirs)
+" [3] Display warning when not in Git repo (yellow text)
+" [4] Safely get Git root dir (empty if not in repo)
+" [5] Change to Git root dir only if valid
+" [6] Invoke fzf's ag interface with search pattern
+" [7] Configure fzf to show filename:line:column format
+" [8] Enable preview window (shows code context)
+" [9] Catch "unknown function" errors with helpful message
+" [10] Always restore original directory after search
+" =============================================================================
+" 这里 | 用于将多个 Vim 语句连接成一行（因为 command! 要求命令体必须是单行）
+" =============================================================================
+command! -bang -nargs=* Agit
+  \ let s:ag_saved_cwd = getcwd() |
+  \ let s:is_git = system('git rev-parse --is-inside-work-tree 2>/dev/null') =~ 'true' |
+  \ let s:ag_git_root = s:is_git ?
+  \   trim(system('git rev-parse --show-toplevel 2>/dev/null')) : '' |
+  \ if !empty(s:ag_git_root) |
+  \   silent execute 'lcd' fnameescape(s:ag_git_root) |
+  \ endif |
+  \ try |
+  \   call fzf#vim#ag(<q-args>,
+  \     extend({'options': '--delimiter : --nth 4..'},
+  \     fzf#vim#with_preview()),
+  \     <bang>0) |
+  \ catch /E117/ |
+  \   echoerr 'fzf.vim not installed or ag not found!' |
+  \ endtry |
+  \ silent execute 'lcd' fnameescape(s:ag_saved_cwd)
+
+
 " 工具在 vimrcs/fzf/fzf.vim 中都有写，根据需要将其中一些做映射
 map <Leader>ff   :Files<CR>
 map <Leader>fg   :GFiles<CR>
 map <Leader>fb   :Buffers<CR>
 map <Leader>ft   :Tags<CR>
 map <Leader>fr   :Rg<CR>
-map <Leader>fa   :Ag<CR>
+map <Leader>fa   :Agit<CR>
 map <Leader>fc   :Commits<CR>
 map <Leader>fbc  :BCommits<CR>
 

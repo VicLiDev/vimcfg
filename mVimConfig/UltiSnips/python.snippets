@@ -66,11 +66,21 @@ endsnippet
 snippet run_command "run shell cmd" b
 import subprocess
 
-def run_command(command):
+def run_command(command, use_str = False):
     """执行给定的 shell 命令并返回输出、错误和执行状态"""
     try:
         # 使用 subprocess.run() 执行命令
-        result = subprocess.run(command, shell=True, check=True,
+        # shell
+        #   参数        传递方式   Shell 功能   安全性  适用场景
+        #   shell=True  字符串     支持         风险    需要管道、通配符等 Shell 功能
+        #   shell=False 列表       不支持       安全    常规命令，尤其是处理用户输入
+        #
+        #   错误方式（可能解析失败）
+        #   subprocess.run("ls -l", shell=False)  # 报错，"ls -l" 被视为单个命令
+        #   正确方式
+        #   subprocess.run(["ls", "-l"], shell=False)
+        # text: 输入/输出自动转换为字符串（str 类型）
+        result = subprocess.run(command, shell=use_str, check=True,
                                 stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
 
         # 返回标准输出、标准错误和执行状态
@@ -79,10 +89,17 @@ def run_command(command):
         # 捕获并处理错误
         return e.stdout.strip(), e.stderr.strip(), e.returncode
 
+
 '''
 command = "echo \"hello\""
-stdout, stderr, status = run_command(command)
+stdout, stderr, status = run_command(command, use_str=True)
+# 输出命令的结果和状态
+print("命令输出:\n", stdout)
+print("错误输出:\n", stderr)
+print("执行状态:", "成功" if status == 0 else f"失败 (状态码: {status})")
 
+command = ["echo", "hello"]
+stdout, stderr, status = run_command(command, use_str=False)
 # 输出命令的结果和状态
 print("命令输出:\n", stdout)
 print("错误输出:\n", stderr)

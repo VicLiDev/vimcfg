@@ -148,18 +148,11 @@ class BreakPointWithDisplay(gdb.Command):
         # 字符串 arg 按照空白字符（默认空格）分割为最多两个部分，多个空格的话按照
         # 第一个空格分割
         args = arg.split(maxsplit=1)
-        if len(args) != 2:
-            print("Usage:")
-            print("  <<method1>>")
-            print("    bdp <file_name>:<line_number> <var1>,/x <var2>,<var3>...")
-            print("  <<method2>>")
-            print("    bdp <file_name>:<line_number> <var1>")
-            print("    bdp <file_name>:<line_number> /x <var2>")
-            print("    bdp <file_name>:<line_number> <var3>")
-            return
 
         bp_user_loc = args[0]  # 断点位置
-        dp_list = args[1]  # 多个要显示的变量
+        dp_list = []
+        if (len(args) == 2):
+            dp_list = args[1].split(',')  # 多个要显示的变量
 
         # 检查该断点位置是否已经设置过
         # if bp_user_loc not in self.bp_locs:
@@ -184,22 +177,16 @@ class BreakPointWithDisplay(gdb.Command):
                 print(f"Error: {str(e)}")
         else:
             bp = gdb.Breakpoint
-            new_dp_list = ""
+            new_dp_list = []
             exist_user_loc = ""
             for key in self.bp_locs.keys():
                 if bp_user_loc == self.bp_locs[key][2]:
                     bp, exist_dp_list, exist_user_loc = self.bp_locs[key]
-                    # 合并新的 display 表达式
-                    if self.bp_states[bp.location] == False:
-                        # 将两个由逗号分隔的字符串合并，并去除其中的重复项，结果是一个包含所有唯一项的集合
-                        new_dp_list = set(exist_dp_list.split(',') + dp_list.split(','))
-                        # 将去重并排序后的集合转换回一个由逗号分隔的字符串
-                        new_dp_list = ",".join(sorted(new_dp_list))  # 保持顺序
-                        print(f"Breakpoint {bp_user_loc} exists. New display list: {new_dp_list}")
-                    else:
-                        new_dp_list = set(dp_list.split(','))
-                        new_dp_list = ",".join(sorted(new_dp_list))  # 保持顺序
-                        print(f"Breakpoint {bp_user_loc} exists. New display list: {new_dp_list}")
+                    # 合并新的 display 表达式，如果已经display过，则清空旧的
+                    if self.bp_states[bp.location] == True:
+                        exist_dp_list = []
+                    new_dp_list = exist_dp_list + dp_list
+                    print(f"Breakpoint {bp_user_loc} exists. New display list: {new_dp_list}")
                     self.bp_states[bp.location] = False
                     break
 
@@ -231,12 +218,11 @@ class BreakPointWithDisplay(gdb.Command):
                 dp_list = self.bp_locs[bp_user_loc][1]
                 if not self.bp_states.get(bp.location, False):  # 如果没有触发 display
                     # 断点触发时将多个表达式拆分并单独显示
-                    for dp_list in dp_list.split(','):
-                        dp_list = dp_list.strip()  # 去掉空格
+                    for cur_dp in dp_list:
                         try:
-                            gdb.execute(f"display {dp_list}")
+                            gdb.execute(f"display {cur_dp}")
                         except gdb.error as e:
-                            print(f"Error: Couldn't evaluate list '{dp_list}': {str(e)}")
+                            print(f"Error: Couldn't evaluate list '{cur_dp}': {str(e)}")
                     # 更新状态，表示 display 已经触发
                     self.bp_states[bp.location] = True
 

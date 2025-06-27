@@ -125,6 +125,7 @@ Plugin 'preservim/tagbar'
 Plugin 'Yggdroot/indentLine'
 " 快速移动
 Plugin 'easymotion/vim-easymotion'
+Plugin 'rhysd/accelerated-jk'
 " 在 Vim 中打开网页链接
 Plugin 'tyru/open-browser.vim.git'
 " comment
@@ -629,3 +630,18 @@ let maplocalleader = ","
 " nmap <leader>cc <leader>c_
 " vmap <leader>c <Plug>OSCYankVisual
 vmap <leader>y <Plug>OSCYankVisual
+
+" ========================================================================================== rhysd/accelerated-jk
+nmap j <Plug>(accelerated_jk_gj)
+nmap k <Plug>(accelerated_jk_gk)
+
+" 高级配置选项
+" [初始延迟ms, 后续间隔ms]
+"   按住多少秒后开始加速
+"   后续每次提速的时间间隔
+let g:accelerated_jk_acceleration_table = [2, 2]
+" 设置最大提速上限，5 表示最快时每次按键相当于移动 5 次（即 5 倍速）
+let g:accelerated_jk_acceleration_limit = 10
+" 禁用h/l加速（默认只加速j/k）
+let g:accelerated_jk_enable_h = 0
+let g:accelerated_jk_enable_l = 0

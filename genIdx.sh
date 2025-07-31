@@ -13,7 +13,7 @@
 #    4.进入vi，添加cs库: cscope add ./cscope.out
 
 #筛选需要加入库中的文件
-find $PWD/* | grep "\.[ch]$" >> cscope.file
+find $PWD/* -type f | grep "\.[ch]$" >> cscope.file
 #生成cs库文件
 time cscope -Rbkq -i ./cscope.file
 #删除文件列表

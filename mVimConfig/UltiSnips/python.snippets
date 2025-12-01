@@ -19,6 +19,9 @@ def proc_paras():
     # 到一个统一的属性名，通常是根据长选项名称自动生成（去掉前导的 -- 并将 - 转换为 _）
     parser.add_argument("-i","--input","--inp", help="input file")
     parser.add_argument("-o","--output","--out", help="output file")
+    # nargs="+" 的含义：
+    # 接收 1 个或多个参数，并以 list 的形式存入 args.list
+    parser.add_argument("-l","--list","--lst", nargs="+", help="list")
 
     # 解析命令行参数
     args = parser.parse_args()
@@ -29,6 +32,7 @@ def proc_paras():
     print(f"Your age is: {args.age}")
     print(f"input  file: {args.input}")
     print(f"output file: {args.output}")
+    print(f"list:        {args.list}")
     if args.verbose:
         print("verbose was enabled")
     print()

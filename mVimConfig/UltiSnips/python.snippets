@@ -58,6 +58,20 @@ def read_file_to_list(filename):
 endsnippet
 
 
+snippet iter_file_rows "iterate read data line to list" b
+def iter_file_rows(filename):
+    """逐行读取文件，每行生成一个分词后的列表"""
+    with open(filename, 'r') as file:
+        for line in file:
+            yield line.strip().split()
+
+'''
+for row in iter_file_rows("data.txt"):
+    print(row)
+'''
+endsnippet
+
+
 snippet write_to_file "write data to file" b
 def write_to_file(filename, data):
     """将数据写入文件"""

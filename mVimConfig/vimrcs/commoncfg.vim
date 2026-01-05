@@ -61,7 +61,22 @@ set nocompatible
 " 看看自己的计算机的vim版本。如果出现“-clipboard”则说明系统的vim版本不支持与系统
 " 剪贴板的交互操作，需要采用如下的命令安装新的vim：sudo apt install vim-gtk 安装
 " 完成之后再利用代码检查一次，出现“+clipboard”，那么系统的vim没有问题。
-set clipboard+=unnamed
+" 配置说明：
+" 使用 * 寄存器
+" 对应 X11 primary selection
+" 鼠标选中即复制
+" 不等于 Ctrl+C / Ctrl+V
+" set clipboard+=unnamed
+"
+" unnamedplus（更推荐）
+" 使用 + 寄存器
+" 对应真正的系统剪切板
+" 和 Ctrl+C / Ctrl+V 完全一致
+" 最常用、最推荐
+" set clipboard+=unnamedplus
+"
+" 现代 Linux 推荐写法，实测有效
+set clipboard=unnamedplus
 
 set ignorecase "搜索忽略大小写
 set smartcase " 当有大写时，关注大小写

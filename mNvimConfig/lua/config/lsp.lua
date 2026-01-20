@@ -72,20 +72,19 @@ local custom_attach = function(client, bufnr)
     ]])
 
     local gid = api.nvim_create_augroup("lsp_document_highlight", { clear = true })
-    api.nvim_create_autocmd("CursorHold" , {
+    api.nvim_create_autocmd("CursorHold", {
       group = gid,
       buffer = bufnr,
-      callback = function ()
+      callback = function()
         lsp.buf.document_highlight()
-      end
+      end,
     })
-
-    api.nvim_create_autocmd("CursorMoved" , {
+    api.nvim_create_autocmd("CursorMoved", {
       group = gid,
       buffer = bufnr,
-      callback = function ()
+      callback = function()
         lsp.buf.clear_references()
-      end
+      end,
     })
   end
 
@@ -97,124 +96,97 @@ end
 
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
-local lspconfig = require("lspconfig")
+-- 新版本 LSP 启动辅助函数
+local function setup_lsp(name, config)
+  if utils.executable(config.cmd and config.cmd[1] or name) then
+    vim.lsp.start(vim.tbl_extend("force", {
+      name = name,
+    }, config))
+  else
+    vim.notify(name .. " not found!", vim.log.levels.WARN, { title = "Nvim-config" })
+  end
+end
 
-if utils.executable("pylsp") then
-  lspconfig.pylsp.setup {
-    on_attach = custom_attach,
-    settings = {
-      pylsp = {
-        plugins = {
-          pylint = { enabled = true, executable = "pylint" },
-          pyflakes = { enabled = false },
-          pycodestyle = { enabled = false },
-          jedi_completion = { fuzzy = true },
-          pyls_isort = { enabled = true },
-          pylsp_mypy = { enabled = true },
-        },
+-- Python LSP
+setup_lsp("pylsp", {
+  cmd = { "pylsp" },
+  on_attach = custom_attach,
+  capabilities = capabilities,
+  settings = {
+    pylsp = {
+      plugins = {
+        pylint = { enabled = true, executable = "pylint" },
+        pyflakes = { enabled = false },
+        pycodestyle = { enabled = false },
+        jedi_completion = { fuzzy = true },
+        pyls_isort = { enabled = true },
+        pylsp_mypy = { enabled = true },
       },
     },
-    flags = {
-      debounce_text_changes = 200,
-    },
-    capabilities = capabilities,
-  }
-else
-  vim.notify("pylsp not found!", vim.log.levels.WARN, { title = "Nvim-config" })
-end
+  },
+  flags = { debounce_text_changes = 200 },
+})
 
-if utils.executable('pyright') then
-  lspconfig.pyright.setup{
-    on_attach = custom_attach,
-    capabilities = capabilities
-  }
-else
-  vim.notify("pyright not found!", vim.log.levels.WARN, {title = 'Nvim-config'})
-end
+setup_lsp("pyright", {
+  cmd = { "pyright-langserver", "--stdio" },
+  on_attach = custom_attach,
+  capabilities = capabilities,
+})
 
-if utils.executable("ltex-ls") then
-  lspconfig.ltex.setup {
-    on_attach = custom_attach,
-    cmd = { "ltex-ls" },
-    filetypes = { "text", "plaintex", "tex", "markdown" },
-    settings = {
-      ltex = {
-        language = "en"
+setup_lsp("ltex", {
+  cmd = { "ltex-ls" },
+  filetypes = { "text", "plaintex", "tex", "markdown" },
+  on_attach = custom_attach,
+  settings = { ltex = { language = "en" } },
+  flags = { debounce_text_changes = 300 },
+})
+
+setup_lsp("clangd", {
+  cmd = {
+    "clangd",
+    "--header-insertion=never",
+    "--query-driver=/opt/homebrew/opt/llvm/bin/clang",
+    "--all-scopes-completion",
+    "--completion-style=detailed",
+  },
+  filetypes = { "c", "cpp", "cc" },
+  on_attach = custom_attach,
+  capabilities = capabilities,
+  flags = { debounce_text_changes = 500 },
+})
+
+setup_lsp("vimls", {
+  cmd = { "vim-language-server" },
+  on_attach = custom_attach,
+  capabilities = capabilities,
+  flags = { debounce_text_changes = 500 },
+})
+
+setup_lsp("bashls", {
+  cmd = { "bash-language-server", "start" },
+  on_attach = custom_attach,
+  capabilities = capabilities,
+})
+
+setup_lsp("lua_ls", {
+  cmd = { "lua-language-server" },
+  on_attach = custom_attach,
+  capabilities = capabilities,
+  settings = {
+    Lua = {
+      runtime = { version = "LuaJIT" },
+      diagnostics = { globals = { "vim" } },
+      workspace = {
+        library = {
+          fn.stdpath("data") .. "/site/pack/packer/opt/emmylua-nvim",
+          fn.stdpath("config"),
+        },
+        maxPreload = 2000,
+        preloadFileSize = 50000,
       },
     },
-    flags = { debounce_text_changes = 300 },
-}
-end
-
-if utils.executable("clangd") then
-  lspconfig.clangd.setup {
-    on_attach = custom_attach,
-    capabilities = capabilities,
-    filetypes = { "c", "cpp", "cc" },
-    cmd = {
-      "clangd",
-      "--header-insertion=never",
-      "--query-driver=/opt/homebrew/opt/llvm/bin/clang",
-      "--all-scopes-completion",
-      "--completion-style=detailed",
-    },
-    flags = {
-      debounce_text_changes = 500,
-    },
-  }
-end
-
--- set up vim-language-server
-if utils.executable("vim-language-server") then
-  lspconfig.vimls.setup {
-    on_attach = custom_attach,
-    flags = {
-      debounce_text_changes = 500,
-    },
-    capabilities = capabilities,
-  }
-else
-  vim.notify("vim-language-server not found!", vim.log.levels.WARN, { title = "Nvim-config" })
-end
-
--- set up bash-language-server
-if utils.executable("bash-language-server") then
-  lspconfig.bashls.setup {
-    on_attach = custom_attach,
-    capabilities = capabilities,
-  }
-end
-
-if utils.executable("lua-language-server") then
-  -- settings for lua-language-server can be found on https://github.com/LuaLS/lua-language-server/wiki/Settings .
-  lspconfig.lua_ls.setup {
-    on_attach = custom_attach,
-    settings = {
-      Lua = {
-        runtime = {
-          -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-          version = "LuaJIT",
-        },
-        diagnostics = {
-          -- Get the language server to recognize the `vim` global
-          globals = { "vim" },
-        },
-        workspace = {
-          -- Make the server aware of Neovim runtime files,
-          -- see also https://github.com/LuaLS/lua-language-server/wiki/Libraries#link-to-workspace .
-          -- Lua-dev.nvim also has similar settings for lua ls, https://github.com/folke/neodev.nvim/blob/main/lua/neodev/luals.lua .
-          library = {
-            fn.stdpath("data") .. "/site/pack/packer/opt/emmylua-nvim",
-            fn.stdpath("config"),
-          },
-          maxPreload = 2000,
-          preloadFileSize = 50000,
-        },
-      },
-    },
-    capabilities = capabilities,
-  }
-end
+  },
+})
 
 -- Change diagnostic signs.
 fn.sign_define("DiagnosticSignError", { text = "✗", texthl = "DiagnosticSignError" })

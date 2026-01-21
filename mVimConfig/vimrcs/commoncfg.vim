@@ -75,8 +75,13 @@ set nocompatible
 " 最常用、最推荐
 " set clipboard+=unnamedplus
 "
-" 现代 Linux 推荐写法，实测有效
-set clipboard=unnamedplus
+if has('win32') || has('linux')
+    " 现代 Linux 推荐写法，实测有效
+    set clipboard=unnamedplus
+elseif has('mac')
+    " mac
+    set clipboard+=unnamed
+endif
 
 set ignorecase "搜索忽略大小写
 set smartcase " 当有大写时，关注大小写

@@ -72,5 +72,9 @@ vim.g.loaded_tutor_mode_plugin = 1
 vim.g.loaded_matchit = 1
 vim.g.loaded_matchparen = 1
 
+-- Disable vim-matchup treesitter backend (incompatible with new treesitter parsers)
+vim.g.matchup_matchparen_nomode = 0
+vim.g.matchup_treesitter_enabled = 0
+
 -- Disable sql omni completion, it is broken.
 vim.g.loaded_sql_completion = 1

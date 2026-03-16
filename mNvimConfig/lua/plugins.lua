@@ -77,14 +77,12 @@ packer.startup {
 
     -- use { "neoclide/coc.nvim", config = [[require('config.coc')]] }
 
-    if vim.g.is_mac then
-      use {
-        "nvim-treesitter/nvim-treesitter",
-        event = "BufEnter",
-        run = ":TSUpdate",
-        config = [[require('config.treesitter')]],
-      }
-    end
+    use {
+      "nvim-treesitter/nvim-treesitter",
+      event = "BufEnter",
+      run = ":TSUpdate",
+      config = [[require('config.treesitter')]],
+    }
 
     -- Python indent (follows the PEP8 style)
     use { "Vimjas/vim-python-pep8-indent", ft = { "python" } }
@@ -327,7 +325,21 @@ packer.startup {
     end
 
     -- Modern matchit implementation
-    use { "andymass/vim-matchup", event = "VimEnter" }
+    use {
+      "andymass/vim-matchup",
+      event = "VimEnter",
+      setup = function()
+        -- Disable treesitter backend to avoid compatibility issues
+        vim.g.matchup_matchparen_nomode = 0
+        vim.g.matchup_matchparen_offscreen = {}
+        vim.g.matchup_transmute_enabled = 0
+        vim.g.matchup_treesitter_config = { disable = true }
+      end,
+      config = function()
+        -- Force disable treesitter engine after load
+        vim.cmd([[let g:matchup_treesitter_config = {'disable': 1}]])
+      end,
+    }
 
     use { "tpope/vim-scriptease", cmd = { "Scriptnames", "Message", "Verbose" } }
 

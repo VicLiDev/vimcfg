@@ -693,10 +693,11 @@ map <c-h> <c-w>h
 map <c-l> <c-w>l
 map <c-j> <c-w>j
 map <c-k> <c-w>k
+map <leader>q <c-w>q
 " map <c-n> <c-w>n
 " map <c-w> <c-w>w
 " map <c-c> <c-w>c
-map <leader>q :q<cr>
+" map <leader>q :q<cr>
 " map <c-o> <c-w>o
 
 " 取消高亮快捷键

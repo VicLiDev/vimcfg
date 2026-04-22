@@ -437,3 +437,59 @@ let g:ale_set_highlights = 0
 " 仅在保存文件时进行lint检查，不在输入时频繁检查（减少干扰）
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_enter = 0
+
+" ========================================================================================== vim-surround config
+" 无需额外配置，开箱即用
+" 核心操作：
+"   cs"'  — 替换：把 "hello" 变成 'hello'
+"   ds"   — 删除：把 "hello" 变成 hello
+"   ysiw) — 添加：给光标所在单词加括号 (word)
+"   yss)  — 添加：给整行加括号
+"   ySSt{ — 添加：给整行加花括号并换行
+"   cst"  — 替换标签：把 <b>word</b> 变成 "word"
+
+" ========================================================================================== auto-pairs config
+" 自动补全括号和引号，选中状态下输入括号会包裹选中文本
+" 按 Backspace 同时删除一对括号，按 Ctrl-h 跳转到下一个配对位置
+let g:AutoPairsFlyMode = 0       " 禁用飞模式（输入右括号直接跳过，不飞到末尾）
+let g:AutoPairsShortcutBackInsert = '<M-b>'  " Alt+b 在跳过和插入之间切换
+
+" ========================================================================================== undotree config
+" 快捷键
+nnoremap <Leader>u :UndotreeToggle<CR>
+" 设置 undotree 窗口位置和大小
+let g:undotree_WindowLayout = 2   " 2=左右分栏（左侧undo树，右侧文件内容）
+let g:undotree_SplitWidth = 40    " undo树窗口宽度
+let g:undotree_DiffpanelHeight = 10  " diff面板高度
+" 如果已设置 undofile（commoncfg.vim 中已配置），undotree 会自动使用持久化撤销历史
+" let g:undotree_SetFocusWhenToggle = 1  " 打开时自动聚焦到 undotree 窗口
+
+" ========================================================================================== vim-illuminate config
+" 高亮光标下相同单词，默认高亮范围有限，增大一些
+let g:Illuminate_delay = 100      " 延迟100ms后高亮（避免快速移动时闪烁）
+let g:Illuminate_highlightUnderCursor = 1  " 也高亮光标所在的单词
+" 自定义高亮颜色：暗橙底色 + 青蓝色调 + 下划线，适配 gruvbox 暗色主题
+" 直接设置（不能用 ColorScheme autocmd，因为 colorscheme 在本文件之前就已加载）
+hi illuminatedWord cterm=underline ctermbg=59 guibg=#3d2a28 gui=underline
+" 跳转到下一个/上一个高亮单词
+nmap <leader>in <Plug>(illuminateNext)
+nmap <leader>ip <Plug>(illuminatePrev)
+
+" ========================================================================================== vim-lastplace config
+" 无需额外配置，开箱即用
+" 自动忽略以下场景的光标位置恢复：
+"   git commit、git rebase 等临时 buffer
+"   fugitive、nerdtree 等插件 buffer
+"   startify 等非文件 buffer
+
+" ========================================================================================== Colorizer config
+" 手动开启/关闭颜色预览
+nnoremap <Leader>cc :ColorHighlight<CR>
+nnoremap <Leader>cC :ColorHighlightClear<CR>
+" 在特定文件类型中自动启用
+autocmd FileType css,scss,html,xml,vim,conf,json :ColorHighlight
+
+" ========================================================================================== vim-peekaboo config
+" 按 " 或 @ 时自动弹窗显示寄存器内容，无需手动操作
+" 默认只在普通模式下触发
+let g:peekaboo_window = 'vert bot 30new'  " 在底部垂直分栏显示，宽度30

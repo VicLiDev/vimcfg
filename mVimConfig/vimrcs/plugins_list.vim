@@ -156,4 +156,34 @@ Plugin 'skanehira/preview-uml.vim'
 " share clipboard with vim
 Plugin 'ojroques/vim-oscyank'
 
+
+" ================================ enhancement plugins
+
+" 成对符号操作：快速添加、修改、删除括号、引号、HTML标签
+" cs"' 替换双引号为单引号，ds" 删除引号，ysiw) 给单词加括号
+Plugin 'tpope/vim-surround'
+
+" 自动补全配对符号（括号、引号等），支持跳转和批量删除
+" 比 commoncfg.vim 中手动的 inoremap 更完善（处理缩进、引号内空格等边界情况）
+Plugin 'jiangmiao/auto-pairs'
+
+" 撤销历史可视化：将 Vim 的树状 undo 历史以图形界面展示
+" 配合 persistent_undo 使用，可回到任意历史编辑状态
+Plugin 'mbbill/undotree'
+
+" 高亮光标下相同单词：自动高亮当前 buffer 中所有相同的单词
+" 类似 VS Code 的选词高亮，方便快速扫视变量引用
+Plugin 'RRethy/vim-illuminate'
+
+" 智能恢复光标位置：重新打开文件时跳到上次关闭时的位置
+" 比 commoncfg.vim 中的 BufReadPost 更智能，会忽略 git commit 等临时文件
+Plugin 'farmergreg/vim-lastplace'
+
+" 颜色值预览：在 #ff0000、rgb(255,0,0) 等颜色值后面显示对应的颜色色块
+Plugin 'chrisbra/Colorizer'
+
+" 寄存器内容可视化：按 " 或 @ 时弹窗显示所有寄存器内容
+" 配合 vim-yankstack 使用，方便查看和选择要粘贴的历史内容
+Plugin 'junegunn/vim-peekaboo'
+
 " ================================ my plugin end

@@ -87,15 +87,8 @@ endif
 " Plugin 'neoclide/coc.nvim'
 
 " Language Server and Code Analysis
-" 语言服务器协议（LSP）客户端插件，LSP（Language Server Protocol）是一个标准化
-" 协议，用于在编辑器和编程语言服务器之间交换信息，提供代码补全、跳转、诊断信息等
-" 功能。
-" 通过 LanguageClient-neovim 插件，你可以在 Neovim 中启用类似于现代 IDE 的功能，
-" 如语法检查、自动补全、代码导航、重构等，而无需依赖特定的编辑器或 IDE。
-if has('win32') || has('linux')
-    Plugin 'https://github.com/autozimu/LanguageClient-neovim'
-elseif has('mac')
-endif
+" 注：LanguageClient-neovim 已移除，该插件仅支持 Neovim，Vim 环境下无意义
+" 代码补全由 YouCompleteMe 提供，语法检查由 ALE 提供
 
 
 " 异步语法检查和linting工具，支持多种语言，比YCM的lint更轻量

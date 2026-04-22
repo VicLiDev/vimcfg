@@ -317,12 +317,12 @@ nmap <Leader>L <Plug>(easymotion-overwin-line)
 
 
 " ========================================================================================== git blame config
-nnoremap <Leader>s :<C-u>call gitblame#echo()<CR>
+" 光标停止移动约1秒后自动显示当前行的 git blame 信息
+autocmd CursorHold * call gitblame#echo()
 
 " ========================================================================================== gitgutter config
-" 默认不显示git diff标记（避免界面杂乱），按<leader>d手动开启/关闭
-let g:gitgutter_enabled=0
-nnoremap <silent> <leader>d :GitGutterToggle<cr>
+" 默认显示git diff标记
+let g:gitgutter_enabled=1
 
 " ========================================================================================== markdown-preview
 nmap <Leader>md :MarkdownPreview<CR>

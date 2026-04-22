@@ -1,6 +1,18 @@
+# vim plugin directories (managed by Vundle)
 mVimConfig/bundle
+# vim plugin directories (managed by vim-plug)
+mVimConfig/plugged
+# vim-plug loader (plug.vim)
+mVimConfig/autoload
+# vim native packages
 mVimConfig/pack
+# gdb tools (installed separately)
 mVimConfig/gdb_tools/gdbdashboard
 mVimConfig/gdb_tools/gef/
 mVimConfig/gdb_tools/libheap/
 mVimConfig/gdb_tools/peda/
+# plugin manager symlink (created by init.sh)
+*plugin_manager.vim
+# vim swap files
+*.swp
+*.swo

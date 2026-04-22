@@ -46,7 +46,7 @@ Plugin 'Yggdroot/indentLine'
 Plugin 'easymotion/vim-easymotion'
 Plugin 'rhysd/accelerated-jk'
 " 在 Vim 中打开网页链接
-Plugin 'tyru/open-browser.vim.git'
+Plugin 'tyru/open-browser.vim'
 " comment
 Plugin 'tpope/vim-commentary'
 " multi high color
@@ -147,7 +147,7 @@ Plugin 'iamcco/markdown-preview.vim'
 
 " PlantUML support
 Plugin 'aklt/plantuml-syntax'
-Plugin 'weirongxu/plantuml-previewer.vim.git'
+Plugin 'weirongxu/plantuml-previewer.vim'
 Plugin 'scrooloose/vim-slumlord'
 Plugin 'skanehira/preview-uml.vim'
 

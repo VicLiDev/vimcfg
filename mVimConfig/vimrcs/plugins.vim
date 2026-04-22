@@ -199,12 +199,21 @@ endif
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 
+" align text
+Plugin 'godlygeek/tabular'
 
 " Markdown editing and preview
-Plugin 'godlygeek/tabular'
-" Plugin 'preservim/vim-markdown'
+" Markdown 语法高亮、折叠、快捷操作
+Plugin 'preservim/vim-markdown'
+" 自动生成目录（TOC）
+" 比如：
+"   <!-- vim-markdown-toc -->
+"   ...
+"   <!-- vim-markdown-toc -->
 Plugin 'mzlogin/vim-markdown-toc'
+" 给 markdown-preview 增强数学公式支持
 Plugin 'iamcco/mathjax-support-for-mkdp'
+" 浏览器实时预览 Markdown
 Plugin 'iamcco/markdown-preview.vim'
 
 
@@ -564,6 +573,9 @@ nmap <Leader>md :MarkdownPreview<CR>
 " ========================================================================================== vim-markdown
 let g:vim_markdown_folding_disabled = 1
 let g:vim_markdown_math = 1
+let g:vim_markdown_conceal = 0
+let g:vim_markdown_emphasis_multiline = 0
+hi clear markdownError
 
 " ========================================================================================== uml
 " docker run -d -p 8888:8080 plantuml/plantuml-server:jetty

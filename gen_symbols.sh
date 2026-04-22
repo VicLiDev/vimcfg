@@ -1,6 +1,6 @@
 #########################################################################
-# File Name: ../genCs.sh
-# Author: LiHongjin
+# File Name: gen_symbols.sh
+# Author: Hongjin Li
 # mail: 872648180@qq.com
 # Created Time: Mon 14 Sep 2020 11:06:47 PM CST
 #########################################################################

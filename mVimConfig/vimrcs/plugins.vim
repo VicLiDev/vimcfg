@@ -91,6 +91,8 @@ Plugin 'VundleVim/Vundle.vim'
 " plugin on GitHub repo
 Plugin 'tpope/vim-fugitive'
 Plugin 'zivyangll/git-blame.vim'
+" 在行号旁显示git diff标记（+/-），实时查看哪些行被修改/新增/删除
+Plugin 'airblade/vim-gitgutter'
 " plugin from http://vim-scripts.org/vim/scripts.html
 " Plugin 'L9'
 " Git plugin not hosted on GitHub
@@ -134,6 +136,9 @@ Plugin 'tpope/vim-commentary'
 Plugin 'inkarkat/vim-ingo-library'
 Plugin 'inkarkat/vim-mark'
 
+" 剪贴板历史栈，可以回溯之前复制/删除的内容
+Plugin 'maxbrunsfeld/vim-yankstack'
+
 
 " Code completion and smart editing
 " ycm-core/YouCompleteMe 和 Valloric/YouCompleteMe 其实是同一个项目的不同组织者。
@@ -172,6 +177,10 @@ if has('win32') || has('linux')
     Plugin 'https://github.com/autozimu/LanguageClient-neovim'
 elseif has('mac')
 endif
+
+
+" 异步语法检查和linting工具，支持多种语言，比YCM的lint更轻量
+Plugin 'dense-analysis/ale'
 
 
 " Code snippet management and expansion
@@ -567,6 +576,11 @@ nmap <Leader>L <Plug>(easymotion-overwin-line)
 " ========================================================================================== git blame config
 nnoremap <Leader>s :<C-u>call gitblame#echo()<CR>
 
+" ========================================================================================== gitgutter config
+" 默认不显示git diff标记（避免界面杂乱），按<leader>d手动开启/关闭
+let g:gitgutter_enabled=0
+nnoremap <silent> <leader>d :GitGutterToggle<cr>
+
 " ========================================================================================== markdown-preview
 nmap <Leader>md :MarkdownPreview<CR>
 
@@ -657,3 +671,26 @@ let g:accelerated_jk_acceleration_limit = 10
 " 禁用h/l加速（默认只加速j/k）
 let g:accelerated_jk_enable_h = 0
 let g:accelerated_jk_enable_l = 0
+
+" ========================================================================================== yankstack config
+" 剪贴板历史栈：粘贴时可以回溯之前复制/删除的内容
+" <leader>yp 粘贴上一个复制内容（older），<leader>yn 粘贴下一个复制内容（newer）
+" （注意：<C-p>已被CtrlP占用，<C-n>已被NERDTree占用，故使用leader前缀）
+nmap <leader>yp <Plug>yankstack_substitute_older_paste
+nmap <leader>yn <Plug>yankstack_substitute_newer_paste
+
+" ========================================================================================== ale config
+" 异步语法检查（linting），支持多种语言，比YCM的lint更轻量
+" 配置各语言的lint工具（可根据实际安装的工具增减）
+let g:ale_linters = {
+\   'javascript': ['jshint'],
+\   'python': ['flake8'],
+\   'go': ['go', 'golint', 'errcheck']
+\}
+" <leader>a 跳转到下一个语法错误/警告
+nmap <silent> <leader>a <Plug>(ale_next_wrap)
+" 禁用高亮标记（避免与colorscheme冲突导致显示异常）
+let g:ale_set_highlights = 0
+" 仅在保存文件时进行lint检查，不在输入时频繁检查（减少干扰）
+let g:ale_lint_on_text_changed = 'never'
+let g:ale_lint_on_enter = 0

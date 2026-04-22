@@ -162,7 +162,7 @@ function post_install_ycm()
     fi
 
     echo "==> note: if using YouCompleteMe, run:"
-    echo "   python ${ycm_dir}/install.py --all"
+    echo "   cd ${ycm_dir} && python install.py --all && cd -"
 
     # 检查 Vim 版本是否满足 YCM 要求
     local vim_ver=$(vim --version 2>/dev/null | head -1 | grep -oP '\d+\.\d+' | head -1)

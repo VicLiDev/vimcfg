@@ -493,3 +493,62 @@ autocmd FileType css,scss,html,xml,vim,conf,json :ColorHighlight
 " 按 " 或 @ 时自动弹窗显示寄存器内容，无需手动操作
 " 默认只在普通模式下触发
 let g:peekaboo_window = 'vert bot 30new'  " 在底部垂直分栏显示，宽度30
+
+" ========================================================================================== F2/F3 跨文件重命名
+" F2: 搜索光标下的词 → 选择搜索范围（项目/当前文件）→ quickfix 预览
+" F3: 逐条确认替换（y/n/a/q/l），依赖 Ferret 插件
+
+function! SmartRename()
+  let l:word = expand('<cword>')
+  if l:word ==# ''
+    return
+  endif
+  let l:new = input('Rename "' . l:word . '" to: ')
+  if l:new ==# '' || l:new ==# l:word
+    return
+  endif
+  call setreg('z', l:word)
+  call setreg('y', l:new)
+  " 选择搜索范围
+  let l:git_root = substitute(system('git rev-parse --show-toplevel 2>/dev/null'), '\n', '', 'g')
+  if l:git_root =~# '\S'
+    let l:scope = input('Search scope [P]roject / [C]urrent file (default C): ')
+    if l:scope =~? '^p'
+      execute 'Ack \b' . l:word . '\b ' . l:git_root
+    else
+      execute 'vimgrep /\<' . escape(l:word, '/\.*$^~[]') . '\>/j %'
+    endif
+  else
+    execute 'vimgrep /\<' . escape(l:word, '/\.*$^~[]') . '\>/j %'
+  endif
+  if empty(getqflist())
+    echo 'No matches found'
+    return
+  endif
+  copen
+  echo 'Press F3 to replace, :cclose to cancel'
+endfunction
+
+function! DoRename()
+  let l:old = getreg('z')
+  let l:new = getreg('y')
+  if l:old ==# '' || l:new ==# ''
+    echo 'Use F2 first'
+    return
+  endif
+  cclose
+  " 切换到非 NERDTree 的文件编辑窗口
+  for i in range(1, winnr('$'))
+    execute i . 'wincmd w'
+    if &ft !=# 'nerdtree' && &ft !=# 'qf'
+      break
+    endif
+  endfor
+  let l:pat = '\<' . escape(l:old, '/\.*$^~[]') . '\>'
+  let l:rep = escape(l:new, '/\.*$^~[]&')
+  call feedkeys(':cfdo %s/' . l:pat . '/' . l:rep . '/gc | update' . "\<CR>", 't')
+endfunction
+
+nnoremap <F2> :call SmartRename()<CR>
+nnoremap <F3> :call DoRename()<CR>
+

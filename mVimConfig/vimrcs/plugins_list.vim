@@ -179,4 +179,7 @@ Plugin 'chrisbra/Colorizer'
 " 配合 vim-yankstack 使用，方便查看和选择要粘贴的历史内容
 Plugin 'junegunn/vim-peekaboo'
 
+" 跨文件搜索替换（类似 IDE 的全局替换）
+Plugin 'wincent/ferret'
+
 " ================================ my plugin end

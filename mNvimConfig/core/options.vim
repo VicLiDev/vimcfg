@@ -192,44 +192,101 @@ set cursorline " 突出显示当前行，在当前行下边画一条线
 set background=dark "背景使用黑色
 
 
-"C，C++ run
+""""""""""""""""""""""""""""
+" 编译运行
+""""""""""""""""""""""""""""
+func! IsFileExists(filename)
+    return filereadable(a:filename)
+endfunc
+
+func! IsInGitRepo()
+    let git_status = system('git rev-parse --is-inside-work-tree 2>&1')
+    return v:shell_error == 0
+endfunc
+
+func! CheckGitRootFile(filename)
+    let result = 0
+    let old_dir = getcwd()
+    if IsInGitRepo()
+        cd `git rev-parse --show-toplevel`
+        if IsFileExists(a:filename)
+            let result = 1
+        endif
+    endif
+    exec "cd ".old_dir
+    return result
+endfunc
+
+func! ExecGitRootTool(filename)
+    let old_dir = getcwd()
+    if IsInGitRepo()
+        cd `git rev-parse --show-toplevel`
+        if IsFileExists(a:filename)
+            exec "botright terminal bash -c 'bash ".a:filename."; exec bash'"
+        endif
+    endif
+    exec "cd ".old_dir
+endfunc
+
+"C, C++ run (先查项目脚本，再按 filetype 编译运行)
 map <F5> :call CompileRunGcc()<CR>
 func! CompileRunGcc()
-    exec "w"
-    if &filetype == 'c'
-        exec "!gcc % -o %< -Wall -Wextra && ./%<"
-    elseif &filetype == 'cpp'
-        exec "!g++ % -o %< -Wall -Wextra && ./%<"
-    elseif &filetype == 'java' 
-        exec "!javac %" 
-        exec "!java %<"
-    elseif &filetype == 'python'
-        :!python ./%
-    elseif &filetype == 'sh'
-        :!./%
+    if filereadable(bufname('%'))
+        exec "w"
+    endif
+
+    if IsFileExists(".prjBuild.sh")
+        exec "botright terminal bash -c 'bash ./.prjBuild.sh; exec bash'"
+    elseif IsFileExists("prjBuild.sh")
+        exec "botright terminal bash -c 'bash ./prjBuild.sh; exec bash'"
+    elseif CheckGitRootFile(".prjBuild.sh")
+        call ExecGitRootTool(".prjBuild.sh")
+    elseif CheckGitRootFile("prjBuild.sh")
+        call ExecGitRootTool("prjBuild.sh")
+    else
+        if &filetype == 'c'
+            exec "!gcc % -o %< -Wall -Wextra && ./%<"
+        elseif &filetype == 'cpp'
+            exec "!g++ % -o %< -Wall -Wextra && ./%<"
+        elseif &filetype == 'java'
+            exec "!javac % && java %<"
+        elseif &filetype == 'python'
+            :!python ./%
+        elseif &filetype == 'sh'
+            :!./%
+        endif
     endif
 endfunc
-"C,C++ debug
+"C, C++ debug (先查项目脚本，再按 filetype 调试)
 map <F6> :call CompileRunGdb()<CR>
 func! CompileRunGdb()
-    exec "w"
-    if &filetype == 'c'
-        exec "!gcc % -g -o %< -Wall -Wextra && gdb --command=debug.gdb ./%<"
-    elseif &filetype == 'cpp'
-        exec "!g++ % -g -o %< -Wall -Wextra && gdb --command=debug.gdb ./%<"
-    elseif &filetype == 'python'
-        exec "!python -m pdb ./%"
+    if filereadable(bufname('%'))
+        exec "w"
     endif
-endfunc
-" project run
-map <F7> :call PrjCompileRun()<CR>
-func! PrjCompileRun()
-    exec "w"
-    exec "!cd `git rev-parse --show-toplevel` && if [ -e \"./prjBuild.sh\" ]; then bash ./prjBuild.sh; elif [ -e \"./.prjBuild.sh\" ]; then bash ./.prjBuild.sh; else echo \"file $PWD/prjBuild.sh no exit\"; echo \"file $PWD/.prjBuild.sh no exit\"; fi"
-endfunc
-" project debug
-map <F8> :call PrjCompileRunDbg()<CR>
-func! PrjCompileRunDbg()
-    exec "w"
-    exec "!cd `git rev-parse --show-toplevel` && if [ -e \"./prjDebug.sh\" ]; then bash ./prjDebug.sh; elif [ -e \"./.prjDebug.sh\" ]; then bash ./.prjDebug.sh; else echo \"file $PWD/prjDebug.sh no exit\"; echo \"file $PWD/.prjDebug.sh no exit\"; fi"
+
+    if IsFileExists(".prjDebug.sh")
+        exec "botright terminal bash -c 'bash ./.prjDebug.sh; exec bash'"
+    elseif IsFileExists("prjDebug.sh")
+        exec "botright terminal bash -c 'bash ./prjDebug.sh; exec bash'"
+    elseif CheckGitRootFile(".prjDebug.sh")
+        call ExecGitRootTool(".prjDebug.sh")
+    elseif CheckGitRootFile("prjDebug.sh")
+        call ExecGitRootTool("prjDebug.sh")
+    else
+        if &filetype == 'c'
+            if has('mac')
+                exec "!gcc % -g -o %< -Wall -Wextra && lldb ./%<"
+            else
+                exec "!gcc % -g -o %< -Wall -Wextra && gdb --command=debug.gdb ./%<"
+            endif
+        elseif &filetype == 'cpp'
+            if has('mac')
+                exec "!g++ % -g -o %< -Wall -Wextra && lldb ./%<"
+            else
+                exec "!g++ % -g -o %< -Wall -Wextra && gdb --command=debug.gdb ./%<"
+            endif
+        elseif &filetype == 'python'
+            exec "!python -m pdb ./%"
+        endif
+    endif
 endfunc

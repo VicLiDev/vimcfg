@@ -283,7 +283,3 @@ keymap.set("n", "<Leader>to", ":tabonly<CR>")
 keymap.set("n", "<Leader>te", ":tabedit")
 
 
--- 定义一个命令来编译和运行 C 程序
-vim.cmd("command! RunC !gcc % -o %< && ./%<")
--- 映射快捷键，例如 F5
-vim.api.nvim_set_keymap('n', '<F5>', ':RunC<CR>', { noremap = true, silent = true })

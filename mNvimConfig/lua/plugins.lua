@@ -456,7 +456,7 @@ require("lazy").setup({
   },
 
   -- The missing auto-completion for cmdline!
-  { "gelguy/wilder.nvim" },
+  { "gelguy/wilder.nvim", lazy = false },
 
   -- showing keybindings
   {

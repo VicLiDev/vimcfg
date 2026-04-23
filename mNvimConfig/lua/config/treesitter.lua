@@ -14,9 +14,6 @@ end
 
 -- Enable highlighting
 vim.treesitter.language.register("vim", "vimdoc")
-for _, lang in ipairs({ "help" }) do
-  vim.treesitter.start(lang, false)  -- disable for help files
-end
 
 -- Enable treesitter-based highlighting for all filetypes with parsers
 vim.api.nvim_create_autocmd("FileType", {

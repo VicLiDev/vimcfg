@@ -51,7 +51,9 @@ function M.rand_element(seq)
 end
 
 function M.add_pack(name)
-  local status, error = pcall(vim.cmd, "packadd " .. name)
+  local status, _ = pcall(function()
+    require("lazy").load({ plugins = { name } })
+  end)
 
   return status
 end

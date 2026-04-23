@@ -199,14 +199,54 @@ function init_vim()
 #  init nvim
 # =============================================================================
 
+function install_nvim_plugins()
+{
+    if ! command -v nvim &>/dev/null; then
+        echo "  nvim not found, skip plugin install"
+        return 0
+    fi
+
+    echo "==> installing nvim plugins via lazy.nvim..."
+    nvim --headless "+Lazy! sync" +qall
+    if [ "$?" = "0" ]; then
+        echo "  plugins installed"
+    else
+        echo "  warning: some plugins may have failed, check above output"
+        echo "  you can also open nvim and run :Lazy to check"
+    fi
+}
+
 function init_nvim()
 {
     echo "==> init nvim config"
     [ ! -e "${HOME}/.config" ] && mkdir -p "${HOME}/.config"
-    create_link "${repo_root}/mNvimConfig" "${HOME}/.config/nvim"
+    ln -sfn "${repo_root}/mNvimConfig" "${HOME}/.config/nvim"
+    echo "linked: ${HOME}/.config/nvim -> ${repo_root}/mNvimConfig"
+
+    # clean up old plugin manager artifacts to avoid conflict with lazy.nvim
+    local nvim_data="${HOME}/.local/share/nvim"
+    local old_dirs=(
+        "${nvim_data}/site/pack"           # vim native package dir (packer, vundle, etc.)
+    )
+    local old_files=(
+        "${nvim_data}/site/lua/packer_compiled.lua"  # packer compiled cache
+    )
+    for d in "${old_dirs[@]}"; do
+        if [ -d "${d}" ]; then
+            echo "==> removing old dir: ${d}"
+            rm -rf "${d}"
+        fi
+    done
+    for f in "${old_files[@]}"; do
+        if [ -f "${f}" ]; then
+            echo "==> removing old file: ${f}"
+            rm -f "${f}"
+        fi
+    done
+
+    install_nvim_plugins
     echo
-    echo "==> open nvim and run :PackerSync to install plugins"
-    echo "   (packer will auto-install on first launch)"
+    echo "==> done. open nvim to start using."
 }
 
 # =============================================================================

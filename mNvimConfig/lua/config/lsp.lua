@@ -20,7 +20,7 @@ local custom_attach = function(client, bufnr)
   map("n", "K", vim.lsp.buf.hover)
   -- map("n", "<C-k>", vim.lsp.buf.signature_help)
   map("n", "<C-i>", vim.lsp.buf.signature_help)
-  map("n", "<space>rn", vim.lsp.buf.rename, { desc = "varialbe rename" })
+  map("n", "<space>rn", vim.lsp.buf.rename, { desc = "variable rename" })
   map("n", "gr", vim.lsp.buf.references, { desc = "show references" })
   map("n", "[d", diagnostic.goto_prev, { desc = "previous diagnostic" })
   map("n", "]d", diagnostic.goto_next, { desc = "next diagnostic" })
@@ -108,25 +108,6 @@ local function setup_lsp(name, config)
 end
 
 -- Python LSP
-setup_lsp("pylsp", {
-  cmd = { "pylsp" },
-  on_attach = custom_attach,
-  capabilities = capabilities,
-  settings = {
-    pylsp = {
-      plugins = {
-        pylint = { enabled = true, executable = "pylint" },
-        pyflakes = { enabled = false },
-        pycodestyle = { enabled = false },
-        jedi_completion = { fuzzy = true },
-        pyls_isort = { enabled = true },
-        pylsp_mypy = { enabled = true },
-      },
-    },
-  },
-  flags = { debounce_text_changes = 200 },
-})
-
 setup_lsp("pyright", {
   cmd = { "pyright-langserver", "--stdio" },
   on_attach = custom_attach,
@@ -178,7 +159,7 @@ setup_lsp("lua_ls", {
       diagnostics = { globals = { "vim" } },
       workspace = {
         library = {
-          fn.stdpath("data") .. "/site/pack/packer/opt/emmylua-nvim",
+          fn.stdpath("data") .. "/lazy/emmylua-nvim",
           fn.stdpath("config"),
         },
         maxPreload = 2000,

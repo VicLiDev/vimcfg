@@ -134,11 +134,11 @@ M.set_colorscheme = function(scheme)
     return
   end
 
-  -- Load the colorscheme, because all the colorschemes are declared as opt plugins, so the colorscheme isn't loaded yet.
+  -- Load the colorscheme, because all the colorschemes are declared as lazy plugins, so the colorscheme isn't loaded yet.
   local status = utils.add_pack(M.colorscheme2dir[colorscheme])
 
   if not status then
-    local msg = string.format("Colorscheme %s is not installed. Run PackerSync to install.", colorscheme)
+    local msg = string.format("Colorscheme %s is not installed. Run :Lazy sync to install.", colorscheme)
     vim.notify(msg, vim.log.levels.ERROR, { title = "nvim-config" })
 
     return

@@ -230,6 +230,7 @@ function init_nvim()
     )
     local old_files=(
         "${nvim_data}/site/lua/packer_compiled.lua"  # packer compiled cache
+        "${nvim_data}/rplugin.vim"                   # remote plugin manifest (stale packer refs)
     )
     for d in "${old_dirs[@]}"; do
         if [ -d "${d}" ]; then
@@ -247,6 +248,9 @@ function init_nvim()
     install_nvim_plugins
     echo
     echo "==> done. open nvim to start using."
+    echo
+    echo "  tip: install LSP servers inside nvim:"
+    echo "    :MasonInstall pyright ltex-ls vim-language-server bash-language-server lua-language-server"
 }
 
 # =============================================================================

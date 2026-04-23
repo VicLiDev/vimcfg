@@ -89,11 +89,11 @@ require("lazy").setup({
   -- Navigation
   -- ============================================
   {
-    "phaazon/hop.nvim",
+    "folke/flash.nvim",
     event = "VimEnter",
     config = function()
       vim.defer_fn(function()
-        require("config.nvim_hop")
+        require("config.flash")
       end, 2000)
     end,
   },
@@ -179,6 +179,20 @@ require("lazy").setup({
     end,
   },
 
+  -- Visual scrollbar
+  {
+    "petertriho/nvim-scrollbar",
+    event = "BufEnter",
+    config = function() require("scrollbar").setup() end,
+  },
+
+  -- Diagnostics panel
+  {
+    "folke/trouble.nvim",
+    cmd = { "Trouble", "TroubleToggle" },
+    dependencies = "nvim-lua/plenary.nvim",
+  },
+
   -- ============================================
   -- Utilities
   -- ============================================
@@ -204,13 +218,19 @@ require("lazy").setup({
   { "Raimondi/delimitMate", event = "InsertEnter" },
 
   -- Comment plugin
-  { "tpope/vim-commentary", event = "VimEnter" },
+  {
+    "numToStr/Comment.nvim",
+    event = "VimEnter",
+    config = function()
+      require("Comment").setup()
+    end,
+  },
 
   -- Autosave files on certain events
   { "907th/vim-auto-save", event = "InsertEnter" },
 
   -- Show undo history visually
-  { "simnalamburt/vim-mundo", cmd = { "MundoToggle", "MundoShow" } },
+  { "mbbill/undotree", cmd = { "UndotreeToggle", "UndotreeShow" } },
 
   -- better UI for some nvim actions
   { "stevearc/dressing.nvim" },
@@ -223,6 +243,9 @@ require("lazy").setup({
 
   -- Handy unix command inside Vim (Rename, Move etc.)
   { "tpope/vim-eunuch", cmd = { "Rename", "Delete" } },
+
+  -- Safe buffer closing (delete buffer without closing window)
+  { "famiu/bufdelete.nvim", event = "VimEnter" },
 
   -- Repeat vim motions
   { "tpope/vim-repeat", event = "VimEnter" },
@@ -284,6 +307,20 @@ require("lazy").setup({
 
   { "kevinhwang91/nvim-bqf", ft = "qf", config = function() require("config.bqf") end },
 
+  -- Improved diff view
+  {
+    "sindrets/diffview.nvim",
+    cmd = { "DiffviewOpen", "DiffviewFileHistory" },
+    dependencies = "nvim-lua/plenary.nvim",
+  },
+
+  -- Terminal git UI (requires lazygit to be installed)
+  {
+    "kdheepak/lazygit.nvim",
+    cmd = "LazyGit",
+    dependencies = { "nvim-lua/plenary.nvim" },
+  },
+
   -- ============================================
   -- Markdown
   -- ============================================
@@ -318,10 +355,30 @@ require("lazy").setup({
   { "wellle/targets.vim", event = "VimEnter" },
 
   -- Plugin to manipulate character pairs quickly
-  { "machakann/vim-sandwich", event = "VimEnter" },
+  {
+    "kylechui/nvim-surround",
+  version = "*",
+    event = "VimEnter",
+    config = function()
+      require("nvim-surround").setup()
+    end,
+  },
 
   -- Add indent object for vim (useful for languages like Python)
   { "michaeljsmith/vim-indent-object", event = "VimEnter" },
+
+  -- Project-wide search and replace
+  {
+    "nvim-pack/nvim-spectre",
+    cmd = "Spectre",
+    dependencies = { "nvim-lua/plenary.nvim" },
+  },
+
+  -- Interactive search and replace
+  {
+    "MagicDuck/grug-far.nvim",
+    cmd = "GrugFar",
+  },
 
   -- ============================================
   -- LaTeX
@@ -386,8 +443,11 @@ require("lazy").setup({
     build = "bash install.sh",
   },
 
-  -- Session management plugin
-  { "tpope/vim-obsession", cmd = "Obsession" },
+  -- Automatic session management
+  {
+    "rmagatti/auto-session",
+    config = function() require("config.auto-session") end,
+  },
 
   {
     "ojroques/vim-oscyank",

@@ -184,11 +184,8 @@ nnoremap <silent> <Space>t :<C-U>Vista!!<CR>
 """"""""""""""""""""""""""" tagbar settings """"""""""""""""""""""""""""""""""
 nnoremap <silent> <Leader>tt :TagbarToggle<CR>
 
-""""""""""""""""""""""""vim-mundo settings"""""""""""""""""""""""
-let g:mundo_verbose_graph = 0
-let g:mundo_width = 80
-
-nnoremap <silent> <Space>u :MundoToggle<CR>
+""""""""""""""""""""""""undotree settings"""""""""""""""""""""""
+nnoremap <silent> <Space>u :UndotreeToggle<CR>
 
 """"""""""""""""""""""""""""better-escape.vim settings"""""""""""""""""""""""""
 let g:better_escape_interval = 200
@@ -266,10 +263,29 @@ endif
 """"""""""""""""""""""""unicode.vim settings""""""""""""""""""""""""""""""
 nmap ga <Plug>(UnicodeGA)
 
-""""""""""""""""""""""""""""vim-sandwich settings"""""""""""""""""""""""""""""
-" Map s to nop since s in used by vim-sandwich. Use cl instead of s.
-nmap s <Nop>
-omap s <Nop>
+""""""""""""""""""""""""""""trouble.nvim settings"""""""""""""""""""""""""""""
+nnoremap <silent> <Leader>xx :TroubleToggle document_diagnostics<CR>
+nnoremap <silent> <Leader>xw :TroubleToggle workspace_diagnostics<CR>
+nnoremap <silent> <Leader>xl :TroubleToggle loclist<CR>
+nnoremap <silent> <Leader>xq :TroubleToggle quickfix<CR>
+nnoremap <silent> gR :TroubleToggle lsp_references<CR>
+
+""""""""""""""""""""""""""""diffview.nvim settings"""""""""""""""""""""""""""""
+nnoremap <silent> <Leader>gd :DiffviewOpen<CR>
+nnoremap <silent> <Leader>gh :DiffviewFileHistory<CR>
+
+""""""""""""""""""""""""""""lazygit.nvim settings"""""""""""""""""""""""""""""
+nnoremap <silent> <Leader>gg :LazyGit<CR>
+
+""""""""""""""""""""""""""""spectre settings"""""""""""""""""""""""""""""""
+nnoremap <silent> <Leader>sr :Spectre<CR>
+
+""""""""""""""""""""""""""""grug-far settings"""""""""""""""""""""""""""""
+nnoremap <silent> <Leader>sf :GrugFar<CR>
+
+""""""""""""""""""""""""""""bufdelete.nvim settings"""""""""""""""""""""""""""""
+nnoremap <silent> <Leader>bd :Bdelete<CR>
+nnoremap <silent> <Leader>bD :Bdelete!<CR>
 
 """"""""""""""""""""""""""""vimtex settings"""""""""""""""""""""""""""""
 if executable('latex')

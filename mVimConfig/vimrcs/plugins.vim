@@ -401,8 +401,11 @@ let maplocalleader = ","
 vmap <leader>y <Plug>OSCYankVisual
 
 " ========================================================================================== rhysd/accelerated-jk
-nmap j <Plug>(accelerated_jk_gj)
-nmap k <Plug>(accelerated_jk_gk)
+" 仅在插件正常加载时映射 j/k，避免加载失败导致 j/k 失效
+if mapcheck('<Plug>(accelerated_jk_gj)', 'n') !=# ''
+  nmap j <Plug>(accelerated_jk_gj)
+  nmap k <Plug>(accelerated_jk_gk)
+endif
 
 " 高级配置选项
 " [初始延迟ms, 后续间隔ms]

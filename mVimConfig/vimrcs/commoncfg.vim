@@ -119,7 +119,9 @@ set backspace=indent,eol,start  " 设置退格键的作用
 set scrolloff=5  " 垂直滚动时，光标距离顶部/底部的位置（单位：行）。
 set sidescrolloff=15  " 水平滚动时，光标距离行首或行尾的位置（单位：字符）。
 
-set iskeyword+=_,$,@,%,#,-  " 带有如下符号的单词不要被换行分割
+set iskeyword+=_,@,%,-  " 带有如下符号的单词不要被换行分割
+                         " 注意：$ 不能加入 iskeyword，否则 $abc 会被视为一个单词，
+                         " 导致 * 搜索 abc 时无法匹配 $abc（$ 是正则元字符，还会引入额外问题）
 set showcmd  " 在屏幕底部显示当前所处的模式。例如希望输入fx命令来查找字符“x”时，
              " 当我们输入f时就会在底部显示“f”，这在输入复杂命令时将很有帮助。
 set showmode " 在底部显示当前处于命令模式还是插入模式

@@ -318,7 +318,7 @@ nmap <Leader>L <Plug>(easymotion-overwin-line)
 
 " ========================================================================================== git blame config
 " 光标停止移动约1秒后自动显示当前行的 git blame 信息
-autocmd CursorHold * call gitblame#echo()
+autocmd CursorHold * if IsInGitRepo() | call gitblame#echo() | endif
 
 " ========================================================================================== gitgutter config
 " 默认显示git diff标记

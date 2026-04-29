@@ -75,9 +75,13 @@ set nocompatible
 " 最常用、最推荐
 " set clipboard+=unnamedplus
 "
-if has('win32') || has('linux')
-    " 现代 Linux 推荐写法，实测有效
+if has('win32')
     set clipboard=unnamedplus
+elseif has('linux')
+    " 仅在有图形环境时启用系统剪贴板同步，SSH 远程无 DISPLAY 时跳过
+    if $DISPLAY !=# '' || $WAYLAND_DISPLAY !=# ''
+        set clipboard=unnamedplus
+    endif
 elseif has('mac')
     " mac
     set clipboard+=unnamed

@@ -3,6 +3,68 @@
 " 修复: startify 为每个条目分配单字符快捷键，q 可能被文件条目抢占导致无法退出
 autocmd FileType startify nnoremap <buffer><silent><nowait> q :q<CR>
 
+" ----- 自定义 Header -----
+" 风格 1: Vim logo
+" let g:startify_custom_header = [
+"       \ '   ___                                    ',
+"       \ '  / __\ _____  ____ _____      ____  ____ ',
+"       \ ' / /   / _ \ \/ / / _ \ \ /\ / /  _ \/ __/',
+"       \ '/ /___/  __/>  </  __/\ V  V / (_) \__ \ ',
+"       \ '\____/\___/_/\_\ \___/ \_/\_/ \___/|___/ ',
+"       \]
+" 风格 2: 更大号的 Vim logo（取消上面注释，注释掉这个即可切换）
+" let g:startify_custom_header = [
+"       \ '8888888b.                    888     888 8888888  .d8888b.  8888888888',
+"       \ '888   Y88b                   888     888   888   d88P  Y88b 888      ',
+"       \ '888    888                   888     888   888   888    888 888      ',
+"       \ '888   d88P  .d88b.  888  888 888     888   888   888         8888888 ',
+"       \ '8888888P"  d88""88b 888  888 888     888   888   888         888     ',
+"       \ '888 T88b   888  888 888  888 888     888   888   888    888 888     ',
+"       \ '888  T88b  Y88..88P 888  888 888     888   888   Y88b  d88P 888     ',
+"       \ '888   T88b  "Y88P"  888  888 8888888 888   8888888 "Y8888P"  888     ',
+"       \]
+" 风格 3: cowsay（需要系统安装 cowsay，取消下面注释，注释掉上面即可）
+" let g:startify_custom_header = map(split(system('fortune | cowsay -W 50'), '\n'), '"   ". v:val')
+" 风格 4: 随机 cowsay 动物（需要 cowsay）
+" let s:cows = split(system('cowsay -l'), '\n')[1:]
+" let g:startify_custom_header = map(split(system('fortune | cowsay -f '. s:cows[rand()%len(s:cows)] .' -W 50'), '\n'), '"   ". v:val')
+
+" ----- 列表区域 -----
+let g:startify_lists = [
+      \ { 'type': 'sessions',  'header': ['   Sessions']                          },
+      \ { 'type': 'bookmarks', 'header': ['   Bookmarks']                         },
+      \ { 'type': 'commands',  'header': ['   Commands']                          },
+      \ { 'type': 'files',     'header': ['   Recent Files']                      },
+      \ { 'type': 'dir',       'header': ['   Current Dir  '. getcwd()]           },
+      \ ]
+
+" ----- 最近文件数量 -----
+let g:startify_files_number = 8
+
+" ----- 书签 -----
+let g:startify_bookmarks = [
+      \ { 'c': '~/.vimrc' },
+      \ { 'v': '~/Projects/vimcfg/mVimConfig' },
+      \ { 'p': '~/Projects' },
+      \ ]
+
+" ----- Session 持久化（需要手动创建目录 mkdir -p ~/.vim/session）-----
+" let g:startify_session_persistence = 1
+" let g:startify_session_dir = '~/.vim/session'
+" let g:startify_session_delete_buffers = 1
+
+" ----- 自定义 footer -----
+" 风格 1:
+let g:startify_custom_footer = ['   "The only way to do great work is to love what you do."']
+" 风格 2: 随机名言（需要系统安装 fortune）
+" let g:startify_custom_footer = map(split(system('fortune -s -n 60'), '\n'), '"   ". v:val')
+" 风格 3: 无 footer
+" let g:startify_custom_footer = []
+
+" ----- 更新统计信息（右下角）-----
+let g:startify_update_oldfiles = 1
+let g:startify_change_to_vcs_root = 1
+
 " ========================================================================================== nerdtree config
 " 当打开 NERDTree 窗口时，自动显示 Bookmarks
 let NERDTreeShowBookmarks=1

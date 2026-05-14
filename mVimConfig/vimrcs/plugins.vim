@@ -1,5 +1,7 @@
 " ========================================================================================== startify config
 " don't neet config, run vi can see interface
+" 修复: startify 为每个条目分配单字符快捷键，q 可能被文件条目抢占导致无法退出
+autocmd FileType startify nnoremap <buffer><silent><nowait> q :q<CR>
 
 " ========================================================================================== nerdtree config
 " 当打开 NERDTree 窗口时，自动显示 Bookmarks

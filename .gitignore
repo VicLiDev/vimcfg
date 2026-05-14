@@ -16,3 +16,4 @@ mVimConfig/gdb_tools/peda/
 # vim swap files
 *.swp
 *.swo
+*.omc

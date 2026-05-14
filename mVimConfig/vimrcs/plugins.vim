@@ -275,7 +275,7 @@ let g:fzf_layout = { 'window': '10new' }
 let g:fzf_colors =
 \ { 'fg':      ['fg', 'Normal'],
   \ 'bg':      ['bg', 'Normal'],
-  \ 'hl':      ['fg', 'Comment'],
+  \ 'hl':      ['fg', 'GruvboxYellow'],
   \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
   \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
   \ 'hl+':     ['fg', 'Statement'],
@@ -391,6 +391,13 @@ let g:gitgutter_enabled=1
 " ========================================================================================== markdown-preview
 nmap <Leader>md :MarkdownPreview<CR>
 
+" ========================================================================================== vim-c-cpp-modern
+" 增强 C/C++ 语法高亮
+let g:cpp_function_highlight = 1      " 高亮函数名
+let g:cpp_member_highlight = 1        " 高亮结构体/对象成员
+let g:cpp_type_name_highlight = 1     " 高亮 struct/union/enum/class 名
+let g:cpp_operator_highlight = 1      " 高亮运算符
+
 " ========================================================================================== vim-markdown
 let g:vim_markdown_folding_disabled = 1
 let g:vim_markdown_math = 1
@@ -411,15 +418,15 @@ augroup vim_markdown_colors
   autocmd FileType markdown call s:apply_markdown_colors()
 augroup END
 function! s:apply_markdown_colors()
-  " 标题内容: 暖到冷渐变 (橙->黄->蓝->紫->青->暗橙)
+  " 标题内容: 暖到冷渐变 (橙->黄->绿->青->蓝->紫)，与 after/colors/gruvbox.vim 统一
   hi! htmlH1 cterm=bold ctermfg=208 guifg=#fe8019 gui=bold
   hi! htmlH2 cterm=bold ctermfg=214 guifg=#fabd2f gui=bold
-  hi! htmlH3 cterm=bold ctermfg=109 guifg=#83a598 gui=bold
-  hi! htmlH4 cterm=bold ctermfg=175 guifg=#d3869b gui=bold
-  hi! htmlH5 cterm=bold ctermfg=108 guifg=#8ec07c gui=bold
-  hi! htmlH6 cterm=bold ctermfg=166 guifg=#d65d0e gui=bold
-  " 标题 # 分隔符
-  hi! mkdHeading ctermfg=208 guifg=#fe8019
+  hi! htmlH3 cterm=bold ctermfg=142 guifg=#b8bb26 gui=bold
+  hi! htmlH4 cterm=bold ctermfg=108 guifg=#8ec07c gui=bold
+  hi! htmlH5 cterm=bold ctermfg=109 guifg=#83a598 gui=bold
+  hi! htmlH6 cterm=bold ctermfg=175 guifg=#d3869b gui=bold
+  " 标题 # 分隔符: 柔和灰，与标题内容区分
+  hi! mkdHeading ctermfg=246 guifg=#a89984
   " 行内代码: 柔和前景色
   hi! mkdCode ctermfg=246 guifg=#a89984
   hi! mkdCodeDelimiter ctermfg=243 guifg=#7c6f64
@@ -451,7 +458,8 @@ let g:indentLine_char_list = ['|', '¦', '┆', '┊']
 " 隐藏颜色
 let g:indentLine_setColors = 1
 let g:indentLine_color_term = 239
-let g:indentLine_bgcolor_gui = '#FF5F00'
+" indentLine 背景色使用 gruvbox dark1 色调，与主题和谐
+let g:indentLine_bgcolor_gui = '#3c3836'
 
 
 " ========================================================================================== ultisnips

@@ -1,8 +1,5 @@
 # 仓库使用方法
 
-> Put vimrcs colors syntax into ~/.vim  
-> 注意 syntax 中的c.vim需要首先复制系统中的c.vim，然后在后边添加文件夹中c.vim中的内容
-
 建议创建软链接
 - ln -s ${HOME}/Projects/vimcfg/mVimConfig ${HOME}/.vim
 - ln -s ${HOME}/Projects/vimcfg/mVimConfig/vimrc ${HOME}/.vimrc

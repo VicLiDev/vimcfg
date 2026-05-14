@@ -113,10 +113,23 @@ Plugin 'lervag/vimtex'
 if has('mac')
     Plugin 'sheerun/vim-polyglot'
 endif
+" C/C++ 增强：定义语法匹配规则（函数调用、结构体成员、STL 类型等）
+"   注意：本插件只定义"匹配什么"，实际颜色在 colors/gruvbox.vim 中配置
+"   插件创建语法组并设默认颜色（hi def link），gruvbox.vim 用 hi! link 覆盖
+"   删除插件 → 规则消失；删除 gruvbox 中的颜色链接 → 回退到插件默认颜色
+"   功能开关（默认关闭的需在 commoncfg.vim 中手动启用）：
+"     g:cpp_function_highlight=1   高亮函数名（默认开）
+"     g:cpp_member_highlight=1     高亮结构体/对象成员（默认关）
+"     g:cpp_type_name_highlight=1  高亮 struct/union/enum/class 名（默认开）
+"     g:cpp_operator_highlight=1   高亮运算符（默认关）
+Plugin 'bfrg/vim-c-cpp-modern'
 
 
 " Theme and interface
-" Plugin 'morhetz/gruvbox'
+" Gruvbox: 暖色复古，默认主题（通过插件管理器安装原版，after/colors/gruvbox.vim 存自定义覆盖）
+Plugin 'morhetz/gruvbox'
+Plugin 'ghifarit53/tokyonight-vim'            " Tokyo Night: 霓虹现代 (:colorscheme tokyonight)
+Plugin 'dracula/vim', {'as': 'dracula'}        " Dracula: 经典暗色 (:colorscheme dracula)
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 

@@ -334,6 +334,48 @@ let g:vim_markdown_conceal = 0
 let g:vim_markdown_emphasis_multiline = 0
 hi clear markdownError
 
+" 覆盖 vim-markdown 的语法高亮配色
+"
+" 原因：vim-markdown 使用自己的 mkd*/htmlH* 语法组（如 mkdCode、mkdHeading、htmlH1 等），
+"       而非 Vim 标准的 markdown* 组（如 markdownCode、markdownH1 等）。
+"       gruvbox 配色方案中定义的 markdown* 高亮链接不会被 vim-markdown 匹配，因此无效。
+"       需要在 FileType autocmd 中用 hi! 强制覆盖 vim-markdown 的 hi default link 设置。
+"       （hi default link 只在组无高亮定义时生效，hi! 则无条件覆盖）
+augroup vim_markdown_colors
+  autocmd!
+  autocmd FileType markdown call s:apply_markdown_colors()
+augroup END
+function! s:apply_markdown_colors()
+  " 标题内容: 暖到冷渐变 (橙->黄->蓝->紫->青->暗橙)
+  hi! htmlH1 cterm=bold ctermfg=208 guifg=#fe8019 gui=bold
+  hi! htmlH2 cterm=bold ctermfg=214 guifg=#fabd2f gui=bold
+  hi! htmlH3 cterm=bold ctermfg=109 guifg=#83a598 gui=bold
+  hi! htmlH4 cterm=bold ctermfg=175 guifg=#d3869b gui=bold
+  hi! htmlH5 cterm=bold ctermfg=108 guifg=#8ec07c gui=bold
+  hi! htmlH6 cterm=bold ctermfg=166 guifg=#d65d0e gui=bold
+  " 标题 # 分隔符
+  hi! mkdHeading ctermfg=208 guifg=#fe8019
+  " 行内代码: 柔和前景色
+  hi! mkdCode ctermfg=246 guifg=#a89984
+  hi! mkdCodeDelimiter ctermfg=243 guifg=#7c6f64
+  hi! mkdCodeStart ctermfg=246 guifg=#a89984
+  hi! mkdCodeEnd ctermfg=246 guifg=#a89984
+  " 引用块
+  hi! mkdBlockquote cterm=italic ctermfg=246 guifg=#a89984 gui=italic
+  " 列表标记
+  hi! mkdListItem ctermfg=208 guifg=#fe8019
+  " 分隔线
+  hi! mkdRule ctermfg=243 guifg=#7c6f64
+  " 链接
+  hi! mkdURL ctermfg=109 guifg=#83a598
+  hi! mkdInlineURL cterm=underline ctermfg=109 guifg=#83a598 gui=underline
+  hi! mkdLink cterm=underline ctermfg=109 guifg=#83a598 gui=underline
+  " 脚注
+  hi! mkdFootnote ctermfg=246 guifg=#a89984
+  " 分隔符
+  hi! mkdDelimiter ctermfg=243 guifg=#7c6f64
+endfunction
+
 " ========================================================================================== uml
 " docker run -d -p 8888:8080 plantuml/plantuml-server:jetty
 let g:preview_uml_url='http://localhost:8888'

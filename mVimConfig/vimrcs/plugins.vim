@@ -331,6 +331,7 @@ nmap <Leader>md :MarkdownPreview<CR>
 let g:vim_markdown_folding_disabled = 1
 let g:vim_markdown_math = 1
 let g:vim_markdown_conceal = 0
+let g:vim_markdown_conceal_code_blocks = 0
 let g:vim_markdown_emphasis_multiline = 0
 hi clear markdownError
 

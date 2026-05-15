@@ -651,6 +651,22 @@ let g:ale_linters = {
 \   'python': ['flake8'],
 \   'go': ['go', 'golint', 'errcheck']
 \}
+" clangd 配置（C/C++ LSP，提供语义诊断和代码智能，仅在 clangd 已安装时启用）
+" 注意: clangd 在 Vim 中不提供语义着色(semanticTokens)，自定义类型着色由 ctags 方案负责
+" 安装: sudo apt install clangd 或通过 LLVM 安装
+" 建议: 生成 compile_commands.json (CMake: -DCMAKE_EXPORT_COMPILE_COMMANDS=ON, 或 bear -- make)
+if executable('clangd')
+    let g:ale_linters['c'] = ['clangd']
+    let g:ale_linters['cpp'] = ['clangd']
+    let g:ale_c_clangd_options = '--header-insertion=never --clang-tidy'
+    let g:ale_cpp_clangd_options = '--header-insertion=never --clang-tidy'
+    " clangd 跳转到定义
+    nmap <silent> <leader>gd :ALEGoToDefinition<CR>
+    " clangd 查看类型信息/文档
+    nmap <silent> <leader>k :ALEHover<CR>
+    " clangd 查找引用（注意: <leader>gr 已被 gtags 占用，此处用 <leader>lr）
+    nmap <silent> <leader>lr :ALEFindReferences<CR>
+endif
 " <leader>a 跳转到下一个语法错误/警告
 nmap <silent> <leader>a <Plug>(ale_next_wrap)
 " 禁用高亮标记（避免与colorscheme冲突导致显示异常）

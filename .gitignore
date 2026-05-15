@@ -3,7 +3,8 @@ mVimConfig/bundle
 # vim plugin directories (managed by vim-plug)
 mVimConfig/plugged
 # vim-plug loader (plug.vim)
-mVimConfig/autoload
+mVimConfig/autoload/*
+!mVimConfig/autoload/ctags_highlight.vim
 # vim native packages
 mVimConfig/pack
 # gdb tools (installed separately)

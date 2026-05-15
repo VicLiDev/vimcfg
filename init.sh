@@ -102,10 +102,10 @@ function select_vim_plugin_manager()
 
 function install_system_tools()
 {
-    echo "==> checking system tools (ctags, cscope, global)"
+    echo "==> checking system tools (ctags, cscope, global, clangd)"
     missing=0
 
-    for tool in ctags cscope global; do
+    for tool in ctags cscope global clangd; do
         if command -v "${tool}" &>/dev/null; then
             echo "  ${tool}: $(command -v ${tool})"
         else
@@ -116,7 +116,7 @@ function install_system_tools()
 
     if [ "${missing}" = "1" ]; then
         echo "  some tools missing, install with:"
-        echo "    sudo apt-get install universal-ctags cscope global"
+        echo "    sudo apt-get install universal-ctags cscope global clangd"
     fi
 }
 

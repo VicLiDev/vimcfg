@@ -158,8 +158,8 @@ set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [POS=%l,%v][%p%%]\ %{strf
 """"""""""""""""""""""""""""
 syntax on "自动语法高亮
 set number         " 显示行号
-colorscheme gruvbox  "设置配色方案
-" colorscheme tokyonight  "设置配色方案
+" colorscheme gruvbox  "设置配色方案
+colorscheme tokyonight  "设置配色方案
 " color darkblue "设置背景主题，跟colorscheme好像是一样的
 set background=dark "背景使用黑色
 

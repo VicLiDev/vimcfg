@@ -159,8 +159,10 @@ bash init.sh
 生成 tags 文件：
 
 ```bash
-ctags -R --c++-kinds=+p --fields=+iaS --extra=+q
+ctags -R --c++-kinds=+p --fields=+iaS --extra=+q --tag-relative=never
 ```
+
+> `--tag-relative=never` 使用绝对路径，避免 `autochdir` 下标签跳转路径错误。
 
 常用操作：
 
@@ -172,6 +174,43 @@ ctags -R --c++-kinds=+p --fields=+iaS --extra=+q
 | `gD`          | 跳转到单词首次使用处             |
 | `:ts`         | 列出匹配 tag                     |
 | `:tn` / `:tp` | 下一个/上一个匹配 tag            |
+
+**自定义类型高亮**：
+
+Vim 默认只能高亮类型的声明处（`struct MyType { ... }`），无法在使用处（`MyType *ptr`）识别为类型。
+配置通过 `after/syntax/c.vim` 在语法文件加载后从 tags 提取自定义类型名并高亮。
+
+- 自动生效：打开 C/C++ 文件时自动从 tags 文件加载类型名
+- 手动控制：`:CtagsHighlight` 刷新，`:CtagsHighlightClear` 清除
+- 前提：需要 `ctags -R --tag-relative=never` 生成 tags 文件
+- 仅高亮 C/C++ 源文件中的 `struct/union/enum/typedef/class` 类型
+
+---
+
+### clangd LSP
+
+当安装了 clangd 后，自动通过 ALE 启用 LSP 语义分析，提供代码诊断和导航功能：
+> 注意：clangd 在 Vim 中不提供语义着色（semanticTokens），该功能仅 Neovim 支持。
+
+```bash
+# 安装 clangd
+sudo apt install clangd
+
+# (可选) 生成 compile_commands.json 以获得准确的语义分析
+cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=ON ...
+# 或 Makefile 项目：
+bear -- make
+```
+
+| 映射          | 说明          |
+|---------------|---------------|
+| `<leader>gd`  | 跳转到定义    |
+| `<leader>k`   | 查看类型/文档 |
+| `<leader>lr`  | 查找引用      |
+
+自定义类型高亮与 clangd 职责不同，互不冲突，可同时工作：
+- 自定义类型高亮负责**语法着色**，将自定义类型名以 Type 颜色高亮
+- clangd 负责**代码智能**（诊断、跳转到定义、查看类型文档、查找引用）
 
 ---
 
@@ -209,6 +248,8 @@ cscope -Rbkq -i cscope.files
 | `:Gtagsa <pattern>` | 搜索并附加结果    |
 | `:GtagsCursor`      | 搜索光标下单词    |
 | `:GtagsUpdate`      | 更新 gtags 数据库 |
+
+> 已启用 `Gtags_Emacs_Like_Mode`，修复 `autochdir` 下 gtags 跳转路径错误。
 
 ---
 

@@ -32,7 +32,7 @@ Plugin 'mhinz/vim-startify'
 " File browsing and management
 Plugin 'preservim/nerdtree'
 Plugin 'junegunn/fzf'
-Plugin 'kien/ctrlp.vim'
+Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'tacahiroy/ctrlp-funky'
 Plugin 'vim-scripts/taglist.vim'
 " Plugin 'majutsushi/tagbar'

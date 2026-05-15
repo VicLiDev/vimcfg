@@ -128,8 +128,13 @@ Plugin 'bfrg/vim-c-cpp-modern'
 " Theme and interface
 " Gruvbox: 暖色复古，默认主题（通过插件管理器安装原版，after/colors/gruvbox.vim 存自定义覆盖）
 Plugin 'morhetz/gruvbox'
-Plugin 'ghifarit53/tokyonight-vim'            " Tokyo Night: 霓虹现代 (:colorscheme tokyonight)
+Plugin 'ghifarit53/tokyonight-vim'             " Tokyo Night: 霓虹现代 (:colorscheme tokyonight)
 Plugin 'dracula/vim', {'as': 'dracula'}        " Dracula: 经典暗色 (:colorscheme dracula)
+Plugin 'altercation/vim-colors-solarized'      " Solarized: 经典护眼配色 (:colorscheme solarized)
+Plugin 'arcticicestudio/nord-vim'              " Nord: 北极冷色调 (:colorscheme nord)
+Plugin 'nanotech/jellybeans.vim'               " Jellybeans: 果冻色暗色 (:colorscheme jellybeans)
+Plugin 'joshdick/onedark.vim'                  " OneDark: Atom One Dark (:colorscheme onedark)
+Plugin 'tomasr/molokai'                        " Monokai: 经典 Monokai (:colorscheme molokai)
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 

@@ -142,3 +142,31 @@ hi! link markdownUrl GruvboxPurple
 hi! link markdownUrlTitleDelimiter GruvboxFg3
 hi! link markdownLinkText GruvboxFg3
 hi! link markdownIdDeclaration markdownLinkText
+
+" ----- NERDTree -----
+" 目录与可执行文件：粗体绿
+hi! link NERDTreeDir GruvboxGreenBold
+" 目录箭头/标志：柔和灰
+hi! link NERDTreeDirArrow GruvboxFg4
+hi! link NERDTreeUp GruvboxGray
+" 当前打开的文件：醒目橙
+hi! link NERDTreeOpenable GruvboxOrange
+hi! link NERDTreeClosable GruvboxOrange
+" 只读文件：红色
+hi! link NERDTreeRO GruvboxRed
+" 可执行文件：青色
+hi! link NERDTreeExecFile GruvboxAqua
+" 符号链接：紫色
+hi! link NERDTreeLinkFile GruvboxPurple
+hi! link NERDTreeLinkTarget GruvboxFg3
+" 书签：黄色
+hi! link NERDTreeBookmark GruvboxYellow
+" 标题/帮助行：柔和灰
+hi! link NERDTreeHelp GruvboxGray
+hi! link NERDTreeToggleOn GruvboxGreen
+hi! link NERDTreeToggleOff GruvboxFg3
+" 分隔符
+hi! link NERDTreeCWD GruvboxAqua
+hi! link NERDTreeFlags GruvboxOrange
+" 文件匹配（模糊搜索）
+hi! link NERDTreeFile GruvboxFg1

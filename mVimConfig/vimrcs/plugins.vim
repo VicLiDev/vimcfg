@@ -68,6 +68,16 @@ let g:startify_change_to_vcs_root = 1
 " ========================================================================================== nerdtree config
 " 当打开 NERDTree 窗口时，自动显示 Bookmarks
 let NERDTreeShowBookmarks=1
+" 隐藏顶部的帮助信息（Press ? for help），界面更整洁
+" let NERDTreeMinimalUI=1
+" 隐藏 Bookmarks 面板的 'Bookmarks' 标题行
+let NERDTreeMinimalMenu=1
+" 窗口宽度（默认 31，适当加宽以避免路径被截断）
+let NERDTreeWinSize=35
+" 显示隐藏文件（以 . 开头的文件）
+let NERDTreeShowHidden=1
+" 高亮当前正在编辑的文件
+let NERDTreeHighlightCursorline=1
 " 将NERDTree的窗口设置在vim窗口的右侧（默认为左侧）
 " let NERDTreeWinPos="right"
 " 如果未指定文件，在vim启动时自动打开NERDTree

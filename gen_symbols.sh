@@ -20,7 +20,7 @@ time cscope -Rbkq -i ./cscope.file
 rm cscope.file
 
 #生成tags
-time ctags -R ./*
+time ctags -R --tag-relative=never
 
 #生成gtags索引
 gtags

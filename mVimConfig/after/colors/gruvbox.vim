@@ -35,6 +35,7 @@ hi! link shCaseBar GruvboxFg3
 " ----- C/C++ -----
 hi! link cOperator GruvboxOrange
 hi! link cType GruvboxYellow
+hi! link cTagsType GruvboxYellow
 hi! link cStorageClass GruvboxOrange
 hi! link cQualifier GruvboxOrange
 hi! link cConstant GruvboxPurple

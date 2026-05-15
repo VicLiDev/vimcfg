@@ -421,7 +421,8 @@ let g:cpp_operator_highlight = 1      " 高亮运算符
 " 使用 :CtagsHighlight 手动刷新，:CtagsHighlightClear 清除高亮
 " 实际触发点在 after/syntax/c.vim 和 after/syntax/cpp.vim（确保在所有语法文件之后执行）
 " 注意：此方案是语法层面的着色，不依赖 LSP，与 clangd 互不冲突
-let g:loaded_ctags_type_highlight = 1
+" 设置 g:ctags_type_highlight=0 可关闭此功能
+let g:ctags_type_highlight = get(g:, 'ctags_type_highlight', 1)
 let s:ctags_type_cache = {}
 let s:ctags_type_mtime = {}
 

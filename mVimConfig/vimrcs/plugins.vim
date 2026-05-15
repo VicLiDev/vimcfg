@@ -390,6 +390,9 @@ autocmd CursorHold * if IsInGitRepo() | call gitblame#echo() | endif
 " 默认显示git diff标记
 let g:gitgutter_enabled=1
 
+" ========================================================================================== vim-mark
+nmap <Leader>mc <Plug>MarkAllClear
+
 " ========================================================================================== markdown-preview
 nmap <Leader>md :MarkdownPreview<CR>
 

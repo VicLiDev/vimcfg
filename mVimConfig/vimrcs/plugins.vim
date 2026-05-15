@@ -298,20 +298,28 @@ let g:fzf_layout = { 'window': '10new' }
 
 " Customize fzf colors to match your color scheme
 " - fzf#wrap translates this to a set of `--color` options
-let g:fzf_colors =
-\ { 'fg':      ['fg', 'Normal'],
-  \ 'bg':      ['bg', 'Normal'],
-  \ 'hl':      ['fg', 'GruvboxYellow'],
-  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-  \ 'hl+':     ['fg', 'Statement'],
-  \ 'info':    ['fg', 'PreProc'],
-  \ 'border':  ['fg', 'Ignore'],
-  \ 'prompt':  ['fg', 'Conditional'],
-  \ 'pointer': ['fg', 'Exception'],
-  \ 'marker':  ['fg', 'Keyword'],
-  \ 'spinner': ['fg', 'Label'],
-  \ 'header':  ['fg', 'Comment'] }
+function! s:set_fzf_colors()
+  let l:hl_group = get(g:, 'colors_name', '') =~# 'gruvbox' ? 'GruvboxYellow' : 'Number'
+  let g:fzf_colors =
+  \ { 'fg':      ['fg', 'Normal'],
+    \ 'bg':      ['bg', 'Normal'],
+    \ 'hl':      ['fg', l:hl_group],
+    \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+    \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+    \ 'hl+':     ['fg', 'Statement'],
+    \ 'info':    ['fg', 'PreProc'],
+    \ 'border':  ['fg', 'Ignore'],
+    \ 'prompt':  ['fg', 'Conditional'],
+    \ 'pointer': ['fg', 'Exception'],
+    \ 'marker':  ['fg', 'Keyword'],
+    \ 'spinner': ['fg', 'Label'],
+    \ 'header':  ['fg', 'Comment'] }
+endfunction
+augroup theme_fzf_colors
+  autocmd!
+  autocmd ColorScheme * call s:set_fzf_colors()
+augroup END
+call s:set_fzf_colors()
 
 " Enable per-command history
 " - History files will be stored in the specified directory
@@ -445,36 +453,68 @@ hi clear markdownError
 augroup vim_markdown_colors
   autocmd!
   autocmd FileType markdown call s:apply_markdown_colors()
+  autocmd ColorScheme * if &ft ==# 'markdown' | call s:apply_markdown_colors() | endif
 augroup END
 function! s:apply_markdown_colors()
-  " 标题内容: 暖到冷渐变 (橙->黄->绿->青->蓝->紫)，与 after/colors/gruvbox.vim 统一
-  hi! htmlH1 cterm=bold ctermfg=208 guifg=#fe8019 gui=bold
-  hi! htmlH2 cterm=bold ctermfg=214 guifg=#fabd2f gui=bold
-  hi! htmlH3 cterm=bold ctermfg=142 guifg=#b8bb26 gui=bold
-  hi! htmlH4 cterm=bold ctermfg=108 guifg=#8ec07c gui=bold
-  hi! htmlH5 cterm=bold ctermfg=109 guifg=#83a598 gui=bold
-  hi! htmlH6 cterm=bold ctermfg=175 guifg=#d3869b gui=bold
-  " 标题 # 分隔符: 柔和灰，与标题内容区分
-  hi! mkdHeading ctermfg=246 guifg=#a89984
-  " 行内代码: 柔和前景色
-  hi! mkdCode ctermfg=246 guifg=#a89984
-  hi! mkdCodeDelimiter ctermfg=243 guifg=#7c6f64
-  hi! mkdCodeStart ctermfg=246 guifg=#a89984
-  hi! mkdCodeEnd ctermfg=246 guifg=#a89984
-  " 引用块
-  hi! mkdBlockquote cterm=italic ctermfg=246 guifg=#a89984 gui=italic
-  " 列表标记
-  hi! mkdListItem ctermfg=208 guifg=#fe8019
-  " 分隔线
-  hi! mkdRule ctermfg=243 guifg=#7c6f64
-  " 链接
-  hi! mkdURL ctermfg=109 guifg=#83a598
-  hi! mkdInlineURL cterm=underline ctermfg=109 guifg=#83a598 gui=underline
-  hi! mkdLink cterm=underline ctermfg=109 guifg=#83a598 gui=underline
-  " 脚注
-  hi! mkdFootnote ctermfg=246 guifg=#a89984
-  " 分隔符
-  hi! mkdDelimiter ctermfg=243 guifg=#7c6f64
+  if get(g:, 'colors_name', '') =~# 'gruvbox'
+    " 标题内容: 暖到冷渐变 (橙->黄->绿->青->蓝->紫)，与 after/colors/gruvbox.vim 统一
+    hi! htmlH1 cterm=bold ctermfg=208 guifg=#fe8019 gui=bold
+    hi! htmlH2 cterm=bold ctermfg=214 guifg=#fabd2f gui=bold
+    hi! htmlH3 cterm=bold ctermfg=142 guifg=#b8bb26 gui=bold
+    hi! htmlH4 cterm=bold ctermfg=108 guifg=#8ec07c gui=bold
+    hi! htmlH5 cterm=bold ctermfg=109 guifg=#83a598 gui=bold
+    hi! htmlH6 cterm=bold ctermfg=175 guifg=#d3869b gui=bold
+    " 标题 # 分隔符: 柔和灰，与标题内容区分
+    hi! mkdHeading ctermfg=246 guifg=#a89984
+    " 行内代码: 柔和前景色
+    hi! mkdCode ctermfg=246 guifg=#a89984
+    hi! mkdCodeDelimiter ctermfg=243 guifg=#7c6f64
+    hi! mkdCodeStart ctermfg=246 guifg=#a89984
+    hi! mkdCodeEnd ctermfg=246 guifg=#a89984
+    " 引用块
+    hi! mkdBlockquote cterm=italic ctermfg=246 guifg=#a89984 gui=italic
+    " 列表标记
+    hi! mkdListItem ctermfg=208 guifg=#fe8019
+    " 分隔线
+    hi! mkdRule ctermfg=243 guifg=#7c6f64
+    " 链接
+    hi! mkdURL ctermfg=109 guifg=#83a598
+    hi! mkdInlineURL cterm=underline ctermfg=109 guifg=#83a598 gui=underline
+    hi! mkdLink cterm=underline ctermfg=109 guifg=#83a598 gui=underline
+    " 脚注
+    hi! mkdFootnote ctermfg=246 guifg=#a89984
+    " 分隔符
+    hi! mkdDelimiter ctermfg=243 guifg=#7c6f64
+  else
+    " 标题内容: 暖到冷渐变，与 after/colors/tokyonight.vim 统一
+    hi! htmlH1 cterm=bold ctermfg=215 guifg=#FF9E64 gui=bold
+    hi! htmlH2 cterm=bold ctermfg=179 guifg=#E0AF68 gui=bold
+    hi! htmlH3 cterm=bold ctermfg=107 guifg=#9ECE6A gui=bold
+    hi! htmlH4 cterm=bold ctermfg=117 guifg=#7DCFFF gui=bold
+    hi! htmlH5 cterm=bold ctermfg=110 guifg=#7AA2F7 gui=bold
+    hi! htmlH6 cterm=bold ctermfg=180 guifg=#BB9AF7 gui=bold
+    " 标题 # 分隔符
+    hi! mkdHeading ctermfg=247 guifg=#7982a9
+    " 行内代码
+    hi! mkdCode ctermfg=247 guifg=#7982a9
+    hi! mkdCodeDelimiter ctermfg=240 guifg=#565f89
+    hi! mkdCodeStart ctermfg=247 guifg=#7982a9
+    hi! mkdCodeEnd ctermfg=247 guifg=#7982a9
+    " 引用块
+    hi! mkdBlockquote cterm=italic ctermfg=247 guifg=#7982a9 gui=italic
+    " 列表标记
+    hi! mkdListItem ctermfg=215 guifg=#FF9E64
+    " 分隔线
+    hi! mkdRule ctermfg=240 guifg=#565f89
+    " 链接
+    hi! mkdURL ctermfg=110 guifg=#7AA2F7
+    hi! mkdInlineURL cterm=underline ctermfg=110 guifg=#7AA2F7 gui=underline
+    hi! mkdLink cterm=underline ctermfg=110 guifg=#7AA2F7 gui=underline
+    " 脚注
+    hi! mkdFootnote ctermfg=247 guifg=#7982a9
+    " 分隔符
+    hi! mkdDelimiter ctermfg=240 guifg=#565f89
+  endif
 endfunction
 
 " ── uml ─────────────────────────────────────────────────
@@ -487,8 +527,19 @@ let g:indentLine_char_list = ['|', '¦', '┆', '┊']
 " 隐藏颜色
 let g:indentLine_setColors = 1
 let g:indentLine_color_term = 239
-" indentLine 背景色使用 gruvbox dark1 色调，与主题和谐
-let g:indentLine_bgcolor_gui = '#3c3836'
+" indentLine 背景色：根据主题切换
+function! s:set_indent_colors()
+  if get(g:, 'colors_name', '') =~# 'gruvbox'
+    let g:indentLine_bgcolor_gui = '#3c3836'
+  else
+    let g:indentLine_bgcolor_gui = '#24283b'
+  endif
+endfunction
+augroup theme_indent_colors
+  autocmd!
+  autocmd ColorScheme * call s:set_indent_colors()
+augroup END
+call s:set_indent_colors()
 
 
 " ── ultisnips ───────────────────────────────────────────
@@ -631,9 +682,19 @@ let g:undotree_DiffpanelHeight = 10  " diff面板高度
 " 高亮光标下相同单词，默认高亮范围有限，增大一些
 let g:Illuminate_delay = 100      " 延迟100ms后高亮（避免快速移动时闪烁）
 let g:Illuminate_highlightUnderCursor = 1  " 也高亮光标所在的单词
-" 自定义高亮颜色：暗橙底色 + 青蓝色调 + 下划线，适配 gruvbox 暗色主题
-" 直接设置（不能用 ColorScheme autocmd，因为 colorscheme 在本文件之前就已加载）
-hi illuminatedWord cterm=underline ctermbg=59 guibg=#3d2a28 gui=underline
+" 自定义高亮颜色：根据主题切换
+function! s:set_illuminate_colors()
+  if get(g:, 'colors_name', '') =~# 'gruvbox'
+    hi illuminatedWord cterm=underline ctermbg=59 guibg=#3d2a28 gui=underline
+  else
+    hi illuminatedWord cterm=underline ctermbg=23 guibg=#2d2f45 gui=underline
+  endif
+endfunction
+augroup theme_illuminate_colors
+  autocmd!
+  autocmd ColorScheme * call s:set_illuminate_colors()
+augroup END
+call s:set_illuminate_colors()
 " 跳转到下一个/上一个高亮单词
 nmap <leader>in <Plug>(illuminateNext)
 nmap <leader>ip <Plug>(illuminatePrev)

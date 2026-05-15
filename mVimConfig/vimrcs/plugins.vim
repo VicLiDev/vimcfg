@@ -189,6 +189,8 @@ map <Leader>cf :cs f
 
 
 " ========================================================================================== gtag config
+" 修复 autochdir 下 gtags 跳转路径错误（默认模式丢弃 --path-style=absolute 参数）
+let g:Gtags_Emacs_Like_Mode = 1
 source ~/.vim/vimrcs/gtags.vim
 
 " ========================================================================================== airline config

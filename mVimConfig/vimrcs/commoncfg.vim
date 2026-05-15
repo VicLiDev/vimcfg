@@ -883,3 +883,6 @@ func InsertLog()
     call append(line("."),"printf(\"======> lhj add file:%s func:%s line:%d \\n\",")
     call append(line(".")+1,"__FILE__, __func__, __LINE__);")
 endfunc
+
+" 关闭 ctags 自定义类型高亮
+let g:ctags_type_highlight = 0

@@ -201,10 +201,12 @@ endif
 
 " 可以在vim中执行 :help airline 获得相关符号
 " unicode symbols
-let g:airline_left_sep = '»'
+" let g:airline_left_sep = '»'
 let g:airline_left_sep = '▶'
-let g:airline_right_sep = '«'
+let g:airline_left_alt_sep = '▷'
+" let g:airline_right_sep = '«'
 let g:airline_right_sep = '◀'
+let g:airline_right_alt_sep = '◁'
 let g:airline_symbols.colnr = ' ㏇:'
 "let g:airline_symbols.colnr = ' ℅:'
 let g:airline_symbols.crypt = '🔒'
@@ -222,12 +224,12 @@ let g:airline_symbols.spell = 'Ꞩ'
 let g:airline_symbols.notexists = 'Ɇ'
 let g:airline_symbols.whitespace = 'Ξ'
 
-" old vim-powerline symbols
-let g:airline_left_sep = '⮀'
-let g:airline_left_alt_sep = '⮁'
-let g:airline_right_sep = '⮂'
-let g:airline_right_alt_sep = '⮃'
-"let g:airline_symbols.branch = '⭠'
+" old vim-powerline symbols（旧配置，已被上方覆盖）
+" let g:airline_left_sep = '⮀'
+" let g:airline_left_alt_sep = '⮁'
+" let g:airline_right_sep = '⮂'
+" let g:airline_right_alt_sep = '⮃'
+" let g:airline_symbols.branch = '⭠'
 let g:airline_symbols.readonly = '⭤'
 
 " ========================================================================================== fzf config

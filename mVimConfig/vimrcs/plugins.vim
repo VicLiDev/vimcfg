@@ -749,7 +749,8 @@ function! SmartRename()
     echo 'No matches found'
     return
   endif
-  copen
+  cclose
+  botright copen
   echo 'Press F3 to replace, :cclose to cancel'
 endfunction
 

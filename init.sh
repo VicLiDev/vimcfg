@@ -120,6 +120,59 @@ function install_system_tools()
     fi
 }
 
+# 安装 Nerd Font（以 FiraCode 为例）
+# Nerd Font 是在原有字体基础上补丁了图标字形的字体，用于在终端中渲染文件类型图标
+# 关系链：Nerd Font（提供图标字形）→ vim-devicons（调用字形）→ NERDTree/airline（被增强）
+# Nerd Fonts 与 NERDTree 没有强绑定关系，也可为 airline、ctrlp 等其他插件提供图标
+# 安装后需在终端设置中将字体改为 "FiraCode Nerd Font Mono"，重启终端生效
+function install_nerd_font()
+{
+    local font_name="FiraCode"
+    local font_dir="${HOME}/.local/share/fonts/${font_name}"
+    local nerd_font_url="https://github.com/ryanoasis/nerd-fonts/releases/download/v3.3.0/${font_name}.zip"
+
+    # 检查是否已安装
+    if fc-list 2>/dev/null | grep -qi "FiraCode.*Nerd"; then
+        echo "  nerd font (FiraCode Nerd Font) already installed"
+        return 0
+    fi
+
+    echo "==> installing FiraCode Nerd Font..."
+    local tmp_zip="/tmp/${font_name}.zip"
+    mkdir -p "${font_dir}"
+
+    if ! command -v wget &>/dev/null && ! command -v curl &>/dev/null; then
+        echo "  error: neither wget nor curl found, cannot download font"
+        echo "  install manually from: https://www.nerdfonts.com/font-downloads"
+        return 1
+    fi
+
+    # 下载
+    if command -v wget &>/dev/null; then
+        wget -q "${nerd_font_url}" -O "${tmp_zip}"
+    else
+        curl -sL "${nerd_font_url}" -o "${tmp_zip}"
+    fi
+
+    if [ "$?" != "0" ] || [ ! -f "${tmp_zip}" ]; then
+        echo "  error: failed to download font"
+        rm -f "${tmp_zip}"
+        return 1
+    fi
+
+    # 解压安装
+    unzip -qo "${tmp_zip}" -d "${font_dir}"
+    rm -f "${tmp_zip}"
+
+    # 刷新字体缓存
+    if command -v fc-cache &>/dev/null; then
+        fc-cache -f "${HOME}/.local/share/fonts" 2>/dev/null
+    fi
+
+    echo "  FiraCode Nerd Font installed to ${font_dir}"
+    echo "  note: restart terminal and set font to 'FiraCode Nerd Font Mono' for icons to display"
+}
+
 function install_vim_plugins()
 {
     if [ -z "${vim_plugin_manager}" ]; then
@@ -189,6 +242,7 @@ function init_vim()
     create_link "${repo_root}/mVimConfig/vimrc" "${HOME}/.vimrc"
     create_link "${repo_root}/mVimConfig" "${HOME}/.vim"
     select_vim_plugin_manager
+    install_nerd_font
     install_system_tools
     install_vim_plugins
     post_install_ycm

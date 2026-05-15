@@ -135,6 +135,8 @@ Plugin 'arcticicestudio/nord-vim'              " Nord: 北极冷色调 (:colorsc
 Plugin 'nanotech/jellybeans.vim'               " Jellybeans: 果冻色暗色 (:colorscheme jellybeans)
 Plugin 'joshdick/onedark.vim'                  " OneDark: Atom One Dark (:colorscheme onedark)
 Plugin 'tomasr/molokai'                        " Monokai: 经典 Monokai (:colorscheme molokai)
+Plugin 'ryanoasis/vim-devicons'                " 文件/文件夹图标（依赖终端安装 Nerd Font 字体）
+                                               " 关系链：Nerd Font(字形) → devicons(调用) → NERDTree/airline(增强)
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 

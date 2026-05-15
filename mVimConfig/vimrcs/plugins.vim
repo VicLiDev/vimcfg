@@ -1,4 +1,4 @@
-" ========================================================================================== startify config
+" ── startify ────────────────────────────────────────────
 " don't neet config, run vi can see interface
 " 修复: startify 为每个条目分配单字符快捷键，q 可能被文件条目抢占导致无法退出
 autocmd FileType startify nnoremap <buffer><silent><nowait> q :q<CR>
@@ -65,7 +65,7 @@ let g:startify_custom_footer = ['   "The only way to do great work is to love wh
 let g:startify_update_oldfiles = 1
 let g:startify_change_to_vcs_root = 1
 
-" ========================================================================================== nerdtree config
+" ── nerdtree ────────────────────────────────────────────
 " 当打开 NERDTree 窗口时，自动显示 Bookmarks
 let NERDTreeShowBookmarks=1
 " 隐藏顶部的帮助信息（Press ? for help），界面更整洁
@@ -103,7 +103,7 @@ let g:NERDTreeDirArrowCollapsible = '▾'
 nmap <leader>v :NERDTreeFind<CR>
 
 
-" ========================================================================================== ctrlp config
+" ── ctrlp ───────────────────────────────────────────────
 " 更改默认映射和默认命令以调用CtrlP：
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
@@ -146,7 +146,7 @@ nnoremap <Leader>fu :CtrlPFunky<Cr>
 " narrow the list down with a word under cursor
 nnoremap <Leader>fU :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
 
-" ========================================================================================== taglist config
+" ── taglist ─────────────────────────────────────────────
 " 默认打开Taglist
 let Tlist_Auto_Open=0
 """"""""""""""""""""""""""""""
@@ -160,10 +160,10 @@ map <Leader>tt :Tlist<CR>
 "
 " https://zhuanlan.zhihu.com/p/85040099
 
-" ========================================================================================== tagbar config
+" ── tagbar ──────────────────────────────────────────────
 nmap <Leader>tb :TagbarToggle<CR>
 
-" ========================================================================================== ctags config
+" ── ctags ───────────────────────────────────────────────
 let Tlist_Sort_Type = "name"    " 按照名称排序
 "let Tlist_Use_Right_Window = 1  " 在右侧显示窗口
 let Tlist_Compart_Format = 1    " 压缩方式
@@ -180,7 +180,7 @@ set tags=tags;
 " vim的当前目录。
 set autochdir
 
-" ========================================================================================== ctags 自定义类型高亮
+" ── ctags 自定义类型高亮 ───────────────────────────────────────
 " 从 tags 文件中提取自定义类型名(struct/union/enum/typedef/class)并高亮
 " 核心逻辑在 autoload/ctags_highlight.vim
 " 需要先用 ctags -R 生成 tags 文件，打开 C/C++ 文件时自动加载
@@ -193,19 +193,19 @@ let g:ctags_type_highlight = get(g:, 'ctags_type_highlight', 1)
 command! CtagsHighlight call ctags_highlight#refresh()
 command! CtagsHighlightClear call ctags_highlight#clear()
 
-" ========================================================================================== cscope config
+" ── cscope ──────────────────────────────────────────────
 " 添加当前路径下的cscope.out
 cscope add cscope.out
 " 打开cscope搜索快捷方式
 map <Leader>cf :cs f
 
 
-" ========================================================================================== gtag config
+" ── gtag ────────────────────────────────────────────────
 " 修复 autochdir 下 gtags 跳转路径错误（默认模式丢弃 --path-style=absolute 参数）
 let g:Gtags_Emacs_Like_Mode = 1
 source ~/.vim/vimrcs/gtags.vim
 
-" ========================================================================================== airline config
+" ── airline ─────────────────────────────────────────────
 set t_Co=256      "在windows中用xshell连接打开vim可以显示色彩
 
 let g:airline#extensions#tabline#enabled = 1   " 是否打开tabline
@@ -256,7 +256,7 @@ let g:airline_symbols.whitespace = 'Ξ'
 " let g:airline_symbols.branch = '⭠'
 let g:airline_symbols.readonly = '⭤'
 
-" ========================================================================================== fzf config
+" ── fzf ─────────────────────────────────────────────────
 
 " demo from fzf/README-VIM.md
 " This is the default extra key bindings
@@ -327,7 +327,7 @@ source ~/.vim/vimrcs/fzf/vim.vim
 source ~/.vim/vimrcs/fzf/fzf.vim
 
 
-" =============================================================================
+" ──────────────────────────────────────────────────────────────────
 " File: ~/.vimrc
 " Description: Enhanced :Agit command for fuzzy searching with ag in Git repos
 " Features:
@@ -342,7 +342,7 @@ source ~/.vim/vimrcs/fzf/fzf.vim
 "   - git (for repo detection)
 "   - ag (The Silver Searcher)
 "   - fzf + fzf.vim plugin
-" =============================================================================
+" ──────────────────────────────────────────────────────────────────
 " Key Functionality Annotations:
 " [1] Save original working directory to restore later
 " [2] Check if current file is in Git repository (works in subdirs)
@@ -354,9 +354,9 @@ source ~/.vim/vimrcs/fzf/fzf.vim
 " [8] Enable preview window (shows code context)
 " [9] Catch "unknown function" errors with helpful message
 " [10] Always restore original directory after search
-" =============================================================================
+" ──────────────────────────────────────────────────────────────────
 " 这里 | 用于将多个 Vim 语句连接成一行（因为 command! 要求命令体必须是单行）
-" =============================================================================
+" ──────────────────────────────────────────────────────────────────
 command! -bang -nargs=* Agit
   \ let s:ag_saved_cwd = getcwd() |
   \ let s:is_git = system('git rev-parse --is-inside-work-tree 2>/dev/null') =~ 'true' |
@@ -387,7 +387,7 @@ map <Leader>fc   :Commits<CR>
 map <Leader>fbc  :BCommits<CR>
 
 
-" ========================================================================================== easymotion config
+" ── easymotion ──────────────────────────────────────────
 nmap ss <Plug>(easymotion-s2)
 " <Leader>f{char} to move to {char}
 " map  <Leader>f <Plug>(easymotion-bd-f)
@@ -406,28 +406,28 @@ nmap <Leader>L <Plug>(easymotion-overwin-line)
 "
 
 
-" ========================================================================================== git blame config
+" ── git blame ───────────────────────────────────────────
 " 光标停止移动约1秒后自动显示当前行的 git blame 信息
 autocmd CursorHold * if IsInGitRepo() | call gitblame#echo() | endif
 
-" ========================================================================================== gitgutter config
+" ── gitgutter ───────────────────────────────────────────
 " 默认显示git diff标记
 let g:gitgutter_enabled=1
 
-" ========================================================================================== vim-mark
+" ── vim-mark ────────────────────────────────────────────
 nmap <Leader>mc <Plug>MarkAllClear
 
-" ========================================================================================== markdown-preview
+" ── markdown-preview ────────────────────────────────────
 nmap <Leader>md :MarkdownPreview<CR>
 
-" ========================================================================================== vim-c-cpp-modern
+" ── vim-c-cpp-modern ────────────────────────────────────
 " 增强 C/C++ 语法高亮
 let g:cpp_function_highlight = 1      " 高亮函数名
 let g:cpp_member_highlight = 1        " 高亮结构体/对象成员
 let g:cpp_type_name_highlight = 1     " 高亮 struct/union/enum/class 名
 let g:cpp_operator_highlight = 1      " 高亮运算符
 
-" ========================================================================================== vim-markdown
+" ── vim-markdown ────────────────────────────────────────
 let g:vim_markdown_folding_disabled = 1
 let g:vim_markdown_math = 1
 let g:vim_markdown_conceal = 0
@@ -477,12 +477,12 @@ function! s:apply_markdown_colors()
   hi! mkdDelimiter ctermfg=243 guifg=#7c6f64
 endfunction
 
-" ========================================================================================== uml
+" ── uml ─────────────────────────────────────────────────
 " docker run -d -p 8888:8080 plantuml/plantuml-server:jetty
 let g:preview_uml_url='http://localhost:8888'
 map <Leader>uml  :PreviewUML<CR>
 
-" ========================================================================================== indentLine
+" ── indentLine ──────────────────────────────────────────
 let g:indentLine_char_list = ['|', '¦', '┆', '┊']
 " 隐藏颜色
 let g:indentLine_setColors = 1
@@ -491,7 +491,7 @@ let g:indentLine_color_term = 239
 let g:indentLine_bgcolor_gui = '#3c3836'
 
 
-" ========================================================================================== ultisnips
+" ── ultisnips ───────────────────────────────────────────
 " Trigger configuration. You need to change this to something other than <tab> if you use one of the following:
 " - https://github.com/Valloric/YouCompleteMe
 " - https://github.com/nvim-lua/completion-nvim
@@ -504,7 +504,7 @@ let g:UltiSnipsJumpBackwardTrigger="<c-i>"
 let g:UltiSnipsEditSplit="vertical"
 
 
-" ========================================================================================== vimtex
+" ── vimtex ──────────────────────────────────────────────
 " This is necessary for VimTeX to load properly. The "indent" is optional.
 " Note that most plugin managers will do this automatically.
 filetype plugin indent on
@@ -534,7 +534,7 @@ let g:vimtex_compiler_method = 'latexrun'
 let maplocalleader = ","
 
 
-" ========================================================================================== vim-oscyank
+" ── vim-oscyank ─────────────────────────────────────────
 " 在正常模式下，<leader>c是一个将给定文本复制到剪贴板的运算符。
 " 在正常模式下，<leader>cc将复制当前行。
 " 在视觉模式下，<leader>c将复制当前选择。
@@ -544,7 +544,7 @@ let maplocalleader = ","
 " vmap <leader>c <Plug>OSCYankVisual
 vmap <leader>y <Plug>OSCYankVisual
 
-" ========================================================================================== rhysd/accelerated-jk
+" ── rhysd/accelerated-jk ────────────────────────────────
 " 仅在插件正常加载时映射 j/k，避免加载失败导致 j/k 失效
 if mapcheck('<Plug>(accelerated_jk_gj)', 'n') !=# ''
   nmap j <Plug>(accelerated_jk_gj)
@@ -562,14 +562,14 @@ let g:accelerated_jk_acceleration_limit = 10
 let g:accelerated_jk_enable_h = 0
 let g:accelerated_jk_enable_l = 0
 
-" ========================================================================================== yankstack config
+" ── yankstack ───────────────────────────────────────────
 " 剪贴板历史栈：粘贴时可以回溯之前复制/删除的内容
 " <leader>yp 粘贴上一个复制内容（older），<leader>yn 粘贴下一个复制内容（newer）
 " （注意：<C-p>已被CtrlP占用，<C-n>已被NERDTree占用，故使用leader前缀）
 nmap <leader>yp <Plug>yankstack_substitute_older_paste
 nmap <leader>yn <Plug>yankstack_substitute_newer_paste
 
-" ========================================================================================== ale config
+" ── ale ─────────────────────────────────────────────────
 " 异步语法检查（linting），支持多种语言，比YCM的lint更轻量
 " 配置各语言的lint工具（可根据实际安装的工具增减）
 let g:ale_linters = {
@@ -601,7 +601,7 @@ let g:ale_set_highlights = 0
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_enter = 0
 
-" ========================================================================================== vim-surround config
+" ── vim-surround ────────────────────────────────────────
 " 无需额外配置，开箱即用
 " 核心操作：
 "   cs"'  — 替换：把 "hello" 变成 'hello'
@@ -611,13 +611,13 @@ let g:ale_lint_on_enter = 0
 "   ySSt{ — 添加：给整行加花括号并换行
 "   cst"  — 替换标签：把 <b>word</b> 变成 "word"
 
-" ========================================================================================== auto-pairs config
+" ── auto-pairs ──────────────────────────────────────────
 " 自动补全括号和引号，选中状态下输入括号会包裹选中文本
 " 按 Backspace 同时删除一对括号，按 Ctrl-h 跳转到下一个配对位置
 let g:AutoPairsFlyMode = 0       " 禁用飞模式（输入右括号直接跳过，不飞到末尾）
 let g:AutoPairsShortcutBackInsert = '<M-b>'  " Alt+b 在跳过和插入之间切换
 
-" ========================================================================================== undotree config
+" ── undotree ────────────────────────────────────────────
 " 快捷键
 nnoremap <Leader>u :UndotreeToggle<CR>
 " 设置 undotree 窗口位置和大小
@@ -627,7 +627,7 @@ let g:undotree_DiffpanelHeight = 10  " diff面板高度
 " 如果已设置 undofile（commoncfg.vim 中已配置），undotree 会自动使用持久化撤销历史
 " let g:undotree_SetFocusWhenToggle = 1  " 打开时自动聚焦到 undotree 窗口
 
-" ========================================================================================== vim-illuminate config
+" ── vim-illuminate ──────────────────────────────────────
 " 高亮光标下相同单词，默认高亮范围有限，增大一些
 let g:Illuminate_delay = 100      " 延迟100ms后高亮（避免快速移动时闪烁）
 let g:Illuminate_highlightUnderCursor = 1  " 也高亮光标所在的单词
@@ -638,26 +638,26 @@ hi illuminatedWord cterm=underline ctermbg=59 guibg=#3d2a28 gui=underline
 nmap <leader>in <Plug>(illuminateNext)
 nmap <leader>ip <Plug>(illuminatePrev)
 
-" ========================================================================================== vim-lastplace config
+" ── vim-lastplace ───────────────────────────────────────
 " 无需额外配置，开箱即用
 " 自动忽略以下场景的光标位置恢复：
 "   git commit、git rebase 等临时 buffer
 "   fugitive、nerdtree 等插件 buffer
 "   startify 等非文件 buffer
 
-" ========================================================================================== Colorizer config
+" ── Colorizer ───────────────────────────────────────────
 " 手动开启/关闭颜色预览
 nnoremap <Leader>cc :ColorHighlight<CR>
 nnoremap <Leader>cC :ColorHighlightClear<CR>
 " 在特定文件类型中自动启用
 autocmd FileType css,scss,html,xml,vim,conf,json :ColorHighlight
 
-" ========================================================================================== vim-peekaboo config
+" ── vim-peekaboo ────────────────────────────────────────
 " 按 " 或 @ 时自动弹窗显示寄存器内容，无需手动操作
 " 默认只在普通模式下触发
 let g:peekaboo_window = 'vert bot 30new'  " 在底部垂直分栏显示，宽度30
 
-" ========================================================================================== F2/F3 跨文件重命名
+" ── F2/F3 跨文件重命名 ────────────────────────────────────────
 " F2: 搜索光标下的词 → 选择搜索范围（项目/当前文件）→ quickfix 预览
 " F3: 逐条确认替换（y/n/a/q/l），依赖 Ferret 插件
 
@@ -714,4 +714,3 @@ endfunction
 
 nnoremap <F2> :call SmartRename()<CR>
 nnoremap <F3> :call DoRename()<CR>
-

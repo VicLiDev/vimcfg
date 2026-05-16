@@ -172,3 +172,15 @@ hi! NERDTreeCWD guifg=#7DCFFF ctermfg=117
 hi! NERDTreeFlags guifg=#FF9E64 ctermfg=215
 " 文件匹配（模糊搜索）
 hi! NERDTreeFile guifg=#a9b1d6 ctermfg=250
+
+" ----- TagList -----
+" 文件名：青色粗体（与 NERDTreeCWD 统一风格）
+hi! TagListFileName guifg=#7DCFFF ctermfg=117 gui=bold cterm=bold guibg=#16161e ctermbg=234
+" 标签名（函数/变量等）：绿色粗体（与函数高亮统一）
+hi! TagListTagName guifg=#9ECE6A ctermfg=107 gui=bold cterm=bold
+" 分类标题（functions、variables 等）：橙色
+hi! TagListTitle guifg=#E0AF68 ctermfg=179 gui=bold cterm=bold
+" 注释行：暗灰
+hi! TagListComment guifg=#444B6A ctermfg=60
+" 作用域 [ClassName]：柔和灰蓝
+hi! TagListTagScope guifg=#7982a9 ctermfg=247

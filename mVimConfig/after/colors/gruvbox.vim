@@ -171,3 +171,15 @@ hi! link NERDTreeCWD GruvboxAqua
 hi! link NERDTreeFlags GruvboxOrange
 " 文件匹配（模糊搜索）
 hi! link NERDTreeFile GruvboxFg1
+
+" ----- TagList -----
+" 文件名：青色粗体（与 NERDTreeCWD 统一风格）
+hi! link TagListFileName GruvboxAquaBold
+" 标签名（函数/变量等）：绿色粗体（与函数高亮统一）
+hi! link TagListTagName GruvboxGreenBold
+" 分类标题（functions、variables 等）：橙色
+hi! link TagListTitle GruvboxYellowBold
+" 注释行：柔和灰
+hi! link TagListComment GruvboxGray
+" 作用域 [ClassName]：柔和前景
+hi! link TagListTagScope GruvboxFg3

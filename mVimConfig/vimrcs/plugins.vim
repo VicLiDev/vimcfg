@@ -76,6 +76,15 @@ let NERDTreeMinimalMenu=1
 let NERDTreeWinSize=35
 " 显示隐藏文件（以 . 开头的文件）
 let NERDTreeShowHidden=1
+" 隐藏无需关注的文件和目录，减少目录树噪音
+"   每项为 Vim 正则，匹配文件名或路径末段；优先级高于 ShowHidden
+"   修改后需重新打开 NERDTree 窗口生效（或按 r 刷新）
+let NERDTreeIgnore = [
+      \ '\.git$', '\.pyc$', '__pycache__', 'node_modules',
+      \ '\.o$', '\.swp$', '\.DS_Store$',
+      \ 'cscope\..*', 'GPATH', 'GRTAGS', 'GTAGS', 'tags$',
+      \ '\.claude$', '\.omc$'
+      \ ]
 " 高亮当前正在编辑的文件
 let NERDTreeHighlightCursorline=1
 " 将NERDTree的窗口设置在vim窗口的右侧（默认为左侧）
@@ -776,3 +785,4 @@ endfunction
 
 nnoremap <F2> :call SmartRename()<CR>
 nnoremap <F3> :call DoRename()<CR>
+

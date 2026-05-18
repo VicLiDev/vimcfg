@@ -108,7 +108,8 @@ let NERDTreeIgnore = [
       \ '\.git$', '\.pyc$', '__pycache__', 'node_modules',
       \ '\.o$', '\.swp$', '\.DS_Store$',
       \ 'cscope\..*', 'GPATH', 'GRTAGS', 'GTAGS', 'tags$',
-      \ '\.claude$', '\.omc$'
+      \ '\.claude$', '\.omc$',
+      \ '\.o\.cmd$', '\.mod\.cmd$', '\.symvers\.cmd', '\.a\.cmd', '\.ko\.cmd', '\.order\.cmd'
       \ ]
 " 高亮当前正在编辑的文件
 let NERDTreeHighlightCursorline=1

@@ -1,4 +1,12 @@
 " ── Vim Config ────────────────────────────────────────
+"
+" 原始配置已拆分为模块化结构：
+"   01_basic.vim           基本编辑器选项（编码、缩进、折叠、搜索等）
+"   02_theme.vim           主题配色（colorscheme, ToggleTheme）
+"   03_format_build.vim    格式化与行尾清理
+"   04_mappings.vim        键位映射
+"   05_autocmds.vim        自动命令
+"   06_functions.vim       自定义函数
 
 " 1. Plugin Manager (must load first: sets nocompatible + filetype off/on)
 source ~/.vim/vimrcs/plugin_manager.vim

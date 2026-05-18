@@ -18,8 +18,6 @@ augroup vimcfg_cleanup
     autocmd!
     " 保存文件时自动清理行尾空格
     autocmd BufWritePre *.c,*.cpp,*.h,*.hpp,*.sh,*.py,*.java,*.vim :call CleanExtraSpaces()
-    " C/C++ 文件设置 make 映射
-    autocmd FileType c,cpp nnoremap <buffer> <F9> :w <bar> make %:r <CR>
 augroup END
 
 augroup vimcfg_tabtrack

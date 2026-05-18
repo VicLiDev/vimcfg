@@ -57,7 +57,6 @@ map <Leader>tt :Tlist<CR>
 
 " ── tagbar（标签栏增强）──────────────────────────────
 nmap <Leader>tb :TagbarToggle<CR>
-map <F8> :TagbarToggle<CR>
 
 " ── ctags（标签生成）──────────────────────────────────
 let Tlist_Sort_Type = "name"    " 按照名称排序

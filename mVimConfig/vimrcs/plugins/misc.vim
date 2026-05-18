@@ -11,6 +11,9 @@
 " 常用命令：
 "   :Tab /=    按 = 对齐
 "   :Tab/:     按 : 对齐
+"   ,=  调出 :Tabularize / 命令，等待输入分隔符（如 = : \| => # 等）
+nnoremap <Leader>= :Tabularize /
+vnoremap <Leader>= :Tabularize /
 
 " ── commentary（注释切换）─────────────────────────────
 " 无需额外配置，开箱即用。

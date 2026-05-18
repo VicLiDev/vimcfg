@@ -3,6 +3,7 @@
 " 色值映射对应 gruvbox 自定义覆盖 (after/colors/gruvbox.vim) 中各 Gruvbox* 角色
 
 " ----- 通用语法 -----
+hi! Comment guifg=#6e719c ctermfg=244 ctermbg=none
 hi! Exception guifg=#BB9AF7 ctermfg=180
 hi! Operator guifg=#FF9E64 ctermfg=215
 
@@ -184,3 +185,7 @@ hi! TagListTitle guifg=#E0AF68 ctermfg=179 gui=bold cterm=bold
 hi! TagListComment guifg=#444B6A ctermfg=60
 " 作用域 [ClassName]：柔和灰蓝
 hi! TagListTagScope guifg=#7982a9 ctermfg=247
+
+" ----- vim-startify -----
+" StartifyNumber 会匹配到 # 开头的行，去掉其背景色
+hi! StartifyNumber ctermbg=none

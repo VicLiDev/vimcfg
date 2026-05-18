@@ -1,8 +1,20 @@
-" ======> Load Configs
-" 文件名后缀没有严格要求
-" map <F2> :echo "Hello World! This is map test! "<CR>
+" ── Vim Config ────────────────────────────────────────
+
+" 1. Plugin Manager (must load first: sets nocompatible + filetype off/on)
 source ~/.vim/vimrcs/plugin_manager.vim
-source ~/.vim/vimrcs/commoncfg.vim
+
+" 2. Core Settings
+source ~/.vim/vimrcs/01_basic.vim
+source ~/.vim/vimrcs/02_theme.vim
+source ~/.vim/vimrcs/03_format_build.vim
+
+" 3. Mappings, Autocmds, Functions (order among these three is flexible;
+"    functions are resolved at call-time, not at definition-time)
+source ~/.vim/vimrcs/04_mappings.vim
+source ~/.vim/vimrcs/05_autocmds.vim
+source ~/.vim/vimrcs/06_functions.vim
+
+" 4. Plugin Configurations (must load after core settings)
 source ~/.vim/vimrcs/plugins.vim
 
-" ======> Load Configs end
+" ── End ───────────────────────────────────────────────

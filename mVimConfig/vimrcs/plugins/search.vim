@@ -127,19 +127,24 @@ let g:fzf_action = {
 " - Popup window (center of the screen)
 let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
 
-" - Popup window (center of the current window)
-let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6, 'relative': v:true } }
+" Preview window: right 50% width, hidden by default (toggle with Ctrl-/)
+let g:fzf_preview_window = ["right:50%", "ctrl-/"]
 
-" - Popup window (anchored to the bottom of the current window)
-let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6, 'relative': v:true, 'yoffset': 1.0 } }
+" ── 备用布局方案（已禁用，按需取消注释切换）─────────
+" 相对当前窗口居中
+" let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6, 'relative': v:true } }
+"
+" 锚定在当前窗口底部
+" let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6, 'relative': v:true, 'yoffset': 1.0 } }
+"
+" 下方分窗 (非悬浮窗)
+" let g:fzf_layout = { 'down': '40%' }
+"
+" Vim 命令窗口模式
+" let g:fzf_layout = { 'window': 'enew' }
+" let g:fzf_layout = { 'window': '-tabnew' }
+" let g:fzf_layout = { 'window': '10new' }
 
-" - down / up / left / right
-let g:fzf_layout = { 'down': '40%' }
-
-" - Window using a Vim command
-let g:fzf_layout = { 'window': 'enew' }
-let g:fzf_layout = { 'window': '-tabnew' }
-let g:fzf_layout = { 'window': '10new' }
 
 " Customize fzf colors to match your color scheme
 " - fzf#wrap translates this to a set of `--color` options

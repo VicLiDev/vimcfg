@@ -193,11 +193,11 @@ hi! StartifyNumber ctermbg=none
 " ----- vimdiff 莫兰迪色系 -----
 " 灰调中饱和度，可辨识且不刺眼
 " 层级: DiffText(最突出) > DiffAdd/DiffChange/DiffDelete(行底色)
-" 新增行: 灰绿（柔和底色）
-hi! DiffAdd    guifg=NONE guibg=#263E3A ctermfg=NONE ctermbg=23
+" 新增行: 蓝灰（与 illuminate 高亮错开，避免撞色）
+hi! DiffAdd    guifg=NONE guibg=#26383B ctermfg=NONE ctermbg=24
 " 修改行: 暖灰黄（底色，柔和）
 hi! DiffChange guifg=NONE guibg=#3A3826 ctermfg=NONE ctermbg=238
 " 删除行: 干燥玫瑰
-hi! DiffDelete guifg=NONE guibg=#3E2634 ctermfg=NONE ctermbg=52
+hi! DiffDelete guifg=NONE guibg=#5A343C ctermfg=NONE ctermbg=52
 " 修改文本: 金橄榄（在 DiffChange 黄底上更亮更饱和 + 粗体）
 hi! DiffText  guifg=NONE guibg=#5C5628 ctermfg=NONE ctermbg=58 gui=bold cterm=bold

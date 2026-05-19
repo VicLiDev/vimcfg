@@ -40,7 +40,7 @@ function! ExecGitRootTool(cmd, root)
 endfunction
 
 " ── 编译运行 (F5) ──────────────────────────────────────
-function! CompileRunGcc()
+function! CompileRun()
     exec "w"
     let compilecmd = ""
     let excmd = ""
@@ -54,8 +54,8 @@ function! CompileRunGcc()
         return
     endif
 
-    " 优先级2: Git 项目根目录的构建脚本
     if IsInGitRepo()
+        " 优先级2: Git 项目根目录的构建脚本
         let l:git_root = substitute(system('git rev-parse --show-toplevel 2>/dev/null'), '\n', '', 'g')
         if CheckGitRootFile(l:git_root, '.prjBuild.sh')
             call ExecGitRootTool('bash .prjBuild.sh', l:git_root)
@@ -65,22 +65,20 @@ function! CompileRunGcc()
             return
         endif
 
-        " 优先级3: 项目构建系统 (CMake/Makefile/meson)
+        " 优先级3: Git 项目构建系统 (CMake/Makefile/meson)
         if CheckGitRootFile(l:git_root, 'CMakeLists.txt')
-            let compilecmd = "!cd build && cmake .. && make -j$(nproc)"
+            call ExecGitRootTool('cd build && cmake .. && make -j$(nproc)', l:git_root)
+            return
         elseif CheckGitRootFile(l:git_root, 'Makefile')
-            let compilecmd = "!make -j$(nproc)"
+            call ExecGitRootTool('make -j$(nproc)', l:git_root)
+            return
         elseif CheckGitRootFile(l:git_root, 'meson.build')
-            let compilecmd = "!ninja -C builddir"
+            call ExecGitRootTool('ninja -C builddir', l:git_root)
+            return
         endif
     endif
 
     " 优先级4: 单文件编译运行（按文件类型）
-    if compilecmd !=# ''
-        silent exec compilecmd
-        return
-    endif
-
     if &filetype == 'c'
         let compilecmd = "!gcc -Wall -Wextra % -o %<"
         let excmd = "!time ./%<"
@@ -123,7 +121,7 @@ function! CompileRunGcc()
 endfunction
 
 " ── GDB 调试 (F6) ──────────────────────────────────────
-function! CompileRunDbg()
+function! CompileDbg()
     exec "w"
 
     " 优先级1: 当前目录的调试脚本

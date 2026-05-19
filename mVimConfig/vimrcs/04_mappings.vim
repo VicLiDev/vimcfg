@@ -89,11 +89,11 @@ map <F3> :tabnew .<CR>
 map <C-F3> \be
 
 " ── 编译运行 ──────────────────────────────────────────
-" F5: 编译运行当前文件 (调用 CompileRunGcc)
-" F6: GDB 调试当前文件 (调用 CompileRunDbg)
+" F5: 编译运行当前文件 (调用 CompileRun)
+" F6: 调试当前文件 (调用 CompileDbg)
 " 函数定义见 06_functions.vim
-nnoremap <F5> :call CompileRunGcc()<CR>
-nnoremap <F6> :call CompileRunDbg()<CR>
+nnoremap <F5> :call CompileRun()<CR>
+nnoremap <F6> :call CompileDbg()<CR>
 
 " ── Tab/Space 切换 ────────────────────────────────────
 " F12: 切换 Tab 和 Space 模式 (调用 SwitchTab)

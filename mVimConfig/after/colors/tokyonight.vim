@@ -199,5 +199,5 @@ hi! DiffAdd    guifg=NONE guibg=#26383B ctermfg=NONE ctermbg=24
 hi! DiffChange guifg=NONE guibg=#3A3826 ctermfg=NONE ctermbg=238
 " 删除行: 干燥玫瑰
 hi! DiffDelete guifg=NONE guibg=#5A343C ctermfg=NONE ctermbg=52
-" 修改文本: 金橄榄（在 DiffChange 黄底上更亮更饱和 + 粗体）
-hi! DiffText  guifg=NONE guibg=#5C5628 ctermfg=NONE ctermbg=58 gui=bold cterm=bold
+" 修改文本: 金琥珀（最突出，明亮可辨但不掩盖文字 + 粗体）
+hi! DiffText  guifg=NONE guibg=#8B7A1C ctermfg=NONE ctermbg=136 gui=bold cterm=bold

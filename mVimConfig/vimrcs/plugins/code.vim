@@ -18,8 +18,30 @@ let g:ale_linters = {
 " 安装: sudo apt install clangd 或通过 LLVM 安装
 " 建议: 生成 compile_commands.json (CMake: -DCMAKE_EXPORT_COMPILE_COMMANDS=ON, 或 bear -- make)
 if executable('clangd')
-    let g:ale_linters['c'] = ['clangd']
-    let g:ale_linters['cpp'] = ['clangd']
+    function! s:FindCompileCommands(startdir)
+        let l:dir = a:startdir
+        while l:dir !=# '/' && l:dir !=# ''
+            if filereadable(l:dir . '/compile_commands.json')
+                return l:dir . '/compile_commands.json'
+            endif
+            let l:dir = fnamemodify(l:dir, ':h')
+        endwhile
+        return ''
+    endfunction
+
+    augroup ClangdAutoEnable
+        autocmd!
+        autocmd FileType c,cpp let s:cc = s:FindCompileCommands(expand('%:p:h'))
+            \ | if s:cc !=# ''
+            \ |   let b:ale_linters = {'c': ['clangd'], 'cpp': ['clangd']}
+            \ | else
+            \ |   let b:ale_enabled = 0
+            \ |   let b:ycm_show_diagnostics_ui = 0
+            \ |   let b:ycm_enable_diagnostic_signs = 0
+            \ |   let b:ycm_enable_diagnostic_highlighting = 0
+            \ | endif
+    augroup END
+
     let g:ale_c_clangd_options = '--header-insertion=never --clang-tidy'
     let g:ale_cpp_clangd_options = '--header-insertion=never --clang-tidy'
     " clangd 跳转到定义

@@ -206,6 +206,8 @@ let g:webdevicons_enable_ctrlp = 1
 
 " ── indentLine（缩进线）────────────────────────────────
 " 显示垂直缩进线，帮助识别代码块层级。
+" 在非编程文件类型中禁用缩进线
+let g:indentLine_fileTypeExclude = ['markdown', 'text', 'help', 'git', 'gitconfig', 'gitcommit', 'snippets', '']
 let g:indentLine_char_list = ['|', '¦', '┆', '┊']
 " 隐藏颜色
 let g:indentLine_setColors = 1

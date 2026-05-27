@@ -201,3 +201,10 @@ hi! DiffChange guifg=NONE guibg=#3A3826 ctermfg=NONE ctermbg=238
 hi! DiffDelete guifg=NONE guibg=#5A343C ctermfg=NONE ctermbg=52
 " 修改文本: 金琥珀（最突出，明亮可辨但不掩盖文字 + 粗体）
 hi! DiffText  guifg=NONE guibg=#8B7A1C ctermfg=NONE ctermbg=136 gui=bold cterm=bold
+
+" diff 模式下去掉 CursorLine 背景，避免覆盖 diff 标记
+augroup cursorline_diff
+  autocmd!
+  autocmd BufWinEnter * if &diff | hi! CursorLine cterm=underline gui=underline ctermfg=NONE ctermbg=NONE guifg=NONE guibg=NONE | endif
+  autocmd BufWinLeave * if &diff | hi! CursorLine guifg=NONE guibg=#232433 ctermfg=NONE ctermbg=236 | endif
+augroup END

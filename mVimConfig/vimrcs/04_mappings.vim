@@ -115,3 +115,9 @@ nmap <leader>ll :call InsertLog()<CR>jVj==
 "   plugins.vim 中 SmartRename 也使用 F2
 "   由于 plugins.vim 在此之后加载，后者会覆盖前者
 "   如需使用 SmartRename，请以 plugins.vim 中的 F2 为准
+
+" ── 修复 Select 模式劫持 Enter ────────────────────────────
+" mouse=a 点击插件窗口可能进入 Select 模式，导致 <CR> 变成换行而非打开
+autocmd BufEnter NERD_tree_*   snoremap <buffer> <CR> <Esc><CR>
+autocmd BufEnter __Tagbar__    snoremap <buffer> <CR> <Esc><CR>
+autocmd BufEnter \[Tag\ List\]  snoremap <buffer> <CR> <Esc><CR>

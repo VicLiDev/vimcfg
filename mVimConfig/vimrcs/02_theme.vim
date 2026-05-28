@@ -17,15 +17,20 @@ nnoremap <Leader>th :ToggleTheme<CR>
 " set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\\ [TYPE=%Y]\\ [POS=%l,%v][%p%%]\\ %{strftime(\"%d/%m/%y\\ -\\ %H:%M\")}
 
 " ── 高亮组 ─────────────────────────────────────────────
-" hi Normal: 指的是 Vim 的 Normal 高亮组，这通常是用于在普通模式（不是插入、可视
-" 或其他特殊模式）下显示的文本。
-" ctermfg=252: 设置终端前景色（文本颜色）为颜色代码 252。在大多数 256 色终端中，
-" 颜色代码 252 通常表示一个非常浅的灰色或白色。
-" ctermbg=none: 设置终端背景色为"无"或透明。这意味着文本的背景将使用终端的默认
-" 背景色。
-" 会受 vimtex 插件 syntax enable 的影响，因此这里不生效
-" hi Normal ctermfg=252 ctermbg=none
-hi Normal ctermbg=none
+" Normal 背景色：跟随当前主题，不用 ctermbg=none（透明背景会导致光标移动残影）。
+" 会受 vimtex 插件 syntax enable 的影响，因此需要在 ColorScheme 事件中重新设置。
+function! s:set_normal_bg()
+  if exists('g:colors_name') && g:colors_name ==# 'gruvbox'
+    hi Normal ctermbg=235
+  else
+    hi Normal ctermbg=235
+  endif
+endfunction
+augroup normal_bg_sync
+  autocmd!
+  autocmd ColorScheme * call s:set_normal_bg()
+augroup END
+call s:set_normal_bg()
 
 autocmd InsertLeave * se nocul  " 用浅色高亮当前行，不知道为啥没用
 autocmd InsertEnter * se cul    " 用浅色高亮当前行，不知道为啥没用

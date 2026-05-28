@@ -189,8 +189,7 @@ autocmd InsertEnter * se cul    " 用浅色高亮当前行，不知道为啥没�
 " ctermbg=none: 设置终端背景色为"无"或透明。这意味着文本的背景将使用终端的默认
 " 背景色。
 " 会受 vimtex 插件 syntax enable 的影响，因此这里不生效
-" hi Normal ctermfg=252 ctermbg=none
-hi Normal ctermbg=none
+" hi Normal 背景色已在 02_theme.vim 中根据主题自动设置，不再使用 ctermbg=none
 
 " ── 语言 ──────────────────────────────────────────────
 set langmenu=zh_CN.UTF-8  " 设置gvim的菜单语言

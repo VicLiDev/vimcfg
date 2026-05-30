@@ -46,22 +46,22 @@ function! CompileRun()
     let excmd = ""
 
     " 优先级1: 当前目录的构建脚本
-    if IsFileExists(".prjBuild.sh")
-        exec "!bash ./.prjBuild.sh"
-        return
-    elseif IsFileExists("prjBuild.sh")
+    if IsFileExists("prjBuild.sh")
         exec "!bash ./prjBuild.sh"
+        return
+    elseif IsFileExists(".prjBuild.sh")
+        exec "!bash ./.prjBuild.sh"
         return
     endif
 
     if IsInGitRepo()
         " 优先级2: Git 项目根目录的构建脚本
         let l:git_root = substitute(system('git rev-parse --show-toplevel 2>/dev/null'), '\n', '', 'g')
-        if CheckGitRootFile(l:git_root, '.prjBuild.sh')
-            call ExecGitRootTool('bash .prjBuild.sh', l:git_root)
-            return
-        elseif CheckGitRootFile(l:git_root, 'prjBuild.sh')
+        if CheckGitRootFile(l:git_root, 'prjBuild.sh')
             call ExecGitRootTool('bash prjBuild.sh', l:git_root)
+            return
+        elseif CheckGitRootFile(l:git_root, '.prjBuild.sh')
+            call ExecGitRootTool('bash .prjBuild.sh', l:git_root)
             return
         endif
 
@@ -125,22 +125,22 @@ function! CompileDbg()
     exec "w"
 
     " 优先级1: 当前目录的调试脚本
-    if IsFileExists(".prjDebug.sh")
-        exec "!bash ./.prjDebug.sh"
-        return
-    elseif IsFileExists("prjDebug.sh")
+    if IsFileExists("prjDebug.sh")
         exec "!bash ./prjDebug.sh"
+        return
+    elseif IsFileExists(".prjDebug.sh")
+        exec "!bash ./.prjDebug.sh"
         return
     endif
 
     " 优先级2: Git 项目根目录的调试脚本
     if IsInGitRepo()
         let l:git_root = substitute(system('git rev-parse --show-toplevel 2>/dev/null'), '\n', '', 'g')
-        if CheckGitRootFile(l:git_root, '.prjDebug.sh')
-            call ExecGitRootTool('bash .prjDebug.sh', l:git_root)
-            return
-        elseif CheckGitRootFile(l:git_root, 'prjDebug.sh')
+        if CheckGitRootFile(l:git_root, 'prjDebug.sh')
             call ExecGitRootTool('bash prjDebug.sh', l:git_root)
+            return
+        elseif CheckGitRootFile(l:git_root, '.prjDebug.sh')
+            call ExecGitRootTool('bash .prjDebug.sh', l:git_root)
             return
         endif
     endif

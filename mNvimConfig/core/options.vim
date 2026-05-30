@@ -235,14 +235,14 @@ func! CompileRunGcc()
         exec "w"
     endif
 
-    if IsFileExists(".prjBuild.sh")
-        exec "botright terminal bash -c 'bash ./.prjBuild.sh; exec bash'"
-    elseif IsFileExists("prjBuild.sh")
+    if IsFileExists("prjBuild.sh")
         exec "botright terminal bash -c 'bash ./prjBuild.sh; exec bash'"
-    elseif CheckGitRootFile(".prjBuild.sh")
-        call ExecGitRootTool(".prjBuild.sh")
+    elseif IsFileExists(".prjBuild.sh")
+        exec "botright terminal bash -c 'bash ./.prjBuild.sh; exec bash'"
     elseif CheckGitRootFile("prjBuild.sh")
         call ExecGitRootTool("prjBuild.sh")
+    elseif CheckGitRootFile(".prjBuild.sh")
+        call ExecGitRootTool(".prjBuild.sh")
     else
         if &filetype == 'c'
             exec "!gcc % -o %< -Wall -Wextra && ./%<"
@@ -264,14 +264,14 @@ func! CompileRunGdb()
         exec "w"
     endif
 
-    if IsFileExists(".prjDebug.sh")
-        exec "botright terminal bash -c 'bash ./.prjDebug.sh; exec bash'"
-    elseif IsFileExists("prjDebug.sh")
+    if IsFileExists("prjDebug.sh")
         exec "botright terminal bash -c 'bash ./prjDebug.sh; exec bash'"
-    elseif CheckGitRootFile(".prjDebug.sh")
-        call ExecGitRootTool(".prjDebug.sh")
+    elseif IsFileExists(".prjDebug.sh")
+        exec "botright terminal bash -c 'bash ./.prjDebug.sh; exec bash'"
     elseif CheckGitRootFile("prjDebug.sh")
         call ExecGitRootTool("prjDebug.sh")
+    elseif CheckGitRootFile(".prjDebug.sh")
+        call ExecGitRootTool(".prjDebug.sh")
     else
         if &filetype == 'c'
             if has('mac')

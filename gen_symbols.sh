@@ -13,15 +13,25 @@
 #    4.进入vi，添加cs库: cscope add ./cscope.out
 
 #筛选需要加入库中的文件
-find $PWD/* -type f | grep "\.[ch]$" >> cscope.file
+find $PWD/* -type f \
+    -not \( -path "*/.git/*" \
+         -o -path "*/.omc/*" \
+         -o -path "*/.claude/*" \
+         -o -path "*/.opencode/*" \) \
+    | grep "\.[ch]$\|\.[ch]pp$" >> cscope.file
 #生成cs库文件
 time cscope -Rbkq -i ./cscope.file
-#删除文件列表
-rm cscope.file
 
 #生成tags
-time ctags -R --tag-relative=never
+time ctags -R --tag-relative=never \
+    --exclude=.git \
+    --exclude=.omc \
+    --exclude=.claude \
+    --exclude=.opencode
 
 #生成gtags索引
-gtags
+time gtags -f ./cscope.file
+
+#删除文件列表
+rm cscope.file
 

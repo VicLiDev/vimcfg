@@ -56,6 +56,27 @@ map <Leader>tt :Tlist<CR>
 " https://zhuanlan.zhihu.com/p/85040099
 
 " ── tagbar（标签栏增强）──────────────────────────────
+" tagbar 3.x 的 Markdown 等类型只有 universal-ctags 支持。
+" 而 tagbar 的默认探测顺序把 ctags-exuberant 排在 ctags 之前，系统里若同时装了
+" Exuberant ctags（如 /usr/bin/ctags-exuberant），会被误选成旧版本，导致
+" markdown 等类型无法显示。这里动态探测 universal-ctags（不写死路径），
+" 优先用 PATH 中的 ctags/universal-ctags，其次探测常见安装前缀；
+" 都找不到时保留 tagbar 默认行为（仍可用于 C/C++ 等 Exuberant 支持的语言）。
+function! s:find_universal_ctags() abort
+  let l:cands = ['ctags', 'universal-ctags', 'ctags.exe']
+        \ + map(['~/local/bin/ctags', '/usr/local/bin/ctags', '/usr/bin/ctags',
+        \        '/opt/homebrew/bin/ctags', '/opt/local/bin/ctags'], 'expand(v:val)')
+  for l:c in l:cands
+    if executable(l:c) && system(l:c . ' --version') =~# 'Universal Ctags'
+      return l:c
+    endif
+  endfor
+  return ''
+endfunction
+let s:tagbar_ctags = s:find_universal_ctags()
+if !empty(s:tagbar_ctags)
+  let g:tagbar_ctags_bin = s:tagbar_ctags
+endif
 nmap <Leader>tb :TagbarToggle<CR>
 
 " ── ctags（标签生成）──────────────────────────────────

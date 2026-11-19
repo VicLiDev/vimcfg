@@ -27,12 +27,22 @@ let g:gitgutter_sign_modified_removed = '≡'
 " 回显成屏幕噪音（vim/vim#14001）。timer 方案只在真实停顿 2 秒后触发一次，
 " 且不改动 updatetime，taglist/devicons/gitgutter 等其余 CursorHold
 " 功能保持原有刷新频率。
+" 只在普通的、有文件名的 buffer 上显示 blame:
+" - 无名 buffer(启动时没带文件、[No Name])会让 git blame "" 报
+"   fatal: no such path '' in HEAD, 插件会显示成 [Unhandled error: ...],
+"   并再叠一次 "Press ENTER"。F5 编译期间排队的定时器会在编译结束、
+"   提示符处触发, 所以这种场景最容易看到它。
+" - terminal/quickfix/help 等 buftype 非空的 buffer 也不适合走 blame
+function! s:CanShowBlame()
+  return empty(&buftype) && !empty(expand('%')) && IsInGitRepo()
+endfunction
+
 let s:blame_timer = -1
 function! s:ScheduleBlame()
   if s:blame_timer >= 0
     call timer_stop(s:blame_timer)
   endif
-  let s:blame_timer = timer_start(2000, { -> IsInGitRepo() ? gitblame#echo() : 0 })
+  let s:blame_timer = timer_start(2000, { -> s:CanShowBlame() ? gitblame#echo() : 0 })
 endfunction
 autocmd CursorMoved,CursorMovedI * call s:ScheduleBlame()
 autocmd VimEnter * call s:ScheduleBlame()

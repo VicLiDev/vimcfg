@@ -29,11 +29,18 @@ let g:gitgutter_sign_modified_removed = '≡'
 " 功能保持原有刷新频率。
 " 只在普通的、有文件名的 buffer 上显示 blame:
 " - 无名 buffer(启动时没带文件、[No Name])会让 git blame "" 报
-"   fatal: no such path '' in HEAD, 插件会显示成 [Unhandled error: ...],
-"   并再叠一次 "Press ENTER"。F5 编译期间排队的定时器会在编译结束、
-"   提示符处触发, 所以这种场景最容易看到它。
+"   fatal: no such path '' in HEAD, 插件会显示成 [Unhandled error: ...]
 " - terminal/quickfix/help 等 buftype 非空的 buffer 也不适合走 blame
+" - 停在提示上时不要 echo: 定时器可能在 :!make 等 shell 命令执行完、
+"   "Press ENTER or type command to continue" 提示已经出现之后才触发,
+"   这时 echo 会把消息塞进提示里, 屏幕上就是
+"   "Press ENTER ... / [Not Committed yet] / Press ENTER ..." 两条提示,
+"   用户必须多按一次回车才能回到编辑。mode() 为 'r' (hit-enter)
+"   或 'rm' (more 提示) 时说明人正停在这个提示上, 直接跳过本次 blame。
 function! s:CanShowBlame()
+  if mode() =~# '^r'
+    return 0
+  endif
   return empty(&buftype) && !empty(expand('%')) && IsInGitRepo()
 endfunction
 
